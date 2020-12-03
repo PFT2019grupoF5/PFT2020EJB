@@ -1,7 +1,6 @@
 package com.services;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import javax.ejb.Remote;
 
@@ -17,17 +16,18 @@ public interface UsuarioBeanRemote {
 
 	void update(String nomAcceso, String contrasena) throws ServiciosException;
 
-	void delete(String u) throws ServiciosException;
+	void delete(Long id) throws ServiciosException;
 
-	Usuario get(String nomAcceso) throws ServiciosException;
+	Usuario getNA(String nomAcceso) throws ServiciosException;
+
+	Usuario getId(Long id) throws ServiciosException;
 
 	LinkedList<Usuario> getAll() throws ServiciosException;
 
 	boolean ValidarContrasena(String nomAcceso, String contrasena) throws ServiciosException;
 
-	Object[][] getAllByApellidoOrNomAcceso(String apellido, String nomAcceso) throws ServiciosException;
+	Object[][] getNombreApellido(String nombre, String apellido) throws ServiciosException;
 
-	List<Usuario> getAllByApellidoOrNomAccesoAsList(String apellido, String nomAcceso) throws ServiciosException;
-	
+
 
 }

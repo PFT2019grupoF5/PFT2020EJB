@@ -12,8 +12,9 @@ import com.enumerated.tipoPerfil;
 @Table(name="USUARIOS", schema="PROYECTO")
 @NamedQueries({
 	@NamedQuery(name="Usuario.getAll", query="SELECT u FROM Usuario u"),
-	@NamedQuery(name="Usuario.get", query="SELECT u FROM Usuario u WHERE UPPER(u.nomAcceso)=UPPER(:nomAcceso)"),
-	@NamedQuery(name="Usuario.getNomAccesoLike", query="SELECT u FROM Usuario u WHERE UPPER(u.nomAcceso) LIKE :nomAcceso"),
+	@NamedQuery(name="Usuario.getId", query="SELECT u FROM Usuario u WHERE u.id=:id"),
+	@NamedQuery(name="Usuario.getNA", query="SELECT u FROM Usuario u WHERE u.nomAcceso=:nomAcceso"),
+	@NamedQuery(name="Usuario.getNombreApellido", query="SELECT u FROM Usuario u WHERE UPPER(u.nombre)=UPPER(:nombre) AND UPPER(u.apellido)=UPPER(:apellido)"),
 })
 public class Usuario implements Serializable {
 		private static final long serialVersionUID = 1L;

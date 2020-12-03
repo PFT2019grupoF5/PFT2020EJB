@@ -47,7 +47,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	@Override
 	public void update(String nomAcceso, String contrasena) throws ServiciosException {
 		try{
-			Usuario u = get(nomAcceso);
+			Usuario u = getNA(nomAcceso);
 			u.setContrasena(contrasena);
 			em.merge(u);
 			em.flush();
@@ -57,26 +57,39 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	}
 
 	@Override
-	public void delete(String nomAcceso) throws ServiciosException {
+	public void delete(Long id) throws ServiciosException {
 		try{			
-			em.remove(get(nomAcceso));
+			em.remove(getId(id));
 			em.flush();
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
 		}
 	}
-
+	
 	@Override
-	public Usuario get(String nomAcceso) throws ServiciosException {
+	public Usuario getNA(String nomAcceso) throws ServiciosException {
 		try{
-			TypedQuery<Usuario> query =  em.createNamedQuery("Usuario.get", Usuario.class)
+			TypedQuery<Usuario> query =  em.createNamedQuery("Usuario.getId", Usuario.class)
 					.setParameter("nomAcceso", nomAcceso);
+			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
+		}catch (Exception e) {
+			throw new ServiciosException(e.getMessage());
+		}
+	}
+	
+	@Override
+	public Usuario getId(Long id) throws ServiciosException {
+		try{
+			TypedQuery<Usuario> query =  em.createNamedQuery("Usuario.getId", Usuario.class)
+					.setParameter("id", id);
 			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
 		}catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
 		
 	}
+	
+	
 	
 	@Override
 	public LinkedList<Usuario> getAll() throws ServiciosException {
@@ -91,11 +104,10 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	}
 
 	@Override
-	//public boolean checkPwd(String userTyped, String typedPwd) throws serviciosException {
 	public boolean ValidarContrasena(String nomAcceso, String contrasena) throws ServiciosException {
 		boolean ContrasenaOk = false;
 		try {
-			ContrasenaOk= get(nomAcceso).getContrasena().equals(contrasena);
+			ContrasenaOk= getNA(nomAcceso).getContrasena().equals(contrasena);
 		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
@@ -103,51 +115,24 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	}
 
 	@Override
-	//public Object[][] getAllByApellidoOrUsuario(String apellido, String usuario) throws serviciosException {
-	public Object[][] getAllByApellidoOrNomAcceso(String apellido, String nomAcceso) throws ServiciosException {
+	public Object[][] getNombreApellido(String nombre, String apellido) throws ServiciosException {
 		TypedQuery<Usuario> query;
-		Object [][] data = null;
+		Object [][] datos = null;
 		List<Usuario> list = null;
 		try {
-			if(apellido.isEmpty()){
-				query =  em.createNamedQuery("Usuario.getUsuarioLike",Usuario.class)
-						.setParameter("nomAcceso", "%"+nomAcceso.toUpperCase()+"%");
-			}else{
-				query =  em.createNamedQuery("Usuario.getByApellidoLike",Usuario.class)
-						.setParameter("apellido", "%"+apellido.toUpperCase()+"%");
-			}
-			
+			query =  em.createNamedQuery("Usuario.getNombreApellido",Usuario.class)
+					.setParameter("nombre", "%"+nombre.toUpperCase()+"%").setParameter("apellido", "%"+apellido.toUpperCase()+"%");
 			list = query.getResultList();
-			data = new Object[list.size()][4];
+			datos = new Object[list.size()][6];
 			int i = 0;
-			for(Usuario u : list){
-				data[i] = new Object[]{u.getNombre(),u.getApellido(),u.getNomAcceso(),u.getCorreo(),u.getTipoPerfil().toString()};
+			for(Usuario u :list){
+				datos[i] = new Object[]{u.getId(),u.getNombre(),u.getApellido(),u.getNomAcceso(),u.getCorreo(),u.getTipoPerfil()};
 				i++;
 			}
 			
-		} catch (Exception e) {
+		}catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
-		return data;
+		return datos;
 	}
-	
-	@Override
-	//public List<Usuario> getAllByApellidoOrUsuarioAsList(String apellido, String usuario) throws serviciosException {
-	public List<Usuario> getAllByApellidoOrNomAccesoAsList(String apellido, String nomAcceso) throws ServiciosException {
-		TypedQuery<Usuario> query;
-		try {
-			if(apellido==null || apellido.isEmpty()){
-				query =  em.createNamedQuery("Usuario.getUsuarioLike",Usuario.class)
-						.setParameter("nomAcceso", "%"+nomAcceso.toUpperCase()+"%");
-			}else{
-				query =  em.createNamedQuery("Usuario.getByApellidoLike",Usuario.class)
-						.setParameter("apellido", "%"+apellido.toUpperCase()+"%");
-			}
-		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
-		}
-		return query.getResultList();
-	}
-
-    
 }
