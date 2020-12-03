@@ -14,7 +14,7 @@ public interface UsuarioBeanRemote {
 	void add(String nombre, String apellido, String nomAcceso, String contrasena, String correo, tipoPerfil tipoPerfil)
 			throws ServiciosException;
 
-	void update(String nomAcceso, String contrasena) throws ServiciosException;
+	void update(Long id, String nombre, String apellido, String nomAcceso, String contrasena, String correo, tipoPerfil tipoPerfil) throws ServiciosException;
 
 	void delete(Long id) throws ServiciosException;
 
@@ -27,6 +27,8 @@ public interface UsuarioBeanRemote {
 	boolean ValidarContrasena(String nomAcceso, String contrasena) throws ServiciosException;
 
 	Object[][] getNombreApellido(String nombre, String apellido) throws ServiciosException;
+
+	void cambiarContrasena(String nomAcceso, String contrasena) throws ServiciosException;
 
 
 

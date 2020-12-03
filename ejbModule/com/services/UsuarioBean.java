@@ -45,7 +45,24 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	}
 
 	@Override
-	public void update(String nomAcceso, String contrasena) throws ServiciosException {
+	public void update(Long id, String nombre, String apellido, String nomAcceso, String contrasena, String correo, tipoPerfil tipoPerfil) throws ServiciosException {
+		try{
+			Usuario u = getId(id);
+			u.setNombre(nombre);
+			u.setApellido(apellido);
+			u.setNomAcceso(nomAcceso);
+			u.setContrasena(contrasena);
+			u.setCorreo(correo);
+			u.setTipoPerfil(tipoPerfil);
+			em.merge(u);
+			em.flush();
+		} catch (Exception e){
+			throw new ServiciosException(e.getMessage());
+		}
+	}
+
+	@Override
+	public void cambiarContrasena(String nomAcceso, String contrasena) throws ServiciosException {
 		try{
 			Usuario u = getNA(nomAcceso);
 			u.setContrasena(contrasena);
