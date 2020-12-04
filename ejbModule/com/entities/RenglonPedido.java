@@ -10,9 +10,8 @@ import javax.persistence.*;
 @Entity
 @Table(name="RENGLONESPEDIDOS", schema="PROYECTO")
 @NamedQueries({
-	@NamedQuery(name="RenglonPedido.getAll", query="SELECT u FROM RenglonPedido u"),
-	@NamedQuery(name="RenglonPedido.get",  query="SELECT u FROM RenglonPedido u WHERE u.id=:id"),
-	@NamedQuery(name="RenglonPedido.getIdLike", query="SELECT u FROM RenglonPedido u WHERE u.id LIKE :id"),
+	@NamedQuery(name="RenglonPedido.getAll", query="SELECT rp FROM RenglonPedido rp"),
+	@NamedQuery(name="RenglonPedido.getId",  query="SELECT rp FROM RenglonPedido rp WHERE rp.id=:id"),
 })
 public class RenglonPedido implements Serializable {
 

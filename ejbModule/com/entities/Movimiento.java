@@ -13,9 +13,9 @@ import java.util.Date;
 @Entity
 @Table(name="MOVIMIENTOS", schema="PROYECTO")
 @NamedQueries({
-	@NamedQuery(name="Movimiento.getAll", query="SELECT u FROM Movimiento u"),
-	@NamedQuery(name="Movimiento.get",  query="SELECT u FROM Movimiento u WHERE u.id=:id"),
-	@NamedQuery(name="Movimiento.getIdLike", query="SELECT u FROM Movimiento u WHERE u.id LIKE :id"),
+	@NamedQuery(name="Movimiento.getAll", query="SELECT m FROM Movimiento m"),
+	@NamedQuery(name="Movimiento.getId",  query="SELECT m FROM Movimiento m WHERE m.id=:id"),
+	@NamedQuery(name="Movimiento.getIdLike", query="SELECT m FROM Movimiento m WHERE m.id LIKE :id"),
 })
 public class Movimiento implements Serializable {
 

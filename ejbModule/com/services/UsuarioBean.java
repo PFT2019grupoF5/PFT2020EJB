@@ -8,7 +8,7 @@ import com.entities.Usuario;
 import com.enumerated.tipoPerfil;
 import com.exception.ServiciosException;
 import java.util.LinkedList;
-import java.util.List;
+
 
 
 /**
@@ -132,24 +132,15 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	}
 
 	@Override
-	public Object[][] getNombreApellido(String nombre, String apellido) throws ServiciosException {
-		TypedQuery<Usuario> query;
-		Object [][] datos = null;
-		List<Usuario> list = null;
+	public LinkedList<Usuario> getNombreApellido(String nombre, String apellido) throws ServiciosException {
+		LinkedList<Usuario> usuariosList = new LinkedList<>();
 		try {
-			query =  em.createNamedQuery("Usuario.getNombreApellido",Usuario.class)
-					.setParameter("nombre", "%"+nombre.toUpperCase()+"%").setParameter("apellido", "%"+apellido.toUpperCase()+"%");
-			list = query.getResultList();
-			datos = new Object[list.size()][6];
-			int i = 0;
-			for(Usuario u :list){
-				datos[i] = new Object[]{u.getId(),u.getNombre(),u.getApellido(),u.getNomAcceso(),u.getCorreo(),u.getTipoPerfil()};
-				i++;
-			}
-			
-		}catch (Exception e) {
+			TypedQuery<Usuario> query =  em.createNamedQuery("Usuario.getNombreApellido", Usuario.class)
+			.setParameter("nombre", "%"+nombre.toUpperCase()+"%").setParameter("apellido", "%"+apellido.toUpperCase()+"%");;
+			usuariosList.addAll(query.getResultList());
+		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
-		return datos;
+		return usuariosList;
 	}
 }

@@ -26,7 +26,7 @@ public interface UsuarioBeanRemote {
 
 	boolean ValidarContrasena(String nomAcceso, String contrasena) throws ServiciosException;
 
-	Object[][] getNombreApellido(String nombre, String apellido) throws ServiciosException;
+	LinkedList<Usuario> getNombreApellido(String nombre, String apellido) throws ServiciosException;
 
 	void cambiarContrasena(String nomAcceso, String contrasena) throws ServiciosException;
 

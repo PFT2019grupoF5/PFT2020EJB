@@ -13,11 +13,11 @@ import java.util.Date;
 @Entity
 @Table(name="PRODUCTOS", schema="PROYECTO")
 @NamedQueries({
-	@NamedQuery(name="Producto.getAll", query="SELECT u FROM Producto u"),
-	@NamedQuery(name="Producto.get", query="SELECT u FROM Producto u WHERE UPPER(u.nombre)=UPPER(:nombre)"),
-	@NamedQuery(name="Producto.getNombreLike", query="SELECT u FROM Producto u WHERE UPPER(u.nombre) LIKE :nombre"),
-	@NamedQuery(name="Producto.getId",  query="SELECT u FROM Producto u WHERE u.id=:id"),
-	@NamedQuery(name="Producto.getIdLike", query="SELECT u FROM Producto u WHERE u.id LIKE :id"),
+	@NamedQuery(name="Producto.getAll", query="SELECT p FROM Producto p"),
+	@NamedQuery(name="Producto.getNombre", query="SELECT p FROM Producto p WHERE UPPER(p.nombre)=UPPER(:nombre)"),
+	@NamedQuery(name="Producto.getNombreLike", query="SELECT p FROM Producto p WHERE UPPER(p.nombre) LIKE UPPER(:nombre)"),
+	@NamedQuery(name="Producto.getId",  query="SELECT p FROM Producto p WHERE p.id=:id"),
+	@NamedQuery(name="Producto.getIdLike", query="SELECT p FROM Producto p WHERE p.id LIKE :id"),
 })
 public class Producto implements Serializable {
 	

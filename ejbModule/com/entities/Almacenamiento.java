@@ -10,9 +10,9 @@ import javax.persistence.*;
 @Entity
 @Table(name="ALMACENAMIENTOS", schema="PROYECTO")
 @NamedQueries({
-	@NamedQuery(name="Almacenamiento.getAll", query="SELECT u FROM Almacenamiento u"),
-	@NamedQuery(name="Almacenamiento.get", query="SELECT u FROM Almacenamiento u WHERE UPPER(u.nombre)=UPPER(:nombre)"),
-	@NamedQuery(name="Almacenamiento.getNombreLike", query="SELECT u FROM Almacenamiento u WHERE UPPER(u.nombre) LIKE :nombre"),
+	@NamedQuery(name="Almacenamiento.getAll", query="SELECT a FROM Almacenamiento a"),
+	@NamedQuery(name="Almacenamiento.getId", query="SELECT a FROM Almacenamiento a WHERE a.id=:id"),
+	@NamedQuery(name="Almacenamiento.getNombre", query="SELECT a FROM Almacenamiento a WHERE UPPER(a.nombre) LIKE UPPER(:nombre)"),
 })
 public class Almacenamiento implements Serializable {
 	
@@ -30,16 +30,13 @@ public class Almacenamiento implements Serializable {
 	@Column(name = "ALMA_DESCRIPCION", length=250)
 	private String nombre;
 	
-//	@Column(name = "ALMA_COSTOOP", nullable = false)
-	@Column(name = "ALMA_COSTOOP", nullable = false, columnDefinition = "FLOAT(5,2)")
+	@Column(name = "ALMA_COSTOOP", nullable = false)
 	private double costoop;
 
-//	@Column(name = "ALMA_CAPESTIBA", nullable = false)
-	@Column(name = "ALMA_CAPESTIBA", nullable = false, columnDefinition = "FLOAT(5,2)")
+	@Column(name = "ALMA_CAPESTIBA", nullable = false)
 	private double capestiba;
 
-//	@Column(name = "ALMA_CAPPESO", nullable = false)
-	@Column(name = "ALMA_CAPPESO", nullable = false, columnDefinition = "FLOAT(5,2)")
+	@Column(name = "ALMA_CAPPESO", nullable = false)
 	private double cappeso;
 
 	@ManyToOne(optional=false)

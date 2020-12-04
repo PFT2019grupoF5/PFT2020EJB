@@ -29,14 +29,14 @@ public class AlmacenamientoBean implements AlmacenamientoBeanRemote {
 	@Override
 	public void add(int volumen, String nombre, double costoop, double capestiba, double cappeso, EntidadLoc entidadLoc) throws ServiciosException {
 		try{
-			Almacenamiento u = new Almacenamiento();
-			u.setVolumen(volumen);
-			u.setNombre(nombre);
-			u.setCostoop(costoop);
-			u.setCapestiba(capestiba);
-			u.setCappeso(cappeso);
-			u.setEntidadLoc(entidadLoc);
-			em.persist(u);
+			Almacenamiento a = new Almacenamiento();
+			a.setVolumen(volumen);
+			a.setNombre(nombre);
+			a.setCostoop(costoop);
+			a.setCapestiba(capestiba);
+			a.setCappeso(cappeso);
+			a.setEntidadLoc(entidadLoc);
+			em.persist(a);
 			em.flush();
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
@@ -44,15 +44,16 @@ public class AlmacenamientoBean implements AlmacenamientoBeanRemote {
 	}
 
 	@Override
-	public void update(int volumen, String nombre, double costoop, double capestiba, double cappeso, EntidadLoc entidadLoc) throws ServiciosException {
+	public void update(Long id, int volumen, String nombre, double costoop, double capestiba, double cappeso, EntidadLoc entidadLoc) throws ServiciosException {
 		try{
-			Almacenamiento u = get(nombre);
-			u.setVolumen(volumen);
-			u.setCostoop(costoop);
-			u.setCapestiba(capestiba);
-			u.setCappeso(cappeso);
-			u.setEntidadLoc(entidadLoc);
-			em.merge(u);
+			Almacenamiento a = getId(id);
+			a.setVolumen(volumen);
+			a.setNombre(nombre);
+			a.setCostoop(costoop);
+			a.setCapestiba(capestiba);
+			a.setCappeso(cappeso);
+			a.setEntidadLoc(entidadLoc);
+			em.merge(a);
 			em.flush();
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
@@ -60,9 +61,9 @@ public class AlmacenamientoBean implements AlmacenamientoBeanRemote {
 	}
 
 	@Override
-	public void delete(String nombre) throws ServiciosException {
+	public void delete(Long id) throws ServiciosException {
 		try{			
-			em.remove(get(nombre));
+			em.remove(getId(id));
 			em.flush();
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
@@ -70,15 +71,28 @@ public class AlmacenamientoBean implements AlmacenamientoBeanRemote {
 	}
 
 	@Override
-	public Almacenamiento get(String nombre) throws ServiciosException {
+	public Almacenamiento getId(Long id) throws ServiciosException {
 		try{
-			TypedQuery<Almacenamiento> query =  em.createNamedQuery("Almacenamiento.get", Almacenamiento.class)
-					.setParameter("nombre", nombre);
+			TypedQuery<Almacenamiento> query =  em.createNamedQuery("Almacenamiento.getId", Almacenamiento.class)
+					.setParameter("id", id);
 			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
 		}catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
 		
+	}
+	
+	@Override
+	public LinkedList<Almacenamiento> getNombre(String nombre) throws ServiciosException {
+		LinkedList<Almacenamiento> almacenamientosList = new LinkedList<>();
+		try {
+			TypedQuery<Almacenamiento> query =  em.createNamedQuery("Almacenamiento.getNombre", Almacenamiento.class)
+			.setParameter("nombre", "%"+nombre.toUpperCase()+"%");;
+			almacenamientosList.addAll(query.getResultList());
+		} catch (Exception e) {
+			throw new ServiciosException(e.getMessage());
+		}
+		return almacenamientosList;
 	}
 	
 	@Override

@@ -10,9 +10,10 @@ import javax.persistence.*;
 @Entity
 @Table(name="FAMILIAS", schema="PROYECTO")
 @NamedQueries({
-	@NamedQuery(name="Familia.getAll", query="SELECT u FROM Familia u"),
-	@NamedQuery(name="Familia.get", query="SELECT u FROM Familia u WHERE UPPER(u.nombre)=UPPER(:nombre)"),
-	@NamedQuery(name="Familia.getNombreLike", query="SELECT u FROM Familia u WHERE UPPER(u.nombre) LIKE :nombre"),
+	@NamedQuery(name="Familia.getAll", query="SELECT f FROM Familia f"),
+	@NamedQuery(name="Familia.getNombre", query="SELECT f FROM Familia f WHERE UPPER(f.nombre)=UPPER(:nombre)"),
+	@NamedQuery(name="Familia.getNombreLike", query="SELECT f FROM Familia f WHERE UPPER(f.nombre) LIKE UPPER(:nombre)"),
+	@NamedQuery(name="Familia.getId", query="SELECT f FROM Familia f WHERE f.id=:id"),
 })
 public class Familia implements Serializable {
 	private static final long serialVersionUID = 1L;

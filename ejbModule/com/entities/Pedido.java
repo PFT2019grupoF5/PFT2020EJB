@@ -12,9 +12,9 @@ import java.util.Date;
 @Entity
 @Table(name="PEDIDOS", schema="PROYECTO")
 @NamedQueries({
-	@NamedQuery(name="Pedido.getAll", query="SELECT u FROM Pedido u"),
-	@NamedQuery(name="Pedido.get",  query="SELECT u FROM Pedido u WHERE u.id=:id"),
-	@NamedQuery(name="Pedido.getIdLike", query="SELECT u FROM Pedido u WHERE u.id LIKE :id"),
+	@NamedQuery(name="Pedido.getAll", query="SELECT pe FROM Pedido pe"),
+	@NamedQuery(name="Pedido.getId",  query="SELECT pe FROM Pedido pe WHERE pe.id=:id"),
+	@NamedQuery(name="Pedido.getIdLike", query="SELECT pe FROM Pedido pe WHERE pe.id LIKE :id"),
 })
 public class Pedido implements Serializable {
 

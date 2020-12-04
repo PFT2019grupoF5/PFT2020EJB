@@ -1,6 +1,5 @@
 package com.services;
 
-import java.util.Date;
 import java.util.LinkedList;
 
 import javax.ejb.Stateless;

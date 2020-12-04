@@ -12,9 +12,11 @@ import com.enumerated.tipoLoc;
 @Entity
 @Table(name="LOCALES", schema="PROYECTO")
 @NamedQueries({
-	@NamedQuery(name="EntidadLoc.getAll", query="SELECT u FROM EntidadLoc u"),
-	@NamedQuery(name="EntidadLoc.get", query="SELECT u FROM EntidadLoc u WHERE u.codigo=:codigo"),
-	@NamedQuery(name="EntidadLoc.getCodigoLike", query="SELECT u FROM EntidadLoc u WHERE u.codigo LIKE :codigo"),
+	@NamedQuery(name="EntidadLoc.getAll", query="SELECT el FROM EntidadLoc el"),
+	@NamedQuery(name="EntidadLoc.getCodigo", query="SELECT el FROM EntidadLoc el WHERE el.codigo=:codigo"),
+	@NamedQuery(name="EntidadLoc.getCodigoLike", query="SELECT el FROM EntidadLoc el WHERE el.codigo LIKE :codigo"),
+	@NamedQuery(name="EntidadLoc.getId", query="SELECT el FROM EntidadLoc el WHERE el.id=:id"),
+	@NamedQuery(name="EntidadLoc.getIdLike", query="SELECT el FROM EntidadLoc el WHERE el.id LIKE :id"),
 })
 public class EntidadLoc implements Serializable {
 

@@ -10,9 +10,11 @@ import javax.persistence.*;
 @Entity
 @Table(name="CIUDADES", schema="PROYECTO")
 @NamedQueries({
-	@NamedQuery(name="Ciudad.getAll", query="SELECT u FROM Ciudad u"),
-	@NamedQuery(name="Ciudad.get", query="SELECT u FROM Ciudad u WHERE UPPER(u.nombre)=UPPER(:nombre)"),
-	@NamedQuery(name="Ciudad.getNombreLike", query="SELECT u FROM Ciudad u WHERE UPPER(u.nombre) LIKE :nombre"),
+	@NamedQuery(name="Ciudad.getAll", query="SELECT c FROM Ciudad c"),
+	@NamedQuery(name="Ciudad.getNombre", query="SELECT c FROM Ciudad c WHERE UPPER(c.nombre)=UPPER(:nombre)"),
+	@NamedQuery(name="Ciudad.getNombreLike", query="SELECT c FROM Ciudad c WHERE UPPER(c.nombre) LIKE UPPER(:nombre)"),
+	@NamedQuery(name="Ciudad.getId", query="SELECT c FROM Ciudad c WHERE c.id=:id"),
+	@NamedQuery(name="Ciudad.getIdLike", query="SELECT c FROM Ciudad c WHERE c.id LIKE :id"),
 })
 public class Ciudad implements Serializable {
 	private static final long serialVersionUID = 1L;
