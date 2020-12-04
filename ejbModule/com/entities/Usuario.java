@@ -14,7 +14,6 @@ import com.enumerated.tipoPerfil;
 	@NamedQuery(name="Usuario.getAll", query="SELECT u FROM Usuario u"),
 	@NamedQuery(name="Usuario.getId", query="SELECT u FROM Usuario u WHERE u.id=:id"),
 	@NamedQuery(name="Usuario.getNA", query="SELECT u FROM Usuario u WHERE u.nomAcceso=:nomAcceso"),
-	@NamedQuery(name="Usuario.getNombreApellido", query="SELECT u FROM Usuario u WHERE UPPER(u.nombre)=UPPER(:nombre) AND UPPER(u.apellido)=UPPER(:apellido)"),
 })
 public class Usuario implements Serializable {
 		private static final long serialVersionUID = 1L;
@@ -31,7 +30,7 @@ public class Usuario implements Serializable {
 		@Column(length=50,name = "USU_APELLIDO",nullable=false)
 		private String apellido;
 		
-		@Column(length=50,name = "USU_NOMACCESO",nullable=false)
+		@Column(length=50,name = "USU_NOMACCESO",nullable=false, unique=true)
 		private String nomAcceso;
 		
 		@Column(length=16,name = "USU_CONTRASENA",nullable=false)

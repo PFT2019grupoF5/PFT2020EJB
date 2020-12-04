@@ -86,7 +86,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	@Override
 	public Usuario getNA(String nomAcceso) throws ServiciosException {
 		try{
-			TypedQuery<Usuario> query =  em.createNamedQuery("Usuario.getId", Usuario.class)
+			TypedQuery<Usuario> query =  em.createNamedQuery("Usuario.getNA", Usuario.class)
 					.setParameter("nomAcceso", nomAcceso);
 			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
 		}catch (Exception e) {
@@ -131,16 +131,4 @@ public class UsuarioBean implements UsuarioBeanRemote {
 		return ContrasenaOk;
 	}
 
-	@Override
-	public LinkedList<Usuario> getNombreApellido(String nombre, String apellido) throws ServiciosException {
-		LinkedList<Usuario> usuariosList = new LinkedList<>();
-		try {
-			TypedQuery<Usuario> query =  em.createNamedQuery("Usuario.getNombreApellido", Usuario.class)
-			.setParameter("nombre", "%"+nombre.toUpperCase()+"%").setParameter("apellido", "%"+apellido.toUpperCase()+"%");;
-			usuariosList.addAll(query.getResultList());
-		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
-		}
-		return usuariosList;
-	}
 }
