@@ -12,7 +12,7 @@ public interface CiudadBeanRemote {
 
 	void add(String nombre) throws ServiciosException;
 
-	void update(Long id) throws ServiciosException;
+	void update(Long id, String nombre) throws ServiciosException;
 
 	void delete(Long id) throws ServiciosException;
 

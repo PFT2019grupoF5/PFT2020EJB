@@ -38,9 +38,10 @@ public class CiudadBean implements CiudadBeanRemote {
 	}
 
 	@Override
-	public void update(Long id) throws ServiciosException {
+	public void update(Long id, String nombre) throws ServiciosException {
 		try{
 			Ciudad c = getId(id);
+			c.setNombre(nombre);
 			em.merge(c);
 			em.flush();
 		} catch (Exception e){
