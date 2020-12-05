@@ -28,9 +28,9 @@ public class CiudadBean implements CiudadBeanRemote {
 	@Override
 	public void add(String nombre) throws ServiciosException {
 		try{
-			Ciudad u = new Ciudad();
-			u.setNombre(nombre);
-			em.persist(u);
+			Ciudad c = new Ciudad();
+			c.setNombre(nombre);
+			em.persist(c);
 			em.flush();
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
@@ -38,10 +38,10 @@ public class CiudadBean implements CiudadBeanRemote {
 	}
 
 	@Override
-	public void update(String nombre) throws ServiciosException {
+	public void update(Long id) throws ServiciosException {
 		try{
-			Ciudad u = get(nombre);
-			em.merge(u);
+			Ciudad c = getId(id);
+			em.merge(c);
 			em.flush();
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
@@ -49,9 +49,9 @@ public class CiudadBean implements CiudadBeanRemote {
 	}
 
 	@Override
-	public void delete(String nombre) throws ServiciosException {
+	public void delete(Long id) throws ServiciosException {
 		try{			
-			em.remove(get(nombre));
+			em.remove(getId(id));
 			em.flush();
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
@@ -59,10 +59,22 @@ public class CiudadBean implements CiudadBeanRemote {
 	}
 
 	@Override
-	public Ciudad get(String nombre) throws ServiciosException {
+	public Ciudad getNombre(String nombre) throws ServiciosException {
 		try{
-			TypedQuery<Ciudad> query =  em.createNamedQuery("Ciudad.get", Ciudad.class)
+			TypedQuery<Ciudad> query =  em.createNamedQuery("Ciudad.getNombre", Ciudad.class)
 					.setParameter("nombre", nombre);
+			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
+		}catch (Exception e) {
+			throw new ServiciosException(e.getMessage());
+		}
+		
+	}
+
+	@Override
+	public Ciudad getId(Long id) throws ServiciosException {
+		try{
+			TypedQuery<Ciudad> query =  em.createNamedQuery("Ciudad.getId", Ciudad.class)
+					.setParameter("id", id);
 			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
 		}catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
@@ -71,15 +83,28 @@ public class CiudadBean implements CiudadBeanRemote {
 	}
 	
 	@Override
-	public LinkedList<Ciudad> getAll() throws ServiciosException {
-		LinkedList<Ciudad> usuariosList = new LinkedList<>();
+	public LinkedList<Ciudad> getNombreLike(String nombre) throws ServiciosException {
+		LinkedList<Ciudad> CiudadesList = new LinkedList<>();
 		try {
-			TypedQuery<Ciudad> query =  em.createNamedQuery("Ciudad.getAll", Ciudad.class);
-			usuariosList.addAll(query.getResultList());
+			TypedQuery<Ciudad> query =  em.createNamedQuery("Ciudad.getNombreLike", Ciudad.class)
+			.setParameter("nombre", "%"+nombre.toUpperCase()+"%");;
+			CiudadesList.addAll(query.getResultList());
 		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
-		return usuariosList;
+		return CiudadesList;
+	}
+	
+	@Override
+	public LinkedList<Ciudad> getAll() throws ServiciosException {
+		LinkedList<Ciudad> CiudadesList = new LinkedList<>();
+		try {
+			TypedQuery<Ciudad> query =  em.createNamedQuery("Ciudad.getAll", Ciudad.class);
+			CiudadesList.addAll(query.getResultList());
+		} catch (Exception e) {
+			throw new ServiciosException(e.getMessage());
+		}
+		return CiudadesList;
 	}
 
 

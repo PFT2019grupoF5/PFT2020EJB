@@ -15,16 +15,18 @@ import com.exception.ServiciosException;
 public interface MovimientoBeanRemote {
 
 	void add(Date fecha, int cantidad, String descripcion, double costo, tipoMovimiento tipoMov, Producto producto,
-			Almacenamiento almacenamiento) throws ServiciosException;
+			 Almacenamiento almacenamiento) throws ServiciosException;
 
 	void update(Long id, Date fecha, int cantidad, String descripcion, double costo, tipoMovimiento tipoMov,
-			Producto producto, Almacenamiento almacenamiento) throws ServiciosException;
+			Producto producto,  Almacenamiento almacenamiento) throws ServiciosException;
 
 	void delete(Long id) throws ServiciosException;
 
-	Movimiento get(Long id) throws ServiciosException;
+	Movimiento getId(Long id) throws ServiciosException;
 
 	LinkedList<Movimiento> getAll() throws ServiciosException;
+
+	LinkedList<Movimiento> getMovLike(String descripcion) throws ServiciosException;
 
 
 

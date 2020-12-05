@@ -31,12 +31,12 @@ public class RenglonPedidoBean implements RenglonPedidoBeanRemote {
    	@Override
    	public void add(int rennro, int rencant, Producto producto, Pedido pedido) throws ServiciosException {
    		try{
-   			RenglonPedido u = new RenglonPedido();
-   			u.setRennro(rennro);
-   			u.setRencant(rencant);
-   			u.setProducto(producto);
-   			u.setPedido(pedido);
-   			em.persist(u);
+   			RenglonPedido r = new RenglonPedido();
+   			r.setRennro(rennro);
+   			r.setRencant(rencant);
+   			r.setProducto(producto);
+   			r.setPedido(pedido);
+   			em.persist(r);
    			em.flush();
    		} catch (Exception e){
    			throw new ServiciosException(e.getMessage());
@@ -46,12 +46,12 @@ public class RenglonPedidoBean implements RenglonPedidoBeanRemote {
    	@Override
    	public void update(Long id, int rennro, int rencant, Producto producto, Pedido pedido) throws ServiciosException {
    		try{
-   			RenglonPedido u = get(id);
-   			u.setRennro(rennro);
-   			u.setRencant(rencant);
-   			u.setProducto(producto);
-   			u.setPedido(pedido);
-   			em.merge(u);
+   			RenglonPedido r = getId(id);
+   			r.setRennro(rennro);
+   			r.setRencant(rencant);
+   			r.setProducto(producto);
+   			r.setPedido(pedido);
+   			em.merge(r);
    			em.flush();
    		} catch (Exception e){
    			throw new ServiciosException(e.getMessage());
@@ -61,7 +61,7 @@ public class RenglonPedidoBean implements RenglonPedidoBeanRemote {
    	@Override
    	public void delete(Long id) throws ServiciosException {
    		try{			
-   			em.remove(get(id));
+   			em.remove(getId(id));
    			em.flush();
    		} catch (Exception e){
    			throw new ServiciosException(e.getMessage());
@@ -69,9 +69,9 @@ public class RenglonPedidoBean implements RenglonPedidoBeanRemote {
    	}
 
    	@Override
-   	public RenglonPedido get(Long id) throws ServiciosException {
+   	public RenglonPedido getId(Long id) throws ServiciosException {
    		try{
-   			TypedQuery<RenglonPedido> query =  em.createNamedQuery("RenglonPedido.get", RenglonPedido.class)
+   			TypedQuery<RenglonPedido> query =  em.createNamedQuery("RenglonPedido.getId", RenglonPedido.class)
    					.setParameter("id", id);
    			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
    		}catch (Exception e) {

@@ -21,7 +21,7 @@ public interface AlmacenamientoBeanRemote {
 
 	Almacenamiento getId(Long id) throws ServiciosException;
 
-	LinkedList<Almacenamiento> getNombre(String nombre) throws ServiciosException;
+	LinkedList<Almacenamiento> getNombreLike(String nombre) throws ServiciosException;
 
 	LinkedList<Almacenamiento> getAll() throws ServiciosException;
 

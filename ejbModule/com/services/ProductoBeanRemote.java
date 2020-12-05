@@ -17,17 +17,20 @@ public interface ProductoBeanRemote {
 	void add(String nombre, String lote, double precio, Date felab, Date fven, double peso, double volumen, int estiba,
 			double stkMin, double stkTotal, Segmentacion segmentac, Usuario usuario, Familia familia)
 			throws ServiciosException;
-
-	void update(String nombre, String lote, double precio, Date felab, Date fven, double peso, double volumen,
+	
+	void update(Long id, String nombre, String lote, double precio, Date felab, Date fven, double peso, double volumen,
 			int estiba, double stkMin, double stkTotal, Segmentacion segmentac, Usuario usuario, Familia familia)
 			throws ServiciosException;
-
-	void delete(String nombre) throws ServiciosException;
-
-	Producto get(String nombre) throws ServiciosException;
+	
+	void delete(Long id) throws ServiciosException;
 
 	Producto getId(Long id) throws ServiciosException;
 
+	Producto getNombre(String nombre) throws ServiciosException;
+	
+	LinkedList<Producto> getNombreLike(String nombre) throws ServiciosException;
+
 	LinkedList<Producto> getAll() throws ServiciosException;
+
 
 }

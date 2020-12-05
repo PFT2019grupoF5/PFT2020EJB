@@ -18,7 +18,7 @@ public interface RenglonPedidoBeanRemote {
 
 	void delete(Long id) throws ServiciosException;
 
-	RenglonPedido get(Long id) throws ServiciosException;
+	RenglonPedido getId(Long id) throws ServiciosException;
 
 	LinkedList<RenglonPedido> getAll() throws ServiciosException;
 

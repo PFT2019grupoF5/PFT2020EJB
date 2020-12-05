@@ -4,7 +4,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-
 import com.entities.Familia;
 import com.exception.ServiciosException;
 import java.util.LinkedList;
@@ -29,11 +28,11 @@ public class FamiliaBean implements FamiliaBeanRemote {
 	@Override
 	public void add(String nombre, String descrip, String incompat) throws ServiciosException {
 		try{
-			Familia u = new Familia();
-			u.setNombre(nombre);
-			u.setDescrip(descrip);
-			u.setIncompat(incompat);
-			em.persist(u);
+			Familia f = new Familia();
+			f.setNombre(nombre);
+			f.setDescrip(descrip);
+			f.setIncompat(incompat);
+			em.persist(f);
 			em.flush();
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
@@ -41,12 +40,13 @@ public class FamiliaBean implements FamiliaBeanRemote {
 	}
 
 	@Override
-	public void update(String nombre, String descrip, String incompat) throws ServiciosException {
+	public void update(Long id, String nombre, String descrip, String incompat) throws ServiciosException {
 		try{
-			Familia u = get(nombre);
-			u.setDescrip(descrip);
-			u.setIncompat(incompat);
-			em.merge(u);
+			Familia f = getId(id);
+			f.setNombre(nombre);
+			f.setDescrip(descrip);
+			f.setIncompat(incompat);
+			em.merge(f);
 			em.flush();
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
@@ -54,9 +54,9 @@ public class FamiliaBean implements FamiliaBeanRemote {
 	}
 
 	@Override
-	public void delete(String nombre) throws ServiciosException {
+	public void delete(Long id) throws ServiciosException {
 		try{			
-			em.remove(get(nombre));
+			em.remove(getId(id));
 			em.flush();
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
@@ -64,9 +64,9 @@ public class FamiliaBean implements FamiliaBeanRemote {
 	}
 
 	@Override
-	public Familia get(String nombre) throws ServiciosException {
+	public Familia getNombre(String nombre) throws ServiciosException {
 		try{
-			TypedQuery<Familia> query =  em.createNamedQuery("Familia.get", Familia.class)
+			TypedQuery<Familia> query =  em.createNamedQuery("Familia.getNombre", Familia.class)
 					.setParameter("nombre", nombre);
 			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
 		}catch (Exception e) {
@@ -76,15 +76,42 @@ public class FamiliaBean implements FamiliaBeanRemote {
 	}
 	
 	@Override
-	public LinkedList<Familia> getAll() throws ServiciosException {
-		LinkedList<Familia> usuariosList = new LinkedList<>();
+	public Familia getId(Long id) throws ServiciosException {
+		try{
+			TypedQuery<Familia> query =  em.createNamedQuery("Familia.getId", Familia.class)
+					.setParameter("id", id);
+			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
+		}catch (Exception e) {
+			throw new ServiciosException(e.getMessage());
+		}
+		
+	}
+	
+	@Override
+	public LinkedList<Familia> getNombreLike(String nombre) throws ServiciosException {
+		LinkedList<Familia> FamiliasList = new LinkedList<>();
 		try {
-			TypedQuery<Familia> query =  em.createNamedQuery("Familia.getAll", Familia.class);
-			usuariosList.addAll(query.getResultList());
+			TypedQuery<Familia> query =  em.createNamedQuery("Familia.getNombreLike", Familia.class)
+			.setParameter("nombre", "%"+nombre.toUpperCase()+"%");;
+			FamiliasList.addAll(query.getResultList());
 		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
-		return usuariosList;
+		return FamiliasList;
+	}
+	
+	
+	
+	@Override
+	public LinkedList<Familia> getAll() throws ServiciosException {
+		LinkedList<Familia> FamiliasList = new LinkedList<>();
+		try {
+			TypedQuery<Familia> query =  em.createNamedQuery("Familia.getAll", Familia.class);
+			FamiliasList.addAll(query.getResultList());
+		} catch (Exception e) {
+			throw new ServiciosException(e.getMessage());
+		}
+		return FamiliasList;
 	}
     
     

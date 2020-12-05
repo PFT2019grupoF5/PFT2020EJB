@@ -16,13 +16,15 @@ public interface PedidoBeanRemote {
 	void add(Date pedfecestim, Date fecha, int pedreccodigo, Date pedrecfecha, String pedreccomentario,
 			estadoPedido pedestado, Usuario usuario) throws ServiciosException;
 
-	LinkedList<Pedido> getAll() throws ServiciosException;
-
-	Pedido get(Long id) throws ServiciosException;
+	Pedido getId(Long id) throws ServiciosException;
 
 	void delete(Long id) throws ServiciosException;
 
 	void update(Long id, Date pedfecestim, Date fecha, int pedreccodigo, Date pedrecfecha, String pedreccomentario,
 			estadoPedido pedestado, Usuario usuario) throws ServiciosException;
+
+	LinkedList<Pedido> getComLike(String pedreccomentario) throws ServiciosException;
+
+	LinkedList<Pedido> getAll() throws ServiciosException;
 
 }

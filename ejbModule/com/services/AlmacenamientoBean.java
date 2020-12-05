@@ -83,10 +83,10 @@ public class AlmacenamientoBean implements AlmacenamientoBeanRemote {
 	}
 	
 	@Override
-	public LinkedList<Almacenamiento> getNombre(String nombre) throws ServiciosException {
+	public LinkedList<Almacenamiento> getNombreLike(String nombre) throws ServiciosException {
 		LinkedList<Almacenamiento> almacenamientosList = new LinkedList<>();
 		try {
-			TypedQuery<Almacenamiento> query =  em.createNamedQuery("Almacenamiento.getNombre", Almacenamiento.class)
+			TypedQuery<Almacenamiento> query =  em.createNamedQuery("Almacenamiento.getNombreLike", Almacenamiento.class)
 			.setParameter("nombre", "%"+nombre.toUpperCase()+"%");;
 			almacenamientosList.addAll(query.getResultList());
 		} catch (Exception e) {

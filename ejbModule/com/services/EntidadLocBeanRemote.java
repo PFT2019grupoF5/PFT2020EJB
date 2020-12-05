@@ -14,12 +14,19 @@ public interface EntidadLocBeanRemote {
 
 	void add(int codigo, String nombre, String direccion, tipoLoc tipoLoc, Ciudad ciudad) throws ServiciosException;
 
-	void update(int codigo, String nombre, String direccion, tipoLoc tipoLoc, Ciudad ciudad) throws ServiciosException;
+	void update(Long id, int codigo, String nombre, String direccion, tipoLoc tipoLoc, Ciudad ciudad)
+			throws ServiciosException;
 
-	EntidadLoc get(int codigo) throws ServiciosException;
+	EntidadLoc getCodigo(int codigo) throws ServiciosException;
+	
+	EntidadLoc getId(Long id) throws ServiciosException;
 
-	void delete(int codigo) throws ServiciosException;
+	void delete(Long id) throws ServiciosException;
+
+	LinkedList<EntidadLoc> getCodigoLike(int codigo) throws ServiciosException;
 
 	LinkedList<EntidadLoc> getAll() throws ServiciosException;
+
+
 
 }

@@ -30,13 +30,13 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 	@Override
 	public void add(int codigo, String nombre, String direccion, tipoLoc tipoLoc, Ciudad ciudad) throws ServiciosException {
 		try{
-			EntidadLoc u = new EntidadLoc();
-			u.setCodigo(codigo);
-			u.setNombre(nombre);
-			u.setDireccion(direccion);
-			u.setTipoloc(tipoLoc);
-			u.setCiudad(ciudad);
-			em.persist(u);
+			EntidadLoc el = new EntidadLoc();
+			el.setCodigo(codigo);
+			el.setNombre(nombre);
+			el.setDireccion(direccion);
+			el.setTipoloc(tipoLoc);
+			el.setCiudad(ciudad);
+			em.persist(el);
 			em.flush();
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
@@ -44,14 +44,15 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 	}
 
 	@Override
-	public void update(int codigo ,String nombre, String direccion, tipoLoc tipoLoc, Ciudad ciudad) throws ServiciosException {
+	public void update(Long id, int codigo ,String nombre, String direccion, tipoLoc tipoLoc, Ciudad ciudad) throws ServiciosException {
 		try{
-			EntidadLoc u = get(codigo);
-			u.setNombre(nombre);
-			u.setDireccion(direccion);
-			u.setTipoloc(tipoLoc);
-			u.setCiudad(ciudad);
-			em.merge(u);
+			EntidadLoc el = getId(id);
+			el.setCodigo(codigo);
+			el.setNombre(nombre);
+			el.setDireccion(direccion);
+			el.setTipoloc(tipoLoc);
+			el.setCiudad(ciudad);
+			em.merge(el);
 			em.flush();
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
@@ -59,9 +60,9 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 	}
 
 	@Override
-	public void delete(int codigo) throws ServiciosException {
+	public void delete(Long id) throws ServiciosException {
 		try{			
-			em.remove(get(codigo));
+			em.remove(getId(id));
 			em.flush();
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
@@ -69,9 +70,9 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 	}
 
 	@Override
-	public EntidadLoc get(int codigo) throws ServiciosException {
+	public EntidadLoc getCodigo(int codigo) throws ServiciosException {
 		try{
-			TypedQuery<EntidadLoc> query =  em.createNamedQuery("EntidadLoc.get", EntidadLoc.class)
+			TypedQuery<EntidadLoc> query =  em.createNamedQuery("EntidadLoc.getCodigo", EntidadLoc.class)
 					.setParameter("codigo", codigo);
 			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
 		}catch (Exception e) {
@@ -81,14 +82,41 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 	}
 	
 	@Override
-	public LinkedList<EntidadLoc> getAll() throws ServiciosException {
-		LinkedList<EntidadLoc> EntidadLocList = new LinkedList<>();
+	public EntidadLoc getId(Long id) throws ServiciosException {
+		try{
+			TypedQuery<EntidadLoc> query =  em.createNamedQuery("EntidadLoc.getId", EntidadLoc.class)
+					.setParameter("id", id);
+			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
+		}catch (Exception e) {
+			throw new ServiciosException(e.getMessage());
+		}
+		
+	}
+	
+	@Override
+	public LinkedList<EntidadLoc> getCodigoLike(int codigo) throws ServiciosException {
+		LinkedList<EntidadLoc> EntidadesLocList = new LinkedList<>();
 		try {
-			TypedQuery<EntidadLoc> query =  em.createNamedQuery("EntidadLoc.getAll", EntidadLoc.class);
-			EntidadLocList.addAll(query.getResultList());
+			TypedQuery<EntidadLoc> query =  em.createNamedQuery("EntidadLoc.geCodigoLike", EntidadLoc.class)
+			.setParameter("codigo", "%"+codigo+"%");;
+			EntidadesLocList.addAll(query.getResultList());
 		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
-		return EntidadLocList;
+		return EntidadesLocList;
+	}
+	
+	@Override
+	public LinkedList<EntidadLoc> getAll() throws ServiciosException {
+		LinkedList<EntidadLoc> EntidadesLocList = new LinkedList<>();
+		try {
+			TypedQuery<EntidadLoc> query =  em.createNamedQuery("EntidadLoc.getAll", EntidadLoc.class);
+			EntidadesLocList.addAll(query.getResultList());
+		} catch (Exception e) {
+			throw new ServiciosException(e.getMessage());
+		}
+		return EntidadesLocList;
 	}
 }
+
+

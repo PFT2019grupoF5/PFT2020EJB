@@ -12,12 +12,17 @@ public interface CiudadBeanRemote {
 
 	void add(String nombre) throws ServiciosException;
 
-	void update(String nombre) throws ServiciosException;
+	void update(Long id) throws ServiciosException;
 
-	void delete(String nombre) throws ServiciosException;
+	void delete(Long id) throws ServiciosException;
 
-	Ciudad get(String nombre) throws ServiciosException;
+	Ciudad getNombre(String nombre) throws ServiciosException;
+
+	Ciudad getId(Long id) throws ServiciosException;
+	
+	LinkedList<Ciudad> getNombreLike(String nombre) throws ServiciosException;
 
 	LinkedList<Ciudad> getAll() throws ServiciosException;
+
 
 }
