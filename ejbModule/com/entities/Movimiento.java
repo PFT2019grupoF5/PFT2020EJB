@@ -16,6 +16,8 @@ import java.util.Date;
 	@NamedQuery(name="Movimiento.getAll", query="SELECT m FROM Movimiento m"),
 	@NamedQuery(name="Movimiento.getId",  query="SELECT m FROM Movimiento m WHERE m.id=:id"),
 	@NamedQuery(name="Movimiento.getMovLike", query="SELECT m FROM Movimiento m WHERE UPPER(m.descripcion) = UPPER(:descripcion)"),
+	@NamedQuery(name="Movimiento.getIdProd", query="SELECT m FROM Movimiento m WHERE m.producto=:producto"),
+
 })
 public class Movimiento implements Serializable {
 
