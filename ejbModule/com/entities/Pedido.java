@@ -14,7 +14,7 @@ import java.util.Date;
 @NamedQueries({
 	@NamedQuery(name="Pedido.getAll", query="SELECT pe FROM Pedido pe"),
 	@NamedQuery(name="Pedido.getId",  query="SELECT pe FROM Pedido pe WHERE pe.id=:id"),
-	@NamedQuery(name="Pedido.getIdLike", query="SELECT pe FROM Pedido pe WHERE pe.id LIKE :id"),
+	@NamedQuery(name="Pedido.getIdLike", query="SELECT pe FROM Pedido pe WHERE UPPER(pe.pedreccomentario) = UPPER(:%pedreccomentario%)"),
 })
 public class Pedido implements Serializable {
 
