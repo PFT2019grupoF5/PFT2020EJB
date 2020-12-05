@@ -11,6 +11,7 @@ import com.entities.Usuario;
 import com.enumerated.Segmentacion;
 import com.exception.ServiciosException;
 
+
 @Remote
 public interface ProductoBeanRemote {
 

@@ -15,7 +15,7 @@ import com.entities.Usuario;
 import com.enumerated.Segmentacion;
 import com.exception.ServiciosException;
 
-/**
+/*
  * Session Bean implementation class ProductoBean
  */
 @Stateless
