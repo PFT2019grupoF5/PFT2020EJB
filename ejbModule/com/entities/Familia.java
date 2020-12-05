@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NamedQueries({
 	@NamedQuery(name="Familia.getAll", query="SELECT f FROM Familia f"),
 	@NamedQuery(name="Familia.getNombre", query="SELECT f FROM Familia f WHERE UPPER(f.nombre)=UPPER(:nombre)"),
-	@NamedQuery(name="Familia.getNombreLike", query="SELECT f FROM Familia f WHERE UPPER(f.nombre) = UPPER(:%nombre%)"),
+	@NamedQuery(name="Familia.getNombreLike", query="SELECT f FROM Familia f WHERE UPPER(f.nombre) = UPPER(:nombre)"),
 	@NamedQuery(name="Familia.getId", query="SELECT f FROM Familia f WHERE f.id=:id"),
 })
 public class Familia implements Serializable {

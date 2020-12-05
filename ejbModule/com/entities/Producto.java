@@ -15,7 +15,7 @@ import java.util.Date;
 @NamedQueries({
 	@NamedQuery(name="Producto.getAll", query="SELECT p FROM Producto p"),
 	@NamedQuery(name="Producto.getNombre", query="SELECT p FROM Producto p WHERE UPPER(p.nombre)=UPPER(:nombre)"),
-	@NamedQuery(name="Producto.getNombreLike", query="SELECT p FROM Producto p WHERE UPPER(p.nombre) = UPPER(:%nombre%)"),
+	@NamedQuery(name="Producto.getNombreLike", query="SELECT p FROM Producto p WHERE UPPER(p.nombre) = UPPER(:nombre)"),
 	@NamedQuery(name="Producto.getId",  query="SELECT p FROM Producto p WHERE p.id=:id"),
 })
 public class Producto implements Serializable {

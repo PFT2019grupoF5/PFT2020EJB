@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NamedQueries({
 	@NamedQuery(name="Ciudad.getAll", query="SELECT c FROM Ciudad c"),
 	@NamedQuery(name="Ciudad.getNombre", query="SELECT c FROM Ciudad c WHERE UPPER(c.nombre)=UPPER(:nombre)"),
-	@NamedQuery(name="Ciudad.getNombreLike", query="SELECT c FROM Ciudad c WHERE UPPER(c.nombre) = UPPER(:%nombre%)"),
+	@NamedQuery(name="Ciudad.getNombreLike", query="SELECT c FROM Ciudad c WHERE UPPER(c.nombre) = UPPER(:nombre)"),
 	@NamedQuery(name="Ciudad.getId", query="SELECT c FROM Ciudad c WHERE c.id=:id"),
 })
 public class Ciudad implements Serializable {
