@@ -31,6 +31,8 @@ public interface ProductoBeanRemote {
 	LinkedList<Producto> getNombreLike(String nombre) throws ServiciosException;
 
 	LinkedList<Producto> getAll() throws ServiciosException;
+	
+	Boolean validoBajaProductos(Producto producto) throws ServiciosException;
 
 
 }

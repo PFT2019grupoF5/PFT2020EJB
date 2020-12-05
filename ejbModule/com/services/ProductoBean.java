@@ -8,7 +8,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import com.entities.Producto;
+import com.entities.Almacenamiento;
 import com.entities.Familia;
+import com.entities.Movimiento;
 import com.entities.Usuario;
 import com.enumerated.Segmentacion;
 import com.exception.ServiciosException;
@@ -136,4 +138,19 @@ public class ProductoBean implements ProductoBeanRemote {
    		return ProductosList;
    	}
 
+
+   	@Override
+	public Boolean validoBajaProductos(Producto producto) throws ServiciosException {
+		
+   		try{
+   			TypedQuery<Movimiento> query =  em.createNamedQuery("Movimiento.getIdProd", Movimiento.class)
+   					.setParameter("producto", producto);
+   			return (query.getResultList().size()==0) ? false :  true;
+   		}catch (Exception e) {
+   			throw new ServiciosException(e.getMessage());
+   		}
+   	}
+
+   	
+   	
 }
