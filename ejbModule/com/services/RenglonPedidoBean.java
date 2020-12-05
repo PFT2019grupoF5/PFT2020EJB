@@ -82,13 +82,13 @@ public class RenglonPedidoBean implements RenglonPedidoBeanRemote {
    	
    	@Override
    	public LinkedList<RenglonPedido> getAll() throws ServiciosException {
-   		LinkedList<RenglonPedido> RenglonPedidoList = new LinkedList<>();
+   		LinkedList<RenglonPedido> RenglonesPedidoList = new LinkedList<>();
    		try {
    			TypedQuery<RenglonPedido> query =  em.createNamedQuery("RenglonPedido.getAll", RenglonPedido.class);
-   			RenglonPedidoList.addAll(query.getResultList());
+   			RenglonesPedidoList.addAll(query.getResultList());
    		} catch (Exception e) {
    			throw new ServiciosException(e.getMessage());
    		}
-   		return RenglonPedidoList;
+   		return RenglonesPedidoList;
    	}
 }
