@@ -3,7 +3,6 @@
 		<persistence-unit name="PFT2020EJB">
 			<provider>org.hibernate.ejb.HibernatePersistence</provider>
 			<jta-data-source>java:/OracleDS</jta-data-source>
-			<class>com.entities.Almacenamiento</class>
 			<class>com.entities.Ciudad</class>
 			<class>com.entities.EntidadLoc</class>
 			<class>com.entities.Familia</class>
