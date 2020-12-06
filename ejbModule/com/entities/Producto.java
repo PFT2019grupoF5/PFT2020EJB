@@ -6,7 +6,7 @@ import com.enumerated.Segmentacion;
 import java.util.Date;
 
 
-/**
+/** 
  * Entity implementation class for Entity: Producto
  *
  */
