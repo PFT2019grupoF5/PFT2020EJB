@@ -15,6 +15,7 @@ import java.util.Date;
 	@NamedQuery(name="Pedido.getAll", query="SELECT pe FROM Pedido pe"),
 	@NamedQuery(name="Pedido.getId",  query="SELECT pe FROM Pedido pe WHERE pe.id=:id"),
 	@NamedQuery(name="Pedido.getComLike", query="SELECT pe FROM Pedido pe WHERE UPPER(pe.pedreccomentario) = UPPER(:pedreccomentario)"),
+	@NamedQuery(name="Pedido.entreFechas", query="SELECT pe FROM Pedido pe WHERE pe.fecha BETWEEN :fechaDesde AND :fechaHasta ORDER BY pe.fecha ASC"),
 })
 public class Pedido implements Serializable {
 

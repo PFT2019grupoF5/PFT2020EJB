@@ -98,6 +98,20 @@ public class PedidoBean implements PedidoBeanRemote {
 		return PedidosList;
 	}
 	
+	// Pedido.entreFechas
+	
+	@Override
+	public LinkedList<Pedido> entreFechas(Date fecha) throws ServiciosException {
+		LinkedList<Pedido> PedidosList = new LinkedList<>();
+		try {
+			TypedQuery<Pedido> query = em.createNamedQuery("Pedido.entreFechas", Pedido.class).setParameter("fechaDesde", fecha).setParameter("fechaHasta", fecha);;
+			PedidosList.addAll(query.getResultList());
+		}catch (Exception e) {
+			throw new ServiciosException(e.getMessage());
+		}
+		return PedidosList;
+	}
+	
 	
 	@Override
 	public LinkedList<Pedido> getAll() throws ServiciosException {
