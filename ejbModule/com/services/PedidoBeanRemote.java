@@ -27,6 +27,6 @@ public interface PedidoBeanRemote {
 
 	LinkedList<Pedido> getAll() throws ServiciosException;
 
-	LinkedList<Pedido> entreFechas(Date fecha) throws ServiciosException;
+	LinkedList<Pedido> entreFechas(String fechaDesde, String fechaHasta) throws ServiciosException;
 
 }

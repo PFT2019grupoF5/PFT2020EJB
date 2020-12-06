@@ -1,5 +1,7 @@
 package com.services;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -101,15 +103,34 @@ public class PedidoBean implements PedidoBeanRemote {
 	// Pedido.entreFechas
 	
 	@Override
-	public LinkedList<Pedido> entreFechas(Date fecha) throws ServiciosException {
-		LinkedList<Pedido> PedidosList = new LinkedList<>();
+	public LinkedList<Pedido> entreFechas(String fechaDesde, String fechaHasta) throws ServiciosException {
+		TypedQuery<Pedido> query = em.createNamedQuery("Pedido.entreFechas", Pedido.class).setParameter("fechaDesde", fechaDesde).setParameter("fechaHasta", fechaHasta);;
 		try {
-			TypedQuery<Pedido> query = em.createNamedQuery("Pedido.entreFechas", Pedido.class).setParameter("fechaDesde", fecha).setParameter("fechaHasta", fecha);;
-			PedidosList.addAll(query.getResultList());
+			try {
+	            SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
+	            Date fDesde = dateFormat.parse(fechaDesde);
+	            Date fHasta = dateFormat.parse(fechaHasta);
+
+		        java.sql.Date sqlfechaDesde = convert(fDesde);
+		        java.sql.Date sqlfechaHasta = convert(fHasta);
+
+				System.out.println("fechaDesde String:" + fDesde);
+				System.out.println("fechaHasta String:" + fHasta);
+				System.out.println("fechaDesde Date  :" + fDesde.toString());
+				System.out.println("fechaHasta Date  :" + fDesde.toString());
+				System.out.println("fechaDesde sql   :" + sqlfechaDesde.toString());
+				System.out.println("fechaHasta sql   :" + sqlfechaHasta.toString());
+				
+			} catch (ParseException ex) {
+			}
+			return (LinkedList<Pedido>) query.getResultList();
 		}catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("No se pudo obtener reporte de pedidos entre fechas");
 		}
-		return PedidosList;
+	}
+	private static java.sql.Date convert(java.util.Date uDate) {
+	    java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+	    return sDate;
 	}
 	
 	
