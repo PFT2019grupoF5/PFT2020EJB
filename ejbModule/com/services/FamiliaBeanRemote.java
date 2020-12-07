@@ -1,9 +1,7 @@
 package com.services;
 
 import java.util.LinkedList;
-
 import javax.ejb.Remote;
-
 import com.entities.Familia;
 import com.exception.ServiciosException;
 

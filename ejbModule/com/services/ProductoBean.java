@@ -2,13 +2,11 @@ package com.services;
 
 import java.util.Date;
 import java.util.LinkedList;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import com.entities.Producto;
-import com.entities.Almacenamiento;
 import com.entities.Familia;
 import com.entities.Movimiento;
 import com.entities.Usuario;
