@@ -3,10 +3,12 @@ package com.services;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import com.entities.Familia;
 import com.exception.ServiciosException;
 import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -112,6 +114,26 @@ public class FamiliaBean implements FamiliaBeanRemote {
 			throw new ServiciosException(e.getMessage());
 		}
 		return FamiliasList;
+	}
+	
+	@Override
+	public Familia getFamilia(Long id) throws ServiciosException {
+		try{
+			Familia familia = em.find(Familia.class, id);
+			return familia;
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo encontrar la familia");
+		}
+	}
+	
+	@Override
+	public List<Familia> getAllFamilias() throws ServiciosException {
+		try{		
+			TypedQuery<Familia> query = em.createQuery("SELECT f FROM Familia f",Familia.class); 
+			return query.getResultList();
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo obtener lista de familias");
+		}
 	}
     
     

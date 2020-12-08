@@ -1,9 +1,11 @@
 package com.services;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.ejb.Remote;
 
+import com.entities.Familia;
 import com.entities.Usuario;
 import com.enumerated.tipoPerfil;
 import com.exception.ServiciosException;
@@ -27,6 +29,12 @@ public interface UsuarioBeanRemote {
 	boolean ValidarContrasena(String nomAcceso, String contrasena) throws ServiciosException;
 
 	void cambiarContrasena(String nomAcceso, String contrasena) throws ServiciosException;
+
+	Usuario getUsuario(Long id) throws ServiciosException;
+
+	List<Usuario> getAllUsuarios() throws ServiciosException;
+
+
 
 
 }

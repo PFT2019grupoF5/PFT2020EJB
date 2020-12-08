@@ -3,11 +3,15 @@ package com.services;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
+
+import com.entities.Familia;
 import com.entities.Usuario;
 import com.enumerated.tipoPerfil;
 import com.exception.ServiciosException;
 import java.util.LinkedList;
+import java.util.List;
 
 
 
@@ -130,5 +134,27 @@ public class UsuarioBean implements UsuarioBeanRemote {
 		}
 		return ContrasenaOk;
 	}
+	
+	@Override
+	public Usuario getUsuario(Long id) throws ServiciosException {
+		try{
+			Usuario usuario = em.find(Usuario.class, id);
+			return usuario;
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo encontrar el usuario");
+		}
+	}
+	
+	@Override
+	public List<Usuario> getAllUsuarios() throws ServiciosException {
+		try{		
+			TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u",Usuario.class); 
+			return query.getResultList();
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo obtener lista de usuarios");
+		}
+	}
+
+
 
 }

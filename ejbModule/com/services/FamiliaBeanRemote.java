@@ -1,6 +1,8 @@
 package com.services;
 
 import java.util.LinkedList;
+import java.util.List;
+
 import javax.ejb.Remote;
 import com.entities.Familia;
 import com.exception.ServiciosException;
@@ -27,6 +29,14 @@ public interface FamiliaBeanRemote {
 	LinkedList<Familia> getNombreLike(String nombre) throws ServiciosException;
 
 	LinkedList<Familia> getAll() throws ServiciosException;
+
+
+
+	Familia getFamilia(Long id) throws ServiciosException;
+
+
+
+	List<Familia> getAllFamilias() throws ServiciosException;
 
 	
 }
