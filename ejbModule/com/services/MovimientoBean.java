@@ -2,10 +2,12 @@ package com.services;
 
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import com.entities.Movimiento;
 import com.entities.Almacenamiento;
@@ -111,5 +113,25 @@ public class MovimientoBean implements MovimientoBeanRemote {
 		}
 		return movimientosList;
 	}
+	@Override
+	public Movimiento getMovimiento(Long id) throws ServiciosException {
+		try{		
+			Movimiento movimiento = em.find(Movimiento.class, id); 
+			return movimiento;
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo encontrar el movimiento");
+		}
+	}
+	
+	@Override
+	public List<Movimiento> getAllMovimientos() throws ServiciosException {
+		try{		
+			TypedQuery<Movimiento> query = em.createQuery("SELECT m FROM Movimiento m",Movimiento.class); 
+			return query.getResultList();
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo obtener lista de movimientos");
+		}
+	}
+	
 
 }

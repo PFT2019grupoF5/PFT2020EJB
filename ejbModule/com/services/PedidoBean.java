@@ -4,10 +4,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import com.entities.Pedido;
 import com.entities.Usuario;
@@ -146,5 +148,25 @@ public class PedidoBean implements PedidoBeanRemote {
 		return PedidosList;
 	}
 
+	@Override
+	public Pedido getPedido(Long id) throws ServiciosException {
+		try{		
+			Pedido pedido = em.find(Pedido.class, id); 
+			return pedido;
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo encontrar el almacenamiento");
+		}
+	}
+	
+	@Override
+	public List<Pedido> getAllPedidos() throws ServiciosException {
+		try{		
+			TypedQuery<Pedido> query = em.createQuery("SELECT pe FROM Pedido pe",Pedido.class); 
+			return query.getResultList();
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo obtener lista de pedidos");
+		}
+	}
+	
     
 }

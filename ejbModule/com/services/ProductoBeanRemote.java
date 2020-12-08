@@ -2,6 +2,7 @@ package com.services;
 
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.ejb.Remote;
 
@@ -34,6 +35,10 @@ public interface ProductoBeanRemote {
 	LinkedList<Producto> getAll() throws ServiciosException;
 	
 	Boolean validoBajaProductos(Producto producto) throws ServiciosException;
+
+	Producto getProducto(Long id) throws ServiciosException;
+
+	List<Producto> getAllProductos() throws ServiciosException;
 
 
 }

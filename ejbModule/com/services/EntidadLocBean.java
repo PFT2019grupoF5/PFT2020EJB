@@ -1,10 +1,12 @@
 package com.services;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import com.entities.Ciudad;
 import com.entities.EntidadLoc;
@@ -117,6 +119,27 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 		}
 		return EntidadesLocList;
 	}
+	@Override
+	public EntidadLoc getEntidadLoc(Long id) throws ServiciosException {
+		try{		
+			EntidadLoc entidadLoc = em.find(EntidadLoc.class, id); 
+			return entidadLoc;
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo encontrar el Local");
+		}
+	}
+	
+	@Override
+	public List<EntidadLoc> getAllEntidadesLoc() throws ServiciosException {
+		try{		
+			TypedQuery<EntidadLoc> query = em.createQuery("SELECT el FROM EntidadLoc el",EntidadLoc.class); 
+			return query.getResultList();
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo obtener lista de Locales");
+		}
+	}
+	
+	
 }
 
 

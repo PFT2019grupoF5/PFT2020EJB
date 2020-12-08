@@ -1,6 +1,7 @@
 package com.services;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.ejb.Remote;
 
@@ -23,6 +24,10 @@ public interface CiudadBeanRemote {
 	LinkedList<Ciudad> getNombreLike(String nombre) throws ServiciosException;
 
 	LinkedList<Ciudad> getAll() throws ServiciosException;
+
+	List<Ciudad> getAllCiudades() throws ServiciosException;
+
+	Ciudad getCiudad(Long id) throws ServiciosException;
 
 
 }

@@ -2,6 +2,7 @@ package com.services;
 
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.ejb.Remote;
 
@@ -28,5 +29,9 @@ public interface PedidoBeanRemote {
 	LinkedList<Pedido> getAll() throws ServiciosException;
 
 	LinkedList<Pedido> entreFechas(String fechaDesde, String fechaHasta) throws ServiciosException;
+
+	Pedido getPedido(Long id) throws ServiciosException;
+
+	List<Pedido> getAllPedidos() throws ServiciosException;
 
 }

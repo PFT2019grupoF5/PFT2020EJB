@@ -2,9 +2,12 @@ package com.services;
 
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import com.entities.Producto;
 import com.entities.Familia;
@@ -148,7 +151,26 @@ public class ProductoBean implements ProductoBeanRemote {
    			throw new ServiciosException(e.getMessage());
    		}
    	}
-
+   	@Override
+	public Producto getProducto(Long id) throws ServiciosException {
+		try{		
+			Producto producto = em.find(Producto.class, id); 
+			return producto;
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo encontrar el almacenamiento");
+		}
+	}
+	
+	@Override
+	public List<Producto> getAllProductos() throws ServiciosException {
+		try{		
+			TypedQuery<Producto> query = em.createQuery("SELECT p FROM Producto p",Producto.class); 
+			return query.getResultList();
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo obtener lista de productos");
+		}
+	}
+	
    	
    	
 }

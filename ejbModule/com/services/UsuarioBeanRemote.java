@@ -4,8 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.ejb.Remote;
-
-import com.entities.Familia;
 import com.entities.Usuario;
 import com.enumerated.tipoPerfil;
 import com.exception.ServiciosException;

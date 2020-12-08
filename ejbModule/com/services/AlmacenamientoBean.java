@@ -1,12 +1,13 @@
 package com.services;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
-
 import com.entities.Almacenamiento;
 import com.entities.EntidadLoc;
 import com.exception.ServiciosException;
@@ -105,6 +106,26 @@ public class AlmacenamientoBean implements AlmacenamientoBeanRemote {
 			throw new ServiciosException(e.getMessage());
 		}
 		return almacenamientosList;
+	}
+	
+	@Override
+	public Almacenamiento getAlmacenamiento(Long id) throws ServiciosException {
+		try{		
+			Almacenamiento almacenamiento = em.find(Almacenamiento.class, id); 
+			return almacenamiento;
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo encontrar el almacenamiento");
+		}
+	}
+	
+	@Override
+	public List<Almacenamiento> getAllAlmacenamientos() throws ServiciosException {
+		try{		
+			TypedQuery<Almacenamiento> query = em.createQuery("SELECT a FROM Almacenamiento a",Almacenamiento.class); 
+			return query.getResultList();
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo obtener lista de almacenamientos");
+		}
 	}
 
 

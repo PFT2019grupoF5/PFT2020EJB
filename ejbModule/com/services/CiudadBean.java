@@ -3,10 +3,12 @@ package com.services;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import com.entities.Ciudad;
 import com.exception.ServiciosException;
 import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -106,6 +108,27 @@ public class CiudadBean implements CiudadBeanRemote {
 			throw new ServiciosException(e.getMessage());
 		}
 		return CiudadesList;
+	}
+	
+	@Override
+	public Ciudad getCiudad(Long id) throws ServiciosException {
+		try{		
+			Ciudad ciudad = em.find(Ciudad.class, id); 
+			return ciudad;
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo encontrar la ciudad");
+		}
+	}
+	
+	@Override
+	public List<Ciudad> getAllCiudades() throws ServiciosException{
+		try {
+			TypedQuery<Ciudad> query = em.createQuery("SELECT c FROM Ciudad c", Ciudad.class);
+			return query.getResultList();
+		}catch(PersistenceException e) {
+			throw new ServiciosException("No se puede obtener lista de ciudades");
+		}
+		
 	}
 
 

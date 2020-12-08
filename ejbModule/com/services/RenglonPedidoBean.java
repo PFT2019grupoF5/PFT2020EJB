@@ -1,12 +1,13 @@
 package com.services;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
-
 import com.entities.Pedido;
 import com.entities.Producto;
 import com.entities.RenglonPedido;
@@ -91,4 +92,25 @@ public class RenglonPedidoBean implements RenglonPedidoBeanRemote {
    		}
    		return RenglonesPedidoList;
    	}
+   	
+   	@Override
+	public RenglonPedido getRenglonPedido(Long id) throws ServiciosException {
+		try{		
+			RenglonPedido renglonPedido = em.find(RenglonPedido.class, id); 
+			return renglonPedido;
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo encontrar el almacenamiento");
+		}
+	}
+	
+	@Override
+	public List<RenglonPedido> getAllRenglonesPedido() throws ServiciosException {
+		try{		
+			TypedQuery<RenglonPedido> query = em.createQuery("SELECT r FROM RenglonPedido r",RenglonPedido.class); 
+			return query.getResultList();
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo obtener lista de Renglones de Pedido");
+		}
+	}
+   	
 }

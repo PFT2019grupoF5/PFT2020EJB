@@ -2,6 +2,7 @@ package com.services;
 
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.ejb.Remote;
 
@@ -27,6 +28,10 @@ public interface MovimientoBeanRemote {
 	LinkedList<Movimiento> getAll() throws ServiciosException;
 
 	LinkedList<Movimiento> getMovLike(String descripcion) throws ServiciosException;
+
+	Movimiento getMovimiento(Long id) throws ServiciosException;
+
+	List<Movimiento> getAllMovimientos() throws ServiciosException;
 
 
 

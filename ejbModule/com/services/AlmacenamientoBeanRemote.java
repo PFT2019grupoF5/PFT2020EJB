@@ -1,6 +1,7 @@
 package com.services;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.ejb.Remote;
 
@@ -24,5 +25,9 @@ public interface AlmacenamientoBeanRemote {
 	LinkedList<Almacenamiento> getNombreLike(String nombre) throws ServiciosException;
 
 	LinkedList<Almacenamiento> getAll() throws ServiciosException;
+
+	List<Almacenamiento> getAllAlmacenamientos() throws ServiciosException;
+
+	Almacenamiento getAlmacenamiento(Long id) throws ServiciosException;
 
 }
