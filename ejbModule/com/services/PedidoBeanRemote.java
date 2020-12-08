@@ -34,4 +34,6 @@ public interface PedidoBeanRemote {
 
 	List<Pedido> getAllPedidos() throws ServiciosException;
 
+	List<Pedido> getPedidosEntreFechas(String fechaDesde, String fechaHasta) throws ServiciosException;
+
 }

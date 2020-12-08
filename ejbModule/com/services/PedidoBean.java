@@ -135,6 +135,34 @@ public class PedidoBean implements PedidoBeanRemote {
 	    return sDate;
 	}
 	
+	@Override
+	public List<Pedido> getPedidosEntreFechas(String fechaDesde, String fechaHasta) throws ServiciosException {
+		TypedQuery<Pedido> query = em.createNamedQuery("Pedido.entreFechas", Pedido.class).setParameter("fechaDesde", fechaDesde).setParameter("fechaHasta", fechaHasta);;
+		try {
+			try {
+	            SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
+	            Date fDesde = dateFormat.parse(fechaDesde);
+	            Date fHasta = dateFormat.parse(fechaHasta);
+
+		        java.sql.Date sqlfechaDesde = convert(fDesde);
+		        java.sql.Date sqlfechaHasta = convert(fHasta);
+
+				System.out.println("fechaDesde String:" + fDesde);
+				System.out.println("fechaHasta String:" + fHasta);
+				System.out.println("fechaDesde Date  :" + fDesde.toString());
+				System.out.println("fechaHasta Date  :" + fDesde.toString());
+				System.out.println("fechaDesde sql   :" + sqlfechaDesde.toString());
+				System.out.println("fechaHasta sql   :" + sqlfechaHasta.toString());
+				
+			} catch (ParseException ex) {
+			}
+			return (List<Pedido>) query.getResultList();
+		}catch (Exception e) {
+			throw new ServiciosException("No se pudo obtener reporte de pedidos entre fechas");
+		}
+	}
+
+	
 	
 	@Override
 	public LinkedList<Pedido> getAll() throws ServiciosException {
