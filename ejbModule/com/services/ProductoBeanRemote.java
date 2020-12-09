@@ -40,5 +40,9 @@ public interface ProductoBeanRemote {
 
 	List<Producto> getAllProductos() throws ServiciosException;
 
+	List<Producto> obtenerProductos();
+
+	void modificarProducto(Producto producto) throws ServiciosException;
+
 
 }

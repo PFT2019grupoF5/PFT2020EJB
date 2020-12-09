@@ -99,6 +99,8 @@ public class ProductoBean implements ProductoBeanRemote {
    			throw new ServiciosException(e.getMessage());
    		}
    		
+
+   		
    	}
    	
    	@Override
@@ -170,6 +172,65 @@ public class ProductoBean implements ProductoBeanRemote {
 			throw new ServiciosException("No se pudo obtener lista de productos");
 		}
 	}
+	
+	//Edit
+	
+	public List<Producto> obtenerProductos() {
+		try {
+
+			return em.createQuery("SELECT a FROM Producto a", Producto.class).getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public void modificarProducto(Producto producto) throws ServiciosException {
+
+		try {
+			// SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			// Date Dfelab = sdf.parse(producto.getFelab());
+			// Date Dfven = sdf.parse(fven);
+
+			Long id = producto.getId();
+			String nombre = producto.getNombre();
+			String lote = producto.getLote();
+			Date felab = producto.getFelab();
+			Date fven = producto.getFven();
+			Double precio = producto.getPrecio();
+			Double peso = producto.getPeso();
+			Double volumen = producto.getVolumen();
+			int estiba = producto.getEstiba();
+			Double stkMin = producto.getStkMin();
+			Double stkTotal = producto.getStkTotal();
+			Segmentacion segmentac = producto.getSegmentac();
+
+			Producto produc = em.createQuery("SELECT p from Producto p WHERE p.id = :id", Producto.class)
+					.setParameter("id", id).getSingleResult();
+			if (produc != null) {
+				produc.setNombre(nombre);
+				produc.setLote(lote);
+				produc.setFelab(felab);
+				produc.setFven(fven);
+				produc.setPrecio(precio);
+				produc.setPeso(peso);
+				produc.setVolumen(volumen);
+				produc.setEstiba(estiba);
+				produc.setStkMin(stkMin);
+				produc.setStkTotal(stkTotal);
+				produc.setSegmentac(segmentac);
+
+				this.em.flush();
+			}
+		} catch (PersistenceException e) {
+
+			throw new ServiciosException("No se puede modificar el producto");
+
+		}
+
+	}
+	//edit
+
 	
    	
    	
