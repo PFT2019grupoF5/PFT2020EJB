@@ -206,6 +206,8 @@ public class ProductoBean implements ProductoBeanRemote {
 			Double stkMin = producto.getStkMin();
 			Double stkTotal = producto.getStkTotal();
 			Segmentacion segmentac = producto.getSegmentac();
+			Usuario usuario = producto.getUsuario();
+			Familia familia = producto.getFamilia();
 
 			Producto produc = em.createQuery("SELECT p from Producto p WHERE p.id = :id", Producto.class)
 					.setParameter("id", id).getSingleResult();
@@ -221,7 +223,9 @@ public class ProductoBean implements ProductoBeanRemote {
 				produc.setStkMin(stkMin);
 				produc.setStkTotal(stkTotal);
 				produc.setSegmentac(segmentac);
-
+				produc.setUsuario(usuario);
+				produc.setFamilia(familia);
+				
 				this.em.flush();
 			}
 		} catch (PersistenceException e) {
