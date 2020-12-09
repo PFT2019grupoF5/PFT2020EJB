@@ -16,6 +16,8 @@ import javax.persistence.*;
 })
 public class Almacenamiento implements Serializable {
 	
+	//Comentario para Luis
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id

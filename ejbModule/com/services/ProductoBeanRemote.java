@@ -15,6 +15,8 @@ import com.exception.ServiciosException;
 
 @Remote
 public interface ProductoBeanRemote {
+	
+	//Comentario para Luis
 
 	void add(String nombre, String lote, double precio, Date felab, Date fven, double peso, double volumen, int estiba,
 			double stkMin, double stkTotal, Segmentacion segmentac, Usuario usuario, Familia familia)

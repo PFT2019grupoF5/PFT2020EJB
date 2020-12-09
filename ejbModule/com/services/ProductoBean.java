@@ -21,6 +21,8 @@ import com.exception.ServiciosException;
  */
 @Stateless
 public class ProductoBean implements ProductoBeanRemote {
+	
+	//Comentario para Luis
 
     /**
      * Default constructor. 
