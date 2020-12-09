@@ -17,7 +17,7 @@ import java.util.List;
 @Stateless
 public class FamiliaBean implements FamiliaBeanRemote {
 
-    /**
+    /*
      * Default constructor. 
      */
     public FamiliaBean() {
