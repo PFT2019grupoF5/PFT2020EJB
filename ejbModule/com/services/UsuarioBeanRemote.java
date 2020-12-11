@@ -1,8 +1,7 @@
 package com.services;
 
-import java.util.LinkedList;
-import java.util.List;
 
+import java.util.List;
 import javax.ejb.Remote;
 import com.entities.Usuario;
 import com.enumerated.tipoPerfil;
@@ -21,8 +20,6 @@ public interface UsuarioBeanRemote {
 	Usuario getNA(String nomAcceso) throws ServiciosException;
 
 	Usuario getId(Long id) throws ServiciosException;
-
-	LinkedList<Usuario> getAll() throws ServiciosException;
 
 	boolean ValidarContrasena(String nomAcceso, String contrasena) throws ServiciosException;
 

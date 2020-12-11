@@ -1,15 +1,12 @@
 package com.services;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
-import javax.persistence.TypedQuery;
-
+import com.DAOservices.UsuarioDAO;
 import com.entities.Usuario;
 import com.enumerated.tipoPerfil;
 import com.exception.ServiciosException;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -20,15 +17,14 @@ import java.util.List;
 @Stateless
 public class UsuarioBean implements UsuarioBeanRemote {
 
-    /*
-     * Default constructor. 
-     */
+    
+	@EJB
+	private UsuarioDAO usuarioDAO; 
+	
     public UsuarioBean() {
         // TODO Auto-generated constructor stub
     }
 
-	@PersistenceContext
-	private EntityManager em;
 	
 	@Override
 	public void add(String nombre, String apellido, String nomAcceso, String contrasena, String correo, tipoPerfil tipoPerfil) throws ServiciosException {
@@ -40,8 +36,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
 			u.setContrasena(contrasena);
 			u.setCorreo(correo);
 			u.setTipoPerfil(tipoPerfil);
-			em.persist(u);
-			em.flush();
+			usuarioDAO.add(u);
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
 		}
@@ -57,8 +52,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
 			u.setContrasena(contrasena);
 			u.setCorreo(correo);
 			u.setTipoPerfil(tipoPerfil);
-			em.merge(u);
-			em.flush();
+			usuarioDAO.update(id, u);
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
 		}
@@ -69,8 +63,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
 		try{
 			Usuario u = getNA(nomAcceso);
 			u.setContrasena(contrasena);
-			em.merge(u);
-			em.flush();
+			usuarioDAO.cambiarContrasena(nomAcceso, contrasena);
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
 		}
@@ -78,9 +71,8 @@ public class UsuarioBean implements UsuarioBeanRemote {
 
 	@Override
 	public void delete(Long id) throws ServiciosException {
-		try{			
-			em.remove(getId(id));
-			em.flush();
+		try{
+			usuarioDAO.delete(id);
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
 		}
@@ -89,9 +81,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	@Override
 	public Usuario getNA(String nomAcceso) throws ServiciosException {
 		try{
-			TypedQuery<Usuario> query =  em.createNamedQuery("Usuario.getNA", Usuario.class)
-					.setParameter("nomAcceso", nomAcceso);
-			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
+			return usuarioDAO.getNA(nomAcceso);
 		}catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
@@ -100,9 +90,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	@Override
 	public Usuario getId(Long id) throws ServiciosException {
 		try{
-			TypedQuery<Usuario> query =  em.createNamedQuery("Usuario.getId", Usuario.class)
-					.setParameter("id", id);
-			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
+			return usuarioDAO.getId(id);
 		}catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
@@ -110,19 +98,6 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	}
 	
 	
-	
-	@Override
-	public LinkedList<Usuario> getAll() throws ServiciosException {
-		LinkedList<Usuario> usuariosList = new LinkedList<>();
-		try {
-			TypedQuery<Usuario> query =  em.createNamedQuery("Usuario.getAll", Usuario.class);
-			usuariosList.addAll(query.getResultList());
-		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
-		}
-		return usuariosList;
-	}
-
 	@Override
 	public boolean ValidarContrasena(String nomAcceso, String contrasena) throws ServiciosException {
 		boolean ContrasenaOk = false;
@@ -137,8 +112,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	@Override
 	public Usuario getUsuario(Long id) throws ServiciosException {
 		try{
-			Usuario usuario = em.find(Usuario.class, id);
-			return usuario;
+			return usuarioDAO.getUsuario(id);
 		}catch(PersistenceException e){
 			throw new ServiciosException("No se pudo encontrar el usuario");
 		}
@@ -147,8 +121,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	@Override
 	public List<Usuario> getAllUsuarios() throws ServiciosException {
 		try{		
-			TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u",Usuario.class); 
-			return query.getResultList();
+			return usuarioDAO.getAllUsuarios();
 		}catch(PersistenceException e){
 			throw new ServiciosException("No se pudo obtener lista de usuarios");
 		}
