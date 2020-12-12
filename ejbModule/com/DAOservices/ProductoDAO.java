@@ -100,18 +100,6 @@ public class ProductoDAO {
 		}
 		
 
-		public Producto getProductoByNombre(String nombre) throws ServiciosException {
-	   		try{
-	   			TypedQuery<Producto> query =  em.createNamedQuery("Producto.getNombreLike", Producto.class)
-	   					.setParameter("nombre", nombre);
-	   			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
-	   		}catch (Exception e) {
-	   			throw new ServiciosException(e.getMessage());
-	   		}
-		   		
-	   	}
-		
-
 		public List<Producto> getAllProductos() throws ServiciosException {
 			try{		
 				TypedQuery<Producto> query = em.createNamedQuery("Producto.getAll",Producto.class); 

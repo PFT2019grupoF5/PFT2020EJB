@@ -25,6 +25,4 @@ public interface ProductoBeanRemote {
 
 	List<Producto> getAllProductos() throws ServiciosException;
 
-	Producto getProductoByNombre(String nombre) throws ServiciosException;
-
 }

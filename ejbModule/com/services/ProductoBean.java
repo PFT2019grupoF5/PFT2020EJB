@@ -56,9 +56,6 @@ public class ProductoBean implements ProductoBeanRemote {
    		}catch (Exception e) {
    			throw new ServiciosException(e.getMessage());
    		}
-   		
-
-   		
    	}
    	
    	@Override
@@ -85,15 +82,6 @@ public class ProductoBean implements ProductoBeanRemote {
 	public Producto getProducto(Long id) throws ServiciosException {
 		try{		
 			return productoDAO.getProducto(id);
-		}catch(PersistenceException e){
-			throw new ServiciosException("No se pudo encontrar el producto");
-		}
-	}
-	
-   	@Override
-	public Producto getProductoByNombre(String nombre) throws ServiciosException {
-		try{		
-			return productoDAO.getProductoByNombre(nombre);
 		}catch(PersistenceException e){
 			throw new ServiciosException("No se pudo encontrar el producto");
 		}
