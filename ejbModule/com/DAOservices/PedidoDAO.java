@@ -10,7 +10,12 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import com.entities.Pedido;
 import com.exception.ServiciosException;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 
+
+@Stateless
+@LocalBean
 public class PedidoDAO {
 	
 	public PedidoDAO() {

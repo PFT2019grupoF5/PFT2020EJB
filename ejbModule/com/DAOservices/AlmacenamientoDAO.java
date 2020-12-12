@@ -7,7 +7,12 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import com.entities.Almacenamiento;
 import com.exception.ServiciosException;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 
+
+@Stateless
+@LocalBean
 public class AlmacenamientoDAO {
 
     public AlmacenamientoDAO() {

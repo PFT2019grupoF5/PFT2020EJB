@@ -2,20 +2,18 @@ package com.DAOservices;
 
 
 import java.util.List;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import com.entities.RenglonPedido;
 import com.exception.ServiciosException;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 
-
-/**
- * Session Bean implementation class RenglonRenglonPedidoBean
- */
 
 @Stateless
+@LocalBean
 public class RenglonPedidoDAO {
 
 	    /**

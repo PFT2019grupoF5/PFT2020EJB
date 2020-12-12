@@ -9,7 +9,12 @@ import javax.persistence.TypedQuery;
 import com.entities.Movimiento;
 import com.entities.Producto;
 import com.exception.ServiciosException;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 
+
+@Stateless
+@LocalBean
 public class ProductoDAO {
 	
 	public ProductoDAO() {
