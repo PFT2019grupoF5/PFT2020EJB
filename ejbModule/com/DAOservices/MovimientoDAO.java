@@ -7,21 +7,18 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import com.entities.Movimiento;
 import com.exception.ServiciosException;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 
 @Stateless
-@LocalBean
 public class MovimientoDAO {
 
-    public MovimientoDAO() {
-    
-    }
-    
     @PersistenceContext
 	private EntityManager em;
 	
+    public MovimientoDAO() {
+        
+    }
 
 	public void add(Movimiento movimiento) throws ServiciosException {
 		try{
@@ -32,17 +29,9 @@ public class MovimientoDAO {
 		}
 	}
 
-	public void update(Long id, Movimiento movimiento) throws ServiciosException {
+	public void update(Movimiento movimiento) throws ServiciosException {
 		try{
-			Movimiento m = getId(id);
-			m.setFecha(movimiento.getFecha());
-			m.setCantidad(movimiento.getCantidad());
-			m.setDescripcion(movimiento.getDescripcion());
-			m.setCosto(movimiento.getCosto());
-			m.setTipoMov(movimiento.getTipoMov());
-			m.setProducto(movimiento.getProducto());
-			m.setAlmacenamiento(movimiento.getAlmacenamiento());
-			em.merge(m);
+			em.merge(movimiento);
 			em.flush();
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
@@ -51,7 +40,8 @@ public class MovimientoDAO {
 
 	public void delete(Long id) throws ServiciosException {
 		try{			
-			em.remove(getId(id));
+			Movimiento movimiento = em.find(Movimiento.class,  id);
+			em.remove(movimiento);
 			em.flush();
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
@@ -80,7 +70,7 @@ public class MovimientoDAO {
 	
 	public List<Movimiento> getAllMovimientos() throws ServiciosException {
 		try{		
-			TypedQuery<Movimiento> query = em.createQuery("Movimiento.getAll",Movimiento.class); 
+			TypedQuery<Movimiento> query = em.createNamedQuery("Movimiento.getAll",Movimiento.class); 
 			return query.getResultList();
 		}catch(PersistenceException e){
 			throw new ServiciosException("No se pudo obtener lista de movimientos");

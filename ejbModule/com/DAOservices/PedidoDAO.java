@@ -10,20 +10,16 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import com.entities.Pedido;
 import com.exception.ServiciosException;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
-
 @Stateless
-@LocalBean
 public class PedidoDAO {
-	
-	public PedidoDAO() {
 
-	}
-	
 	@PersistenceContext
 	private EntityManager em;
+
+	public PedidoDAO() {
+	}
 
 	public void add(Pedido pedido) throws ServiciosException {
 		try {
@@ -34,17 +30,9 @@ public class PedidoDAO {
 		}
 	}
 
-	public void update(Long id, Pedido pedido) throws ServiciosException {
+	public void update(Pedido pedido) throws ServiciosException {
 		try {
-			Pedido pe = getId(id);
-			pe.setPedfecestim(pedido.getPedfecestim());
-			pe.setFecha(pedido.getFecha());
-			pe.setPedreccodigo(pedido.getPedreccodigo());
-			pe.setPedrecfecha(pedido.getPedrecfecha());
-			pe.setPedreccomentario(pedido.getPedreccomentario());
-			pe.setPedestado(pedido.getPedestado());
-			pe.setUsuario(pedido.getUsuario());
-			em.merge(pe);
+			em.merge(pedido);
 			em.flush();
 		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
@@ -53,7 +41,8 @@ public class PedidoDAO {
 
 	public void delete(Long id) throws ServiciosException {
 		try {
-			em.remove(getId(id));
+			Pedido pedido = em.find(Pedido.class, id);
+			em.remove(pedido);
 			em.flush();
 		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
@@ -70,8 +59,6 @@ public class PedidoDAO {
 
 	}
 
-
-
 	public Pedido getPedido(Long id) throws ServiciosException {
 		try {
 			Pedido pedido = em.find(Pedido.class, id);
@@ -83,20 +70,19 @@ public class PedidoDAO {
 
 	public List<Pedido> getAllPedidos() throws ServiciosException {
 		try {
-			TypedQuery<Pedido> query = em.createQuery("Pedido.getAll", Pedido.class);
+			TypedQuery<Pedido> query = em.createNamedQuery("Pedido.getAll", Pedido.class);
 			return query.getResultList();
 		} catch (PersistenceException e) {
 			throw new ServiciosException("No se puede obtener lista de pedidos");
 		}
 
 	}
-	
+
 	private static java.sql.Date convert(java.util.Date uDate) {
-	    java.sql.Date sDate = new java.sql.Date(uDate.getTime());
-	    return sDate;
+		java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+		return sDate;
 	}
-	
-	
+
 	public List<Pedido> getPedidosEntreFechas(String fechaDesde, String fechaHasta) throws ServiciosException {
 		TypedQuery<Pedido> query = null;
 		try {
@@ -120,7 +106,5 @@ public class PedidoDAO {
 			throw new ServiciosException("No se pudo obtener reporte de pedidos entre fechas");
 		}
 	}
-	
-
 
 }

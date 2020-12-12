@@ -1,7 +1,6 @@
 package com.services;
 
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.PersistenceException;
 import com.DAOservices.FamiliaDAO;
@@ -10,37 +9,27 @@ import com.exception.ServiciosException;
 import java.util.List;
 
 @Stateless
-@LocalBean
 public class FamiliaBean implements FamiliaBeanRemote {
 
 	@EJB
 	private FamiliaDAO familiaDAO;
 
 	public FamiliaBean() {
-
 	}
 
 	@Override
-	public void add(String nombre, String descrip, String incompat) throws ServiciosException {
+	public void add(Familia familia) throws ServiciosException {
 		try {
-			Familia f = new Familia();
-			f.setNombre(nombre);
-			f.setDescrip(descrip);
-			f.setIncompat(incompat);
-			familiaDAO.add(f);
+			familiaDAO.add(familia);
 		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
 	}
 
 	@Override
-	public void update(Long id, String nombre, String descrip, String incompat) throws ServiciosException {
+	public void update(Familia familia) throws ServiciosException {
 		try {
-			Familia f = getId(id);
-			f.setNombre(nombre);
-			f.setDescrip(descrip);
-			f.setIncompat(incompat);
-			familiaDAO.update(id, f);
+			familiaDAO.update(familia);
 		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
@@ -78,7 +67,7 @@ public class FamiliaBean implements FamiliaBeanRemote {
 	@Override
 	public Familia getFamilia(Long id) throws ServiciosException {
 		try {
-			return familiaDAO.getId(id);
+			return familiaDAO.getFamilia(id);
 		} catch (PersistenceException e) {
 			throw new ServiciosException("No se pudo encontrar la familia");
 		}

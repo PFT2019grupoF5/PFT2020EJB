@@ -8,21 +8,19 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 
 @Stateless
-@LocalBean
 public class UsuarioDAO {
-
-	 public UsuarioDAO() {
-	        // TODO Auto-generated constructor stub
-	    }
 
 		@PersistenceContext
 		private EntityManager em;
 		
+		public UsuarioDAO() {
+		        // TODO Auto-generated constructor stub
+		}
+
 
 		public void add(Usuario usuario) throws ServiciosException {
 			try{
@@ -34,28 +32,9 @@ public class UsuarioDAO {
 		}
 
 
-		public void update(Long id, Usuario usuario) throws ServiciosException {
+		public void update(Usuario usuario) throws ServiciosException {
 			try{
-				Usuario u = getId(id);
-				u.setNombre(usuario.getNombre());
-				u.setApellido(usuario.getApellido());
-				u.setNomAcceso(usuario.getNomAcceso());
-				u.setContrasena(usuario.getContrasena());
-				u.setCorreo(usuario.getCorreo());
-				u.setTipoPerfil(usuario.getTipoPerfil());
-				em.merge(u);
-				em.flush();
-			} catch (Exception e){
-				throw new ServiciosException(e.getMessage());
-			}
-		}
-
-
-		public void cambiarContrasena(String nomAcceso, String contrasena) throws ServiciosException {
-			try{
-				Usuario u = getNA(nomAcceso);
-				u.setContrasena(contrasena);
-				em.merge(u);
+				em.merge(usuario);
 				em.flush();
 			} catch (Exception e){
 				throw new ServiciosException(e.getMessage());
@@ -65,7 +44,8 @@ public class UsuarioDAO {
 
 		public void delete(Long id) throws ServiciosException {
 			try{			
-				em.remove(getId(id));
+				Usuario usuario = em.find(Usuario.class,  id);
+				em.remove(usuario);
 				em.flush();
 			} catch (Exception e){
 				throw new ServiciosException(e.getMessage());
@@ -119,7 +99,7 @@ public class UsuarioDAO {
 
 		public List<Usuario> getAllUsuarios() throws ServiciosException {
 			try{		
-				TypedQuery<Usuario> query = em.createQuery("Usuario.getAll",Usuario.class); 
+				TypedQuery<Usuario> query = em.createNamedQuery("Usuario.getAll",Usuario.class); 
 				return query.getResultList();
 			}catch(PersistenceException e){
 				throw new ServiciosException("No se pudo obtener lista de usuarios");

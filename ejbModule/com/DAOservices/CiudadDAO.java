@@ -7,22 +7,20 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import com.entities.Ciudad;
 import com.exception.ServiciosException;
-
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 
 @Stateless
-@LocalBean
 public class CiudadDAO {
+
+	@PersistenceContext
+	private EntityManager em;
 
 	public CiudadDAO() {
 
 	}
 
-	@PersistenceContext
-	private EntityManager em;
-
+	
 	public void add(Ciudad ciudad) throws ServiciosException {
 		try {
 			em.persist(ciudad);
@@ -32,11 +30,9 @@ public class CiudadDAO {
 		}
 	}
 
-	public void update(Long id, Ciudad ciudad) throws ServiciosException {
+	public void update(Ciudad ciudad) throws ServiciosException {
 		try {
-			Ciudad c = getId(id);
-			c.setNombre(ciudad.getNombre());
-			em.merge(c);
+			em.merge(ciudad);
 			em.flush();
 		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
@@ -45,7 +41,8 @@ public class CiudadDAO {
 
 	public void delete(Long id) throws ServiciosException {
 		try {
-			em.remove(getId(id));
+			Ciudad ciudad = em.find(Ciudad.class, id);
+			em.remove(ciudad);
 			em.flush();
 		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
@@ -84,7 +81,7 @@ public class CiudadDAO {
 
 	public List<Ciudad> getAllCiudades() throws ServiciosException {
 		try {
-			TypedQuery<Ciudad> query = em.createQuery("Ciudad.getAll", Ciudad.class);
+			TypedQuery<Ciudad> query = em.createNamedQuery("Ciudad.getAll", Ciudad.class);
 			return query.getResultList();
 		} catch (PersistenceException e) {
 			throw new ServiciosException("No se puede obtener lista de ciudades");

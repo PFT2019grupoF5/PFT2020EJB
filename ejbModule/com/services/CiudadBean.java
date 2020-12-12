@@ -1,7 +1,6 @@
 package com.services;
 
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.PersistenceException;
 import com.DAOservices.CiudadDAO;
@@ -10,7 +9,6 @@ import com.exception.ServiciosException;
 import java.util.List;
 
 @Stateless
-@LocalBean
 public class CiudadBean implements CiudadBeanRemote {
 
 	@EJB
@@ -20,22 +18,18 @@ public class CiudadBean implements CiudadBeanRemote {
 	}
 
 	@Override
-	public void add(String nombre) throws ServiciosException {
+	public void add(Ciudad ciudad) throws ServiciosException {
 		try {
-			Ciudad c = new Ciudad();
-			c.setNombre(nombre);
-			ciudadDAO.add(c);
+			ciudadDAO.add(ciudad);
 		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
 	}
 
 	@Override
-	public void update(Long id, String nombre) throws ServiciosException {
+	public void update(Ciudad ciudad) throws ServiciosException {
 		try {
-			Ciudad c = getId(id);
-			c.setNombre(nombre);
-			ciudadDAO.update(id, c);
+			ciudadDAO.update(ciudad);
 		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
@@ -53,7 +47,6 @@ public class CiudadBean implements CiudadBeanRemote {
 	@Override
 	public Ciudad getId(Long id) throws ServiciosException {
 		try {
-
 			return ciudadDAO.getCiudad(id);
 		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
@@ -74,8 +67,7 @@ public class CiudadBean implements CiudadBeanRemote {
 	@Override
 	public Ciudad getCiudad(Long id) throws ServiciosException {
 		try {
-
-			return ciudadDAO.getId(id);
+			return ciudadDAO.getCiudad(id);
 		} catch (PersistenceException e) {
 			throw new ServiciosException("No se pudo encontrar la ciudad");
 		}
@@ -84,7 +76,6 @@ public class CiudadBean implements CiudadBeanRemote {
 	@Override
 	public List<Ciudad> getAllCiudades() throws ServiciosException {
 		try {
-
 			return ciudadDAO.getAllCiudades();
 		} catch (PersistenceException e) {
 			throw new ServiciosException("No se puede obtener lista de ciudades");

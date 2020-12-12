@@ -8,9 +8,9 @@ import com.exception.ServiciosException;
 @Remote
 public interface CiudadBeanRemote {
 
-	void add(String nombre) throws ServiciosException;
+	void add(Ciudad ciudad) throws ServiciosException;
 
-	void update(Long id, String nombre) throws ServiciosException;
+	void update(Ciudad ciudad) throws ServiciosException;
 
 	void delete(Long id) throws ServiciosException;
 

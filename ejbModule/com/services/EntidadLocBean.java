@@ -2,17 +2,13 @@ package com.services;
 
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.PersistenceException;
 import com.DAOservices.EntidadLocDAO;
-import com.entities.Ciudad;
 import com.entities.EntidadLoc;
-import com.enumerated.tipoLoc;
 import com.exception.ServiciosException;
 
 @Stateless
-@LocalBean
 public class EntidadLocBean implements EntidadLocBeanRemote {
 
 	@EJB
@@ -22,33 +18,20 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
         
     }
 
- 
 	
 	@Override
-	public void add(int codigo, String nombre, String direccion, tipoLoc tipoLoc, Ciudad ciudad) throws ServiciosException {
+	public void add(EntidadLoc entidadLoc) throws ServiciosException {
 		try{
-			EntidadLoc el = new EntidadLoc();
-			el.setCodigo(codigo);
-			el.setNombre(nombre);
-			el.setDireccion(direccion);
-			el.setTipoloc(tipoLoc);
-			el.setCiudad(ciudad);
-			entidadLocDAO.add(el);
+			entidadLocDAO.add(entidadLoc);
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
 		}
 	}
 
 	@Override
-	public void update(Long id, int codigo ,String nombre, String direccion, tipoLoc tipoLoc, Ciudad ciudad) throws ServiciosException {
+	public void update(EntidadLoc entidadLoc) throws ServiciosException {
 		try{
-			EntidadLoc el = getId(id);
-			el.setCodigo(codigo);
-			el.setNombre(nombre);
-			el.setDireccion(direccion);
-			el.setTipoloc(tipoLoc);
-			el.setCiudad(ciudad);
-			entidadLocDAO.update(id, el);
+			entidadLocDAO.update(entidadLoc);
 
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
@@ -89,7 +72,7 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 	@Override
 	public EntidadLoc getEntidadLoc(Long id) throws ServiciosException {
 		try{		
-			return entidadLocDAO.getId(id);
+			return entidadLocDAO.getEntidadLoc(id);
 		}catch(PersistenceException e){
 			throw new ServiciosException("No se pudo encontrar el Local");
 		}

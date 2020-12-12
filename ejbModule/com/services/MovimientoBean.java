@@ -1,6 +1,5 @@
 package com.services;
 
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -8,9 +7,6 @@ import javax.ejb.Stateless;
 import javax.persistence.PersistenceException;
 import com.entities.Movimiento;
 import com.DAOservices.MovimientoDAO;
-import com.entities.Almacenamiento;
-import com.entities.Producto;
-import com.enumerated.tipoMovimiento;
 import com.exception.ServiciosException;
 
 @Stateless
@@ -26,34 +22,18 @@ public class MovimientoBean implements MovimientoBeanRemote {
 
     
 	@Override
-	public void add(Date fecha, int cantidad, String descripcion, double costo, tipoMovimiento tipoMov, Producto producto, Almacenamiento almacenamiento) throws ServiciosException {
+	public void add(Movimiento movimiento) throws ServiciosException {
 		try{
-			Movimiento m = new Movimiento();
-			m.setFecha(fecha);
-			m.setCantidad(cantidad);
-			m.setDescripcion(descripcion);
-			m.setCosto(costo);
-			m.setTipoMov(tipoMov);
-			m.setProducto(producto);
-			m.setAlmacenamiento(almacenamiento);
-			movimientoDAO.add(m);
+			movimientoDAO.add(movimiento);
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
 		}
 	}
 
 	@Override
-	public void update(Long id, Date fecha, int cantidad, String descripcion, double costo, tipoMovimiento tipoMov, Producto producto, Almacenamiento almacenamiento) throws ServiciosException {
+	public void update(Movimiento movimiento) throws ServiciosException {
 		try{
-			Movimiento m = getId(id);
-			m.setFecha(fecha);
-			m.setCantidad(cantidad);
-			m.setDescripcion(descripcion);
-			m.setCosto(costo);
-			m.setTipoMov(tipoMov);
-			m.setProducto(producto);
-			m.setAlmacenamiento(almacenamiento);
-			movimientoDAO.update(id, m);
+			movimientoDAO.update(movimiento);
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
 		}
@@ -81,7 +61,7 @@ public class MovimientoBean implements MovimientoBeanRemote {
 	@Override
 	public Movimiento getMovimiento(Long id) throws ServiciosException {
 		try{		
-			return movimientoDAO.getId(id);
+			return movimientoDAO.getMovimiento(id);
 		}catch(PersistenceException e){
 			throw new ServiciosException("No se pudo encontrar el movimiento");
 		}

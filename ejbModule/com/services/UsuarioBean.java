@@ -1,18 +1,15 @@
 package com.services;
 
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.PersistenceException;
 import com.DAOservices.UsuarioDAO;
 import com.entities.Usuario;
-import com.enumerated.tipoPerfil;
 import com.exception.ServiciosException;
 import java.util.List;
 
 
 @Stateless
-@LocalBean
 public class UsuarioBean implements UsuarioBeanRemote {
 
     
@@ -25,47 +22,23 @@ public class UsuarioBean implements UsuarioBeanRemote {
 
 	
 	@Override
-	public void add(String nombre, String apellido, String nomAcceso, String contrasena, String correo, tipoPerfil tipoPerfil) throws ServiciosException {
+	public void add(Usuario usuario) throws ServiciosException {
 		try{
-			Usuario u = new Usuario();
-			u.setNombre(nombre);
-			u.setApellido(apellido);
-			u.setNomAcceso(nomAcceso);
-			u.setContrasena(contrasena);
-			u.setCorreo(correo);
-			u.setTipoPerfil(tipoPerfil);
-			usuarioDAO.add(u);
+			usuarioDAO.add(usuario);
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
 		}
 	}
 
 	@Override
-	public void update(Long id, String nombre, String apellido, String nomAcceso, String contrasena, String correo, tipoPerfil tipoPerfil) throws ServiciosException {
+	public void update(Usuario usuario) throws ServiciosException {
 		try{
-			Usuario u = getId(id);
-			u.setNombre(nombre);
-			u.setApellido(apellido);
-			u.setNomAcceso(nomAcceso);
-			u.setContrasena(contrasena);
-			u.setCorreo(correo);
-			u.setTipoPerfil(tipoPerfil);
-			usuarioDAO.update(id, u);
+			usuarioDAO.update(usuario);
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
 		}
 	}
 
-	@Override
-	public void cambiarContrasena(String nomAcceso, String contrasena) throws ServiciosException {
-		try{
-			Usuario u = getNA(nomAcceso);
-			u.setContrasena(contrasena);
-			usuarioDAO.cambiarContrasena(nomAcceso, contrasena);
-		} catch (Exception e){
-			throw new ServiciosException(e.getMessage());
-		}
-	}
 
 	@Override
 	public void delete(Long id) throws ServiciosException {

@@ -9,21 +9,19 @@ import javax.persistence.TypedQuery;
 import com.entities.Movimiento;
 import com.entities.Producto;
 import com.exception.ServiciosException;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 
 @Stateless
-@LocalBean
 public class ProductoDAO {
-	
-	public ProductoDAO() {
-		
-	}
 	
 	 @PersistenceContext
 	   	private EntityManager em;
 	   	
+		public ProductoDAO() {
+			
+		}
+		
 
 	   	public void add(Producto producto) throws ServiciosException {
 	   		try{
@@ -35,23 +33,9 @@ public class ProductoDAO {
 	   	}
 
 
-	   	public void update(Long id, Producto producto) throws ServiciosException {
+	   	public void update(Producto producto) throws ServiciosException {
 	   		try{
-	   			Producto p = getId(id);
-	   			p.setNombre(producto.getNombre());
-	   			p.setLote(producto.getLote());
-	   			p.setPrecio(producto.getPrecio());
-	   			p.setFelab(producto.getFelab());
-	   			p.setFven(producto.getFven());
-	   			p.setPeso(producto.getPeso());
-	   			p.setVolumen(producto.getVolumen());
-	   			p.setEstiba(producto.getEstiba());
-	   			p.setStkMin(producto.getStkMin());
-	   			p.setStkTotal(producto.getStkTotal());
-	   			p.setSegmentac(producto.getSegmentac());
-	   			p.setUsuario(producto.getUsuario());
-	   			p.setFamilia(producto.getFamilia());
-	   			em.merge(p);
+	   			em.merge(producto);
 	   			em.flush();
 	   		} catch (Exception e){
 	   			throw new ServiciosException(e.getMessage());
@@ -60,8 +44,9 @@ public class ProductoDAO {
 
 
 	   	public void delete(Long id) throws ServiciosException {
-	   		try{			
-	   			em.remove(getId(id));
+	   		try{
+	   			Producto producto = em.find(Producto.class,  id);
+	   			em.remove(producto);
 	   			em.flush();
 	   		} catch (Exception e){
 	   			throw new ServiciosException(e.getMessage());
@@ -117,7 +102,7 @@ public class ProductoDAO {
 
 		public List<Producto> getAllProductos() throws ServiciosException {
 			try{		
-				TypedQuery<Producto> query = em.createQuery("Producto.getAll",Producto.class); 
+				TypedQuery<Producto> query = em.createNamedQuery("Producto.getAll",Producto.class); 
 				return query.getResultList();
 			}catch(PersistenceException e){
 				throw new ServiciosException("No se pudo obtener lista de productos");

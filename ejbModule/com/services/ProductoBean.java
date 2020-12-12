@@ -27,46 +27,18 @@ public class ProductoBean implements ProductoBeanRemote {
     }
   
    	@Override
-   	public void add(String nombre, String lote, double precio, Date felab, Date fven, double peso, double volumen, int estiba, double stkMin, double stkTotal, Segmentacion segmentac, Usuario usuario, Familia familia) throws ServiciosException {
+   	public void add(Producto producto) throws ServiciosException {
    		try{
-   			Producto p = new Producto();
-   			p.setNombre(nombre);
-   			p.setLote(lote);
-   			p.setPrecio(precio);
-   			p.setFelab(felab);
-   			p.setFven(fven);
-   			p.setPeso(peso);
-   			p.setVolumen(volumen);
-   			p.setEstiba(estiba);
-   			p.setStkMin(stkMin);
-   			p.setStkTotal(stkTotal);
-   			p.setSegmentac(segmentac);
-   			p.setUsuario(usuario);
-   			p.setFamilia(familia);
-   			productoDAO.add(p);
+   			productoDAO.add(producto);
    		} catch (Exception e){
    			throw new ServiciosException(e.getMessage());
    		}
    	}
 
    	@Override
-   	public void update(Long id, String nombre, String lote, double precio, Date felab, Date fven, double peso, double volumen, int estiba, double stkMin, double stkTotal, Segmentacion segmentac, Usuario usuario, Familia familia) throws ServiciosException {
+   	public void update(Producto producto) throws ServiciosException {
    		try{
-   			Producto p = getId(id);
-   			p.setNombre(nombre);
-   			p.setLote(lote);
-   			p.setPrecio(precio);
-   			p.setFelab(felab);
-   			p.setFven(fven);
-   			p.setPeso(peso);
-   			p.setVolumen(volumen);
-   			p.setEstiba(estiba);
-   			p.setStkMin(stkMin);
-   			p.setStkTotal(stkTotal);
-   			p.setSegmentac(segmentac);
-   			p.setUsuario(usuario);
-   			p.setFamilia(familia);
-   			productoDAO.update(id, p);
+   			productoDAO.update(producto);
    		} catch (Exception e){
    			throw new ServiciosException(e.getMessage());
    		}
@@ -84,7 +56,7 @@ public class ProductoBean implements ProductoBeanRemote {
    	@Override
    	public Producto getId(Long id) throws ServiciosException {
    		try{
-   			return productoDAO.getProducto(id);
+   			return productoDAO.getId(id);
    		}catch (Exception e) {
    			throw new ServiciosException(e.getMessage());
    		}
@@ -115,7 +87,7 @@ public class ProductoBean implements ProductoBeanRemote {
    	@Override
 	public Producto getProducto(Long id) throws ServiciosException {
 		try{		
-			return productoDAO.getId(id);
+			return productoDAO.getProducto(id);
 		}catch(PersistenceException e){
 			throw new ServiciosException("No se pudo encontrar el almacenamiento");
 		}

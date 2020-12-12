@@ -8,24 +8,19 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import com.entities.RenglonPedido;
 import com.exception.ServiciosException;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 
 @Stateless
-@LocalBean
 public class RenglonPedidoDAO {
 
-	    /**
-	     * Default constructor. 
-	     */
+    @PersistenceContext
+   	private EntityManager em;
+  	
 	    public RenglonPedidoDAO() {
 	        // TODO Auto-generated constructor stub
 	    }
 
-	    @PersistenceContext
-	   	private EntityManager em;
-	   	
 	   	public void add(RenglonPedido renglonPedido) throws ServiciosException {
 	   		try{
 	   			em.persist(renglonPedido);
@@ -35,14 +30,9 @@ public class RenglonPedidoDAO {
 	   		}
 	   	}
 
-	   	public void update(Long id, RenglonPedido renglonPedido) throws ServiciosException {
+	   	public void update(RenglonPedido renglonPedido) throws ServiciosException {
 	   		try{
-	   			RenglonPedido r = getId(id);
-	   			r.setRennro(renglonPedido.getRennro());
-	   			r.setRencant(renglonPedido.getRencant());
-	   			r.setProducto(renglonPedido.getProducto());
-	   			r.setPedido(renglonPedido.getPedido());
-	   			em.merge(r);
+	   			em.merge(renglonPedido);
 	   			em.flush();
 	   		} catch (Exception e){
 	   			throw new ServiciosException(e.getMessage());
@@ -81,7 +71,7 @@ public class RenglonPedidoDAO {
 
 		public List<RenglonPedido> getAllRenglonesPedidos() throws ServiciosException {
 			try{		
-				TypedQuery<RenglonPedido> query = em.createQuery("RenglonPedido.getAll",RenglonPedido.class); 
+				TypedQuery<RenglonPedido> query = em.createNamedQuery("RenglonPedido.getAll",RenglonPedido.class); 
 				return query.getResultList();
 			}catch(PersistenceException e){
 				throw new ServiciosException("No se pudo obtener lista de Renglones de Pedido");

@@ -7,21 +7,19 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import com.entities.EntidadLoc;
 import com.exception.ServiciosException;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 
 @Stateless
-@LocalBean
 public class EntidadLocDAO {
 
+
+		@PersistenceContext
+		private EntityManager em;
 
 		public EntidadLocDAO() {
 
 		}
-
-		@PersistenceContext
-		private EntityManager em;
 
 		public void add(EntidadLoc entidadLoc) throws ServiciosException {
 			try {
@@ -32,15 +30,9 @@ public class EntidadLocDAO {
 			}
 		}
 
-		public void update(Long id, EntidadLoc entidadLoc) throws ServiciosException {
+		public void update(EntidadLoc entidadLoc) throws ServiciosException {
 			try {
-				EntidadLoc el = new EntidadLoc();
-				el.setCodigo(entidadLoc.getCodigo());
-				el.setNombre(entidadLoc.getNombre());
-				el.setDireccion(entidadLoc.getDireccion());
-				el.setTipoloc(entidadLoc.getTipoloc());
-				el.setCiudad(entidadLoc.getCiudad());
-				em.merge(el);
+				em.merge(entidadLoc);
 				em.flush();
 			} catch (Exception e) {
 				throw new ServiciosException(e.getMessage());
@@ -49,7 +41,8 @@ public class EntidadLocDAO {
 
 		public void delete(Long id) throws ServiciosException {
 			try {
-				em.remove(getId(id));
+				EntidadLoc entidadLoc = new EntidadLoc();
+				em.remove(entidadLoc);
 				em.flush();
 			} catch (Exception e) {
 				throw new ServiciosException(e.getMessage());
@@ -88,7 +81,7 @@ public class EntidadLocDAO {
 
 		public List<EntidadLoc> getAllEntidadLoc() throws ServiciosException {
 			try {
-				TypedQuery<EntidadLoc> query = em.createQuery("EntidadLoc.getAll", EntidadLoc.class);
+				TypedQuery<EntidadLoc> query = em.createNamedQuery("EntidadLoc.getAll", EntidadLoc.class);
 				return query.getResultList();
 			} catch (PersistenceException e) {
 				throw new ServiciosException("No se puede obtener lista de locales");

@@ -8,9 +8,9 @@ import com.exception.ServiciosException;
 @Remote
 public interface FamiliaBeanRemote {
 
-	void add(String nombre, String descrip, String incompat) throws ServiciosException;
+	void add(Familia familia) throws ServiciosException;
 
-	void update(Long id, String nombre, String descrip, String incompat) throws ServiciosException;
+	void update(Familia familia) throws ServiciosException;
 
 	void delete(Long id) throws ServiciosException;
 

@@ -7,20 +7,19 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import com.entities.Familia;
 import com.exception.ServiciosException;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 
 @Stateless
-@LocalBean
 public class FamiliaDAO {
+
+	@PersistenceContext
+	private EntityManager em;
 
 	public FamiliaDAO() {
 
 	}
 
-	@PersistenceContext
-	private EntityManager em;
 
 	public void add(Familia familia) throws ServiciosException {
 		try {
@@ -31,13 +30,9 @@ public class FamiliaDAO {
 		}
 	}
 
-	public void update(Long id, Familia familia) throws ServiciosException {
+	public void update(Familia familia) throws ServiciosException {
 		try {
-			Familia f = getId(id);
-			f.setNombre(familia.getNombre());
-			f.setDescrip(familia.getDescrip());
-			f.setIncompat(familia.getIncompat());
-			em.merge(f);
+			em.merge(familia);
 			em.flush();
 		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
@@ -46,7 +41,8 @@ public class FamiliaDAO {
 
 	public void delete(Long id) throws ServiciosException {
 		try {
-			em.remove(getId(id));
+			Familia familia = em.find(Familia.class, id);
+			em.remove(familia);
 			em.flush();
 		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
@@ -85,7 +81,7 @@ public class FamiliaDAO {
 
 	public List<Familia> getAllFamilias() throws ServiciosException {
 		try {
-			TypedQuery<Familia> query = em.createQuery("Familia.getAll", Familia.class);
+			TypedQuery<Familia> query = em.createNamedQuery("Familia.getAll", Familia.class);
 			return query.getResultList();
 		} catch (PersistenceException e) {
 			throw new ServiciosException("No se puede obtener lista de familias");
