@@ -1,16 +1,11 @@
 package com.services;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
-
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
-import javax.persistence.TypedQuery;
+import com.DAOservices.PedidoDAO;
 import com.entities.Pedido;
 import com.entities.Usuario;
 import com.enumerated.estadoPedido;
@@ -22,15 +17,13 @@ import com.exception.ServiciosException;
 @Stateless
 public class PedidoBean implements PedidoBeanRemote {
 
-    /**
-     * Default constructor. 
-     */
-    public PedidoBean() {
-        // TODO Auto-generated constructor stub
+	@EJB
+	private PedidoDAO pedidoDAO;
+    
+	public PedidoBean() {
+    
     }
 
-    @PersistenceContext
-	private EntityManager em;
 	
 	@Override
 	public void add(Date pedfecestim, Date fecha, int pedreccodigo, Date pedrecfecha, String pedreccomentario, estadoPedido pedestado, Usuario usuario) throws ServiciosException {
@@ -43,8 +36,7 @@ public class PedidoBean implements PedidoBeanRemote {
 			pe.setPedreccomentario(pedreccomentario);
 			pe.setPedestado(pedestado);
 			pe.setUsuario(usuario);
-			em.persist(pe);
-			em.flush();
+			pedidoDAO.add(pe);
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
 		}
@@ -61,8 +53,7 @@ public class PedidoBean implements PedidoBeanRemote {
 			pe.setPedreccomentario(pedreccomentario);
 			pe.setPedestado(pedestado);
 			pe.setUsuario(usuario);
-			em.merge(pe);
-			em.flush();
+			pedidoDAO.update(id, pe);
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
 		}
@@ -71,8 +62,7 @@ public class PedidoBean implements PedidoBeanRemote {
 	@Override
 	public void delete(Long id) throws ServiciosException {
 		try{			
-			em.remove(getId(id));
-			em.flush();
+			pedidoDAO.delete(id);
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
 		}
@@ -81,113 +71,42 @@ public class PedidoBean implements PedidoBeanRemote {
 	@Override
 	public Pedido getId(Long id) throws ServiciosException {
 		try{
-			TypedQuery<Pedido> query =  em.createNamedQuery("Pedido.getId", Pedido.class)
-					.setParameter("id", id);
-			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
+			return pedidoDAO.getPedido(id);
 		}catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
 		
 	}
-	@Override
-	public LinkedList<Pedido> getComLike(String pedreccomentario) throws ServiciosException {
-		LinkedList<Pedido> PedidosList = new LinkedList<>();
-		try {
-			TypedQuery<Pedido> query =  em.createNamedQuery("Pedido.getComLike", Pedido.class)
-			.setParameter("pedreccomentario", "%"+pedreccomentario.toUpperCase()+"%");;
-			PedidosList.addAll(query.getResultList());
-		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
-		}
-		return PedidosList;
-	}
-	
-	// Pedido.entreFechas
-	
-	@Override
-	public LinkedList<Pedido> entreFechas(String fechaDesde, String fechaHasta) throws ServiciosException {
-		TypedQuery<Pedido> query = em.createNamedQuery("Pedido.entreFechas", Pedido.class).setParameter("fechaDesde", fechaDesde).setParameter("fechaHasta", fechaHasta);;
-		try {
-			try {
-	            SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
-	            Date fDesde = dateFormat.parse(fechaDesde);
-	            Date fHasta = dateFormat.parse(fechaHasta);
 
-		        java.sql.Date sqlfechaDesde = convert(fDesde);
-		        java.sql.Date sqlfechaHasta = convert(fHasta);
-
-				System.out.println("fechaDesde String:" + fDesde);
-				System.out.println("fechaHasta String:" + fHasta);
-				System.out.println("fechaDesde Date  :" + fDesde.toString());
-				System.out.println("fechaHasta Date  :" + fDesde.toString());
-				System.out.println("fechaDesde sql   :" + sqlfechaDesde.toString());
-				System.out.println("fechaHasta sql   :" + sqlfechaHasta.toString());
-				
-			} catch (ParseException ex) {
-			}
-			return (LinkedList<Pedido>) query.getResultList();
-		}catch (Exception e) {
-			throw new ServiciosException("No se pudo obtener reporte de pedidos entre fechas");
-		}
-	}
-	private static java.sql.Date convert(java.util.Date uDate) {
-	    java.sql.Date sDate = new java.sql.Date(uDate.getTime());
-	    return sDate;
-	}
 	
+	
+
 	@Override
 	public List<Pedido> getPedidosEntreFechas(String fechaDesde, String fechaHasta) throws ServiciosException {
-		TypedQuery<Pedido> query = null;
-		try {
-			try {
-				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				Date fDesde = dateFormat.parse(fechaDesde);
-				Date fHasta = dateFormat.parse(fechaHasta);
-
-				java.sql.Date sqlfechaDesde = convert(fDesde);
-				java.sql.Date sqlfechaHasta = convert(fHasta);
-
-				query = em.createNamedQuery("Pedido.entreFechas", Pedido.class)
-						.setParameter("fechaDesde", sqlfechaDesde).setParameter("fechaHasta", sqlfechaHasta);
-				;
-
-			} catch (ParseException ex) {
-				throw new ServiciosException("No se pudo parsear fechas");
-			}
-			return query.getResultList();
+		try {			
+			return pedidoDAO.getPedidosEntreFechas(fechaDesde, fechaHasta);
+				
 		} catch (Exception e) {
 			throw new ServiciosException("No se pudo obtener reporte de pedidos entre fechas");
 		}
 	}
 	
 	
-	@Override
-	public LinkedList<Pedido> getAll() throws ServiciosException {
-		LinkedList<Pedido> PedidosList = new LinkedList<>();
-		try {
-			TypedQuery<Pedido> query =  em.createNamedQuery("Pedido.getAll", Pedido.class);
-			PedidosList.addAll(query.getResultList());
-		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
-		}
-		return PedidosList;
-	}
 
 	@Override
 	public Pedido getPedido(Long id) throws ServiciosException {
 		try{		
-			Pedido pedido = em.find(Pedido.class, id); 
-			return pedido;
+			
+			return pedidoDAO.getId(id);
 		}catch(PersistenceException e){
-			throw new ServiciosException("No se pudo encontrar el almacenamiento");
+			throw new ServiciosException("No se pudo encontrar el pedido");
 		}
 	}
 	
 	@Override
 	public List<Pedido> getAllPedidos() throws ServiciosException {
-		try{		
-			TypedQuery<Pedido> query = em.createQuery("SELECT pe FROM Pedido pe",Pedido.class); 
-			return query.getResultList();
+		try{					
+			return pedidoDAO.getAllPedidos();
 		}catch(PersistenceException e){
 			throw new ServiciosException("No se pudo obtener lista de pedidos");
 		}

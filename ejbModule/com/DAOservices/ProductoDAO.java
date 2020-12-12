@@ -1,7 +1,6 @@
 package com.DAOservices;
 
 
-import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -87,34 +86,7 @@ public class ProductoDAO {
 	   		}
 	   		
 	   	}
-
 	   	
-
-	   	public LinkedList<Producto> getNombreLike(String nombre) throws ServiciosException {
-	   		LinkedList<Producto> ProductosList = new LinkedList<>();
-	   		try {
-	   			TypedQuery<Producto> query =  em.createNamedQuery("Producto.getNombreLike", Producto.class)
-	   					.setParameter("nombre", "%"+nombre.toUpperCase()+"%");;
-	   			ProductosList.addAll(query.getResultList());
-	   		} catch (Exception e) {
-	   			throw new ServiciosException(e.getMessage());
-	   		}
-	   		return ProductosList;
-	   	}
-	   	
-
-	   	public LinkedList<Producto> getAll() throws ServiciosException {
-	   		LinkedList<Producto> ProductosList = new LinkedList<>();
-	   		try {
-	   			TypedQuery<Producto> query =  em.createNamedQuery("Producto.getAll", Producto.class);
-	   			ProductosList.addAll(query.getResultList());
-	   		} catch (Exception e) {
-	   			throw new ServiciosException(e.getMessage());
-	   		}
-	   		return ProductosList;
-	   	}
-
-
 
 		public Boolean validoBajaProductos(Producto producto) throws ServiciosException {
 			
@@ -127,6 +99,7 @@ public class ProductoDAO {
 	   		}
 	   	}
 
+		
 		public Producto getProducto(Long id) throws ServiciosException {
 			try{		
 				Producto producto = em.find(Producto.class, id); 
@@ -145,17 +118,6 @@ public class ProductoDAO {
 				throw new ServiciosException("No se pudo obtener lista de productos");
 			}
 		}
-		
-	////// que usa obtenerProductos()
-		
-		/*public List<Producto> obtenerProductos() {
-			try {
-				return em.createQuery("Producto.getAll", Producto.class).getResultList();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return null;
-		}*/
 		
 		
 }

@@ -1,140 +1,94 @@
 package com.services;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
-import javax.persistence.TypedQuery;
+import com.DAOservices.FamiliaDAO;
 import com.entities.Familia;
 import com.exception.ServiciosException;
-import java.util.LinkedList;
 import java.util.List;
 
-
-/**
- * Session Bean implementation class FamiliaBean
- */
 @Stateless
 public class FamiliaBean implements FamiliaBeanRemote {
 
-    /*
-     * Default constructor. 
-     */
-    public FamiliaBean() {
-        // TODO Auto-generated constructor stub
-    }
+	@EJB
+	private FamiliaDAO familiaDAO;
 
-	@PersistenceContext
-	private EntityManager em;
-	
+	public FamiliaBean() {
+
+	}
+
 	@Override
 	public void add(String nombre, String descrip, String incompat) throws ServiciosException {
-		try{
+		try {
 			Familia f = new Familia();
 			f.setNombre(nombre);
 			f.setDescrip(descrip);
 			f.setIncompat(incompat);
-			em.persist(f);
-			em.flush();
-		} catch (Exception e){
+			familiaDAO.add(f);
+		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
 	}
 
 	@Override
 	public void update(Long id, String nombre, String descrip, String incompat) throws ServiciosException {
-		try{
+		try {
 			Familia f = getId(id);
 			f.setNombre(nombre);
 			f.setDescrip(descrip);
 			f.setIncompat(incompat);
-			em.merge(f);
-			em.flush();
-		} catch (Exception e){
+			familiaDAO.update(id, f);
+		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
 	}
 
 	@Override
 	public void delete(Long id) throws ServiciosException {
-		try{			
-			em.remove(getId(id));
-			em.flush();
-		} catch (Exception e){
+		try {
+			familiaDAO.delete(id);
+		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
 	}
 
 	@Override
 	public Familia getNombre(String nombre) throws ServiciosException {
-		try{
-			TypedQuery<Familia> query =  em.createNamedQuery("Familia.getNombre", Familia.class)
-					.setParameter("nombre", nombre);
-			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
-		}catch (Exception e) {
+		try {
+			return familiaDAO.getNombre(nombre);
+		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
-		
+
 	}
-	
+
 	@Override
 	public Familia getId(Long id) throws ServiciosException {
-		try{
-			TypedQuery<Familia> query =  em.createNamedQuery("Familia.getId", Familia.class)
-					.setParameter("id", id);
-			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
-		}catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
-		}
-		
-	}
-	
-	@Override
-	public LinkedList<Familia> getNombreLike(String nombre) throws ServiciosException {
-		LinkedList<Familia> FamiliasList = new LinkedList<>();
 		try {
-			TypedQuery<Familia> query =  em.createNamedQuery("Familia.getNombreLike", Familia.class)
-			.setParameter("nombre", "%"+nombre.toUpperCase()+"%");;
-			FamiliasList.addAll(query.getResultList());
+			return familiaDAO.getFamilia(id);
 		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
-		return FamiliasList;
+
 	}
-	
-	
-	
-	@Override
-	public LinkedList<Familia> getAll() throws ServiciosException {
-		LinkedList<Familia> FamiliasList = new LinkedList<>();
-		try {
-			TypedQuery<Familia> query =  em.createNamedQuery("Familia.getAll", Familia.class);
-			FamiliasList.addAll(query.getResultList());
-		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
-		}
-		return FamiliasList;
-	}
-	
+
 	@Override
 	public Familia getFamilia(Long id) throws ServiciosException {
-		try{
-			Familia familia = em.find(Familia.class, id);
-			return familia;
-		}catch(PersistenceException e){
+		try {
+			return familiaDAO.getId(id);
+		} catch (PersistenceException e) {
 			throw new ServiciosException("No se pudo encontrar la familia");
 		}
 	}
-	
+
 	@Override
 	public List<Familia> getAllFamilias() throws ServiciosException {
-		try{		
-			TypedQuery<Familia> query = em.createQuery("SELECT f FROM Familia f",Familia.class); 
-			return query.getResultList();
-		}catch(PersistenceException e){
+		try {
+			return familiaDAO.getAllFamilias();
+		} catch (PersistenceException e) {
 			throw new ServiciosException("No se pudo obtener lista de familias");
 		}
 	}
-    
-    
+
 }

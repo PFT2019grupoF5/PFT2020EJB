@@ -1,10 +1,7 @@
 package com.services;
 
-import java.util.LinkedList;
 import java.util.List;
-
 import javax.ejb.Remote;
-
 import com.entities.Ciudad;
 import com.entities.EntidadLoc;
 import com.enumerated.tipoLoc;
@@ -23,10 +20,6 @@ public interface EntidadLocBeanRemote {
 	EntidadLoc getId(Long id) throws ServiciosException;
 
 	void delete(Long id) throws ServiciosException;
-
-	LinkedList<EntidadLoc> getCodigoLike(int codigo) throws ServiciosException;
-
-	LinkedList<EntidadLoc> getAll() throws ServiciosException;
 
 	EntidadLoc getEntidadLoc(Long id) throws ServiciosException;
 

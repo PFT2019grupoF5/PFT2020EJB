@@ -1,13 +1,10 @@
 package com.services;
 
-import java.util.LinkedList;
 import java.util.List;
-
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
-import javax.persistence.TypedQuery;
+import com.DAOservices.EntidadLocDAO;
 import com.entities.Ciudad;
 import com.entities.EntidadLoc;
 import com.enumerated.tipoLoc;
@@ -19,15 +16,14 @@ import com.exception.ServiciosException;
 @Stateless
 public class EntidadLocBean implements EntidadLocBeanRemote {
 
-    /**
-     * Default constructor. 
-     */
-    public EntidadLocBean() {
-        // TODO Auto-generated constructor stub
+	@EJB
+	private EntidadLocDAO entidadLocDAO;
+   
+	public EntidadLocBean() {
+        
     }
 
-    @PersistenceContext
-	private EntityManager em;
+ 
 	
 	@Override
 	public void add(int codigo, String nombre, String direccion, tipoLoc tipoLoc, Ciudad ciudad) throws ServiciosException {
@@ -38,8 +34,7 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 			el.setDireccion(direccion);
 			el.setTipoloc(tipoLoc);
 			el.setCiudad(ciudad);
-			em.persist(el);
-			em.flush();
+			entidadLocDAO.add(el);
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
 		}
@@ -54,8 +49,8 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 			el.setDireccion(direccion);
 			el.setTipoloc(tipoLoc);
 			el.setCiudad(ciudad);
-			em.merge(el);
-			em.flush();
+			entidadLocDAO.update(id, el);
+
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
 		}
@@ -64,8 +59,7 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 	@Override
 	public void delete(Long id) throws ServiciosException {
 		try{			
-			em.remove(getId(id));
-			em.flush();
+			entidadLocDAO.delete(id);
 		} catch (Exception e){
 			throw new ServiciosException(e.getMessage());
 		}
@@ -74,9 +68,7 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 	@Override
 	public EntidadLoc getCodigo(int codigo) throws ServiciosException {
 		try{
-			TypedQuery<EntidadLoc> query =  em.createNamedQuery("EntidadLoc.getCodigo", EntidadLoc.class)
-					.setParameter("codigo", codigo);
-			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
+			return entidadLocDAO.getCodigo(codigo);
 		}catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
@@ -86,44 +78,19 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 	@Override
 	public EntidadLoc getId(Long id) throws ServiciosException {
 		try{
-			TypedQuery<EntidadLoc> query =  em.createNamedQuery("EntidadLoc.getId", EntidadLoc.class)
-					.setParameter("id", id);
-			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
+			return entidadLocDAO.getEntidadLoc(id);
 		}catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
 		
 	}
 	
-	@Override
-	public LinkedList<EntidadLoc> getCodigoLike(int codigo) throws ServiciosException {
-		LinkedList<EntidadLoc> EntidadesLocList = new LinkedList<>();
-		try {
-			TypedQuery<EntidadLoc> query =  em.createNamedQuery("EntidadLoc.geCodigoLike", EntidadLoc.class)
-			.setParameter("codigo", "%"+codigo+"%");;
-			EntidadesLocList.addAll(query.getResultList());
-		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
-		}
-		return EntidadesLocList;
-	}
 	
-	@Override
-	public LinkedList<EntidadLoc> getAll() throws ServiciosException {
-		LinkedList<EntidadLoc> EntidadesLocList = new LinkedList<>();
-		try {
-			TypedQuery<EntidadLoc> query =  em.createNamedQuery("EntidadLoc.getAll", EntidadLoc.class);
-			EntidadesLocList.addAll(query.getResultList());
-		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
-		}
-		return EntidadesLocList;
-	}
+	
 	@Override
 	public EntidadLoc getEntidadLoc(Long id) throws ServiciosException {
 		try{		
-			EntidadLoc entidadLoc = em.find(EntidadLoc.class, id); 
-			return entidadLoc;
+			return entidadLocDAO.getId(id);
 		}catch(PersistenceException e){
 			throw new ServiciosException("No se pudo encontrar el Local");
 		}
@@ -132,8 +99,7 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 	@Override
 	public List<EntidadLoc> getAllEntidadesLoc() throws ServiciosException {
 		try{		
-			TypedQuery<EntidadLoc> query = em.createQuery("SELECT el FROM EntidadLoc el",EntidadLoc.class); 
-			return query.getResultList();
+			return entidadLocDAO.getAllEntidadLoc();
 		}catch(PersistenceException e){
 			throw new ServiciosException("No se pudo obtener lista de Locales");
 		}

@@ -1,11 +1,8 @@
 package com.services;
 
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
-
 import javax.ejb.Remote;
-
 import com.entities.Pedido;
 import com.entities.Usuario;
 import com.enumerated.estadoPedido;
@@ -24,11 +21,6 @@ public interface PedidoBeanRemote {
 	void update(Long id, Date pedfecestim, Date fecha, int pedreccodigo, Date pedrecfecha, String pedreccomentario,
 			estadoPedido pedestado, Usuario usuario) throws ServiciosException;
 
-	LinkedList<Pedido> getComLike(String pedreccomentario) throws ServiciosException;
-
-	LinkedList<Pedido> getAll() throws ServiciosException;
-
-	LinkedList<Pedido> entreFechas(String fechaDesde, String fechaHasta) throws ServiciosException;
 
 	Pedido getPedido(Long id) throws ServiciosException;
 

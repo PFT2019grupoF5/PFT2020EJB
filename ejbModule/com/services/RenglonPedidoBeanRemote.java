@@ -1,10 +1,7 @@
 package com.services;
 
-import java.util.LinkedList;
 import java.util.List;
-
 import javax.ejb.Remote;
-
 import com.entities.Pedido;
 import com.entities.Producto;
 import com.entities.RenglonPedido;
@@ -20,8 +17,6 @@ public interface RenglonPedidoBeanRemote {
 	void delete(Long id) throws ServiciosException;
 
 	RenglonPedido getId(Long id) throws ServiciosException;
-
-	LinkedList<RenglonPedido> getAll() throws ServiciosException;
 
 	RenglonPedido getRenglonPedido(Long id) throws ServiciosException;
 

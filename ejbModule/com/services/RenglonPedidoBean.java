@@ -1,13 +1,10 @@
 package com.services;
 
-import java.util.LinkedList;
 import java.util.List;
-
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
-import javax.persistence.TypedQuery;
+import com.DAOservices.RenglonPedidoDAO;
 import com.entities.Pedido;
 import com.entities.Producto;
 import com.entities.RenglonPedido;
@@ -19,98 +16,76 @@ import com.exception.ServiciosException;
 @Stateless
 public class RenglonPedidoBean implements RenglonPedidoBeanRemote {
 
-    /**
-     * Default constructor. 
-     */
-    public RenglonPedidoBean() {
-        // TODO Auto-generated constructor stub
-    }
+	@EJB
+	private RenglonPedidoDAO renglonPedidoDAO;
 
-    @PersistenceContext
-   	private EntityManager em;
-   	
-   	@Override
-   	public void add(int rennro, int rencant, Producto producto, Pedido pedido) throws ServiciosException {
-   		try{
-   			RenglonPedido r = new RenglonPedido();
-   			r.setRennro(rennro);
-   			r.setRencant(rencant);
-   			r.setProducto(producto);
-   			r.setPedido(pedido);
-   			em.persist(r);
-   			em.flush();
-   		} catch (Exception e){
-   			throw new ServiciosException(e.getMessage());
-   		}
-   	}
+	public RenglonPedidoBean() {
+		// TODO Auto-generated constructor stub
+	}
 
-   	@Override
-   	public void update(Long id, int rennro, int rencant, Producto producto, Pedido pedido) throws ServiciosException {
-   		try{
-   			RenglonPedido r = getId(id);
-   			r.setRennro(rennro);
-   			r.setRencant(rencant);
-   			r.setProducto(producto);
-   			r.setPedido(pedido);
-   			em.merge(r);
-   			em.flush();
-   		} catch (Exception e){
-   			throw new ServiciosException(e.getMessage());
-   		}
-   	}
-
-   	@Override
-   	public void delete(Long id) throws ServiciosException {
-   		try{			
-   			em.remove(getId(id));
-   			em.flush();
-   		} catch (Exception e){
-   			throw new ServiciosException(e.getMessage());
-   		}
-   	}
-
-   	@Override
-   	public RenglonPedido getId(Long id) throws ServiciosException {
-   		try{
-   			TypedQuery<RenglonPedido> query =  em.createNamedQuery("RenglonPedido.getId", RenglonPedido.class)
-   					.setParameter("id", id);
-   			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
-   		}catch (Exception e) {
-   			throw new ServiciosException(e.getMessage());
-   		}
-   		
-   	}
-   	
-   	@Override
-   	public LinkedList<RenglonPedido> getAll() throws ServiciosException {
-   		LinkedList<RenglonPedido> RenglonesPedidoList = new LinkedList<>();
-   		try {
-   			TypedQuery<RenglonPedido> query =  em.createNamedQuery("RenglonPedido.getAll", RenglonPedido.class);
-   			RenglonesPedidoList.addAll(query.getResultList());
-   		} catch (Exception e) {
-   			throw new ServiciosException(e.getMessage());
-   		}
-   		return RenglonesPedidoList;
-   	}
-   	
-   	@Override
-	public RenglonPedido getRenglonPedido(Long id) throws ServiciosException {
-		try{		
-			RenglonPedido renglonPedido = em.find(RenglonPedido.class, id); 
-			return renglonPedido;
-		}catch(PersistenceException e){
-			throw new ServiciosException("No se pudo encontrar el almacenamiento");
+	@Override
+	public void add(int rennro, int rencant, Producto producto, Pedido pedido) throws ServiciosException {
+		try {
+			RenglonPedido r = new RenglonPedido();
+			r.setRennro(rennro);
+			r.setRencant(rencant);
+			r.setProducto(producto);
+			r.setPedido(pedido);
+			renglonPedidoDAO.add(r);
+		} catch (Exception e) {
+			throw new ServiciosException(e.getMessage());
 		}
 	}
-	
+
+	@Override
+	public void update(Long id, int rennro, int rencant, Producto producto, Pedido pedido) throws ServiciosException {
+		try {
+			RenglonPedido r = getId(id);
+			r.setRennro(rennro);
+			r.setRencant(rencant);
+			r.setProducto(producto);
+			r.setPedido(pedido);
+			renglonPedidoDAO.update(id, r);
+		} catch (Exception e) {
+			throw new ServiciosException(e.getMessage());
+		}
+	}
+
+	@Override
+	public void delete(Long id) throws ServiciosException {
+		try {
+			renglonPedidoDAO.delete(id);
+		} catch (Exception e) {
+			throw new ServiciosException(e.getMessage());
+		}
+	}
+
+	@Override
+	public RenglonPedido getId(Long id) throws ServiciosException {
+		try {
+			return renglonPedidoDAO.getRenglonPedido(id);
+		} catch (Exception e) {
+			throw new ServiciosException(e.getMessage());
+		}
+
+	}
+
+	@Override
+	public RenglonPedido getRenglonPedido(Long id) throws ServiciosException {
+		try {
+			return renglonPedidoDAO.getId(id);
+		} catch (PersistenceException e) {
+			throw new ServiciosException("No se pudo encontrar el Renglon Pedido");
+		}
+	}
+
 	@Override
 	public List<RenglonPedido> getAllRenglonesPedido() throws ServiciosException {
-		try{		
-			TypedQuery<RenglonPedido> query = em.createQuery("SELECT r FROM RenglonPedido r",RenglonPedido.class); 
-			return query.getResultList();
-		}catch(PersistenceException e){
+		try {
+			return renglonPedidoDAO.getAllRenglonesPedidos();
+		} catch (PersistenceException e) {
 			throw new ServiciosException("No se pudo obtener lista de Renglones de Pedido");
 		}
 	}
-   	
+
 }

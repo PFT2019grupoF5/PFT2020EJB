@@ -131,22 +131,5 @@ public class ProductoBean implements ProductoBeanRemote {
 		}
 	}
 	
-	//Edit
-	
-	/*public List<Producto> obtenerProductos() {
-		try {
-
-			return productoDAO.getAllProductos();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	*/
-
-	//edit
-
-	
-   	
    	
 }

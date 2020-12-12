@@ -1,11 +1,8 @@
 package com.services;
 
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
-
 import javax.ejb.Remote;
-
 import com.entities.Almacenamiento;
 import com.entities.Movimiento;
 import com.entities.Producto;
@@ -24,10 +21,6 @@ public interface MovimientoBeanRemote {
 	void delete(Long id) throws ServiciosException;
 
 	Movimiento getId(Long id) throws ServiciosException;
-
-	LinkedList<Movimiento> getAll() throws ServiciosException;
-
-	LinkedList<Movimiento> getMovLike(String descripcion) throws ServiciosException;
 
 	Movimiento getMovimiento(Long id) throws ServiciosException;
 
