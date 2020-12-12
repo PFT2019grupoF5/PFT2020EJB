@@ -1,6 +1,7 @@
 package com.services;
 
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.PersistenceException;
 import com.DAOservices.CiudadDAO;
@@ -8,10 +9,8 @@ import com.entities.Ciudad;
 import com.exception.ServiciosException;
 import java.util.List;
 
-/**
- * Session Bean implementation class CiudadBean
- */
 @Stateless
+@LocalBean
 public class CiudadBean implements CiudadBeanRemote {
 
 	@EJB

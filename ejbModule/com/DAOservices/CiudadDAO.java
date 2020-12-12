@@ -7,6 +7,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import com.entities.Ciudad;
 import com.exception.ServiciosException;
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 

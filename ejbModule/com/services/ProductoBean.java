@@ -3,6 +3,7 @@ package com.services;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.PersistenceException;
 import com.entities.Producto;
@@ -12,10 +13,8 @@ import com.entities.Usuario;
 import com.enumerated.Segmentacion;
 import com.exception.ServiciosException;
 
-/*
- * Session Bean implementation class ProductoBean
- */
 @Stateless
+@LocalBean
 public class ProductoBean implements ProductoBeanRemote {
 	
 

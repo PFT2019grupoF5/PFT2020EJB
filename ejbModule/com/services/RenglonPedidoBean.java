@@ -2,6 +2,7 @@ package com.services;
 
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.PersistenceException;
 import com.DAOservices.RenglonPedidoDAO;
@@ -10,10 +11,8 @@ import com.entities.Producto;
 import com.entities.RenglonPedido;
 import com.exception.ServiciosException;
 
-/**
- * Session Bean implementation class RenglonRenglonPedidoBean
- */
 @Stateless
+@LocalBean
 public class RenglonPedidoBean implements RenglonPedidoBeanRemote {
 
 	@EJB

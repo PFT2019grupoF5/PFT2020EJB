@@ -2,6 +2,7 @@ package com.services;
 
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.PersistenceException;
 
@@ -10,10 +11,8 @@ import com.entities.Almacenamiento;
 import com.entities.EntidadLoc;
 import com.exception.ServiciosException;
 
-/**
- * Session Bean implementation class AlmacenamientoBean
- */
 @Stateless
+@LocalBean
 public class AlmacenamientoBean implements AlmacenamientoBeanRemote {
 
 

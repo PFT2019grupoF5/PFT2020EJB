@@ -3,6 +3,7 @@ package com.services;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.PersistenceException;
 import com.entities.Movimiento;
@@ -12,10 +13,8 @@ import com.entities.Producto;
 import com.enumerated.tipoMovimiento;
 import com.exception.ServiciosException;
 
-/**
- * Session Bean implementation class MovimientoBean
- */
 @Stateless
+@LocalBean
 public class MovimientoBean implements MovimientoBeanRemote {
 
 	@EJB

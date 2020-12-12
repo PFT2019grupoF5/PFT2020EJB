@@ -1,6 +1,7 @@
 package com.services;
 
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.PersistenceException;
 import com.DAOservices.UsuarioDAO;
@@ -10,11 +11,8 @@ import com.exception.ServiciosException;
 import java.util.List;
 
 
-
-/**
- * Session Bean implementation class UsuarioBean
- */
 @Stateless
+@LocalBean
 public class UsuarioBean implements UsuarioBeanRemote {
 
     

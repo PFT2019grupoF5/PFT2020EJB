@@ -3,6 +3,7 @@ package com.services;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.PersistenceException;
 import com.DAOservices.PedidoDAO;
@@ -11,10 +12,8 @@ import com.entities.Usuario;
 import com.enumerated.estadoPedido;
 import com.exception.ServiciosException;
 
-/**
- * Session Bean implementation class PedidoBean
- */
 @Stateless
+@LocalBean
 public class PedidoBean implements PedidoBeanRemote {
 
 	@EJB

@@ -2,6 +2,7 @@ package com.services;
 
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.PersistenceException;
 import com.DAOservices.EntidadLocDAO;
@@ -10,10 +11,8 @@ import com.entities.EntidadLoc;
 import com.enumerated.tipoLoc;
 import com.exception.ServiciosException;
 
-/**
- * Session Bean implementation class EntidadLocBean
- */
 @Stateless
+@LocalBean
 public class EntidadLocBean implements EntidadLocBeanRemote {
 
 	@EJB
