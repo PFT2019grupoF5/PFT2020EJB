@@ -1,6 +1,5 @@
 package com.services;
 
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -8,9 +7,6 @@ import javax.ejb.Stateless;
 import javax.persistence.PersistenceException;
 import com.entities.Producto;
 import com.DAOservices.ProductoDAO;
-import com.entities.Familia;
-import com.entities.Usuario;
-import com.enumerated.Segmentacion;
 import com.exception.ServiciosException;
 
 @Stateless
@@ -84,12 +80,22 @@ public class ProductoBean implements ProductoBeanRemote {
    			throw new ServiciosException(e.getMessage());
    		}
    	}
+
    	@Override
 	public Producto getProducto(Long id) throws ServiciosException {
 		try{		
 			return productoDAO.getProducto(id);
 		}catch(PersistenceException e){
-			throw new ServiciosException("No se pudo encontrar el almacenamiento");
+			throw new ServiciosException("No se pudo encontrar el producto");
+		}
+	}
+	
+   	@Override
+	public Producto getProductoByNombre(String nombre) throws ServiciosException {
+		try{		
+			return productoDAO.getProductoByNombre(nombre);
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo encontrar el producto");
 		}
 	}
 	

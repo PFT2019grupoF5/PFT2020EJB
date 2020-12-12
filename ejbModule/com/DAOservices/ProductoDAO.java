@@ -95,9 +95,21 @@ public class ProductoDAO {
 				Producto producto = em.find(Producto.class, id); 
 				return producto;
 			}catch(PersistenceException e){
-				throw new ServiciosException("No se pudo encontrar el almacenamiento");
+				throw new ServiciosException("No se pudo encontrar el producto");
 			}
 		}
+		
+
+		public Producto getProductoByNombre(String nombre) throws ServiciosException {
+	   		try{
+	   			TypedQuery<Producto> query =  em.createNamedQuery("Producto.getNombreLike", Producto.class)
+	   					.setParameter("nombre", nombre);
+	   			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
+	   		}catch (Exception e) {
+	   			throw new ServiciosException(e.getMessage());
+	   		}
+		   		
+	   	}
 		
 
 		public List<Producto> getAllProductos() throws ServiciosException {
