@@ -20,6 +20,6 @@ public interface MovimientoBeanRemote {
 
 	List<Movimiento> getAllMovimientos() throws ServiciosException;
 
-
+	Movimiento validoBajaProducto(Long idProducto) throws ServiciosException;
 
 }

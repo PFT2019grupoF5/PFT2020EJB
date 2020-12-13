@@ -6,7 +6,9 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.PersistenceException;
 import com.entities.Movimiento;
+import com.entities.Producto;
 import com.DAOservices.MovimientoDAO;
+import com.DAOservices.ProductoDAO;
 import com.exception.ServiciosException;
 
 @Stateless
@@ -15,6 +17,9 @@ public class MovimientoBean implements MovimientoBeanRemote {
 
 	@EJB
 	private MovimientoDAO movimientoDAO;
+	
+	@EJB
+	private ProductoDAO productoDAO;
 	
     public MovimientoBean() {
 
@@ -76,5 +81,20 @@ public class MovimientoBean implements MovimientoBeanRemote {
 		}
 	}
 	
+	
+	@Override
+	public Movimiento validoBajaProducto(Long idProducto) throws ServiciosException {
+		Producto producto = new Producto();
+		try{		
+			producto = productoDAO.getId(idProducto);
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo encontrar el producto");
+		}
+		try{		
+			return movimientoDAO.validoBajaProducto(producto);
+		}catch(PersistenceException e){
+			throw new ServiciosException("No se pudo encontrar el movimiento");
+		}
+	}
 
 }
