@@ -15,6 +15,12 @@ public class CiudadDAO {
 
 	@PersistenceContext
 	private EntityManager em;
+	
+
+    protected EntityManager getEntityManager() {
+        return em;
+    }
+
 
 	public CiudadDAO() {
 
@@ -42,8 +48,6 @@ public class CiudadDAO {
 	public void delete(Long id) throws ServiciosException {
 		try {
 			Ciudad ciudad = em.find(Ciudad.class, id);
-			em.remove(ciudad);
-			em.flush();
 		} catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
 		}
@@ -72,7 +76,8 @@ public class CiudadDAO {
 
 	public Ciudad getCiudad(Long id) throws ServiciosException {
 		try {
-			Ciudad ciudad = em.find(Ciudad.class, id);
+			Ciudad ciudad = new Ciudad();
+			ciudad = em.find(Ciudad.class, id);
 			return ciudad;
 		} catch (PersistenceException e) {
 			throw new ServiciosException("No se pudo encontrar la ciudad");
