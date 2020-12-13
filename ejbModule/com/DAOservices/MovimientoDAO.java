@@ -6,6 +6,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import com.entities.Movimiento;
+import com.entities.Producto;
+import com.enumerated.tipoMovimiento;
 import com.exception.ServiciosException;
 import javax.ejb.Stateless;
 
@@ -52,6 +54,18 @@ public class MovimientoDAO {
 		try{
 			TypedQuery<Movimiento> query =  em.createNamedQuery("Movimiento.getId", Movimiento.class)
 					.setParameter("id", id);
+			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
+		}catch (Exception e) {
+			throw new ServiciosException(e.getMessage());
+		}
+		
+	}
+	
+	public Movimiento validoBajaProducto(Producto producto) throws ServiciosException {
+		try{
+			TypedQuery<Movimiento> query =  em.createNamedQuery("Movimiento.validoBajaProducto", Movimiento.class)
+					.setParameter("producto", producto)
+					.setParameter("tipoMov", tipoMovimiento.valueOf("P"));
 			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
 		}catch (Exception e) {
 			throw new ServiciosException(e.getMessage());
