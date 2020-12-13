@@ -95,7 +95,7 @@ public class ProductoDAO {
 				Producto producto = em.find(Producto.class, id); 
 				return producto;
 			}catch(PersistenceException e){
-				throw new ServiciosException("No se pudo encontrar el almacenamiento");
+				throw new ServiciosException("No se pudo encontrar el producto");
 			}
 		}
 		

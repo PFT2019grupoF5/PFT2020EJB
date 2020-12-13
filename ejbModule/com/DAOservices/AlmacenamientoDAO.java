@@ -69,7 +69,7 @@ public class AlmacenamientoDAO {
 
 	public List<Almacenamiento> getAllAlmacenamientos() throws ServiciosException {
 		try {
-			TypedQuery<Almacenamiento> query = em.createNamedQuery("Almacenamiento.getIAll", Almacenamiento.class);
+			TypedQuery<Almacenamiento> query = em.createNamedQuery("Almacenamiento.getAll", Almacenamiento.class);
 			return query.getResultList();
 		} catch (PersistenceException e) {
 			throw new ServiciosException("No se pudo obtener lista de almacenamientos");
