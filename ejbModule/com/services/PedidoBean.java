@@ -69,7 +69,7 @@ public class PedidoBean implements PedidoBeanRemote {
 	public Pedido getPedido(Long id) throws ServiciosException {
 		try {
 
-			return pedidoDAO.getId(id);
+			return pedidoDAO.getPedido(id);
 		} catch (PersistenceException e) {
 			throw new ServiciosException("No se pudo encontrar el pedido");
 		}
