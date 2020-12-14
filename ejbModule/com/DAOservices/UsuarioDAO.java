@@ -27,7 +27,7 @@ public class UsuarioDAO {
 				em.persist(usuario);
 				em.flush();
 			} catch (Exception e){
-				throw new ServiciosException(e.getMessage());
+				throw new ServiciosException("Error al crear Usuario : " + e.getMessage());
 			}
 		}
 
@@ -37,7 +37,7 @@ public class UsuarioDAO {
 				em.merge(usuario);
 				em.flush();
 			} catch (Exception e){
-				throw new ServiciosException(e.getMessage());
+				throw new ServiciosException("Error al modificar Usuario : " + e.getMessage());
 			}
 		}
 
@@ -48,7 +48,7 @@ public class UsuarioDAO {
 				em.remove(usuario);
 				em.flush();
 			} catch (Exception e){
-				throw new ServiciosException(e.getMessage());
+				throw new ServiciosException("Error al borrar Usuario : " + e.getMessage());
 			}
 		}
 		
@@ -59,7 +59,7 @@ public class UsuarioDAO {
 						.setParameter("nomAcceso", nomAcceso);
 				return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
 			}catch (Exception e) {
-				throw new ServiciosException(e.getMessage());
+				throw new ServiciosException("Error al traer por nomAcceso Usuario : " + e.getMessage());
 			}
 		}
 		
@@ -70,7 +70,7 @@ public class UsuarioDAO {
 						.setParameter("id", id);
 				return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
 			}catch (Exception e) {
-				throw new ServiciosException(e.getMessage());
+				throw new ServiciosException("Error al traer por Id Usuario : " + e.getMessage());
 			}
 			
 		}
@@ -81,7 +81,7 @@ public class UsuarioDAO {
 			try {
 				ContrasenaOk= getNA(nomAcceso).getContrasena().equals(contrasena);
 			} catch (Exception e) {
-				throw new ServiciosException(e.getMessage());
+				throw new ServiciosException("Error al ValidarContrasena : " + e.getMessage());
 			}
 			return ContrasenaOk;
 		}
@@ -91,8 +91,8 @@ public class UsuarioDAO {
 			try{
 				Usuario usuario = em.find(Usuario.class, id);
 				return usuario;
-			}catch(PersistenceException e){
-				throw new ServiciosException("No se pudo encontrar el usuario");
+			}catch(Exception e){
+				throw new ServiciosException("No se pudo encontrar el usuario : " + e.getMessage());
 			}
 		}
 		
@@ -101,8 +101,8 @@ public class UsuarioDAO {
 			try{		
 				TypedQuery<Usuario> query = em.createNamedQuery("Usuario.getAll",Usuario.class); 
 				return query.getResultList();
-			}catch(PersistenceException e){
-				throw new ServiciosException("No se pudo obtener lista de usuarios");
+			}catch(Exception e){
+				throw new ServiciosException("No se pudo obtener lista de usuarios : " + e.getMessage());
 			}
 		}
 	

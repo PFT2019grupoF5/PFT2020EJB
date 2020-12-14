@@ -26,7 +26,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
 		try{
 			usuarioDAO.add(usuario);
 		} catch (Exception e){
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en add UsuarioBean : " + e.getMessage());
 		}
 	}
 
@@ -35,7 +35,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
 		try{
 			usuarioDAO.update(usuario);
 		} catch (Exception e){
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en update UsuarioBean : " + e.getMessage());
 		}
 	}
 
@@ -45,7 +45,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
 		try{
 			usuarioDAO.delete(id);
 		} catch (Exception e){
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en delete UsuarioBean : " + e.getMessage());
 		}
 	}
 	
@@ -54,7 +54,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
 		try{
 			return usuarioDAO.getNA(nomAcceso);
 		}catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en getNA UsuarioBean : " + e.getMessage());
 		}
 	}
 	
@@ -63,7 +63,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
 		try{
 			return usuarioDAO.getId(id);
 		}catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en getId UsuarioBean : " + e.getMessage());
 		}
 		
 	}
@@ -75,7 +75,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
 		try {
 			ContrasenaOk= getNA(nomAcceso).getContrasena().equals(contrasena);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en ValidarContrasena UsuarioBean : " + e.getMessage());
 		}
 		return ContrasenaOk;
 	}
@@ -84,8 +84,8 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	public Usuario getUsuario(Long id) throws ServiciosException {
 		try{
 			return usuarioDAO.getUsuario(id);
-		}catch(PersistenceException e){
-			throw new ServiciosException("No se pudo encontrar el usuario");
+		}catch(Exception e){
+			throw new ServiciosException("No se pudo encontrar el usuario >> " + e.getMessage());
 		}
 	}
 	
@@ -93,8 +93,8 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	public List<Usuario> getAllUsuarios() throws ServiciosException {
 		try{		
 			return usuarioDAO.getAllUsuarios();
-		}catch(PersistenceException e){
-			throw new ServiciosException("No se pudo obtener lista de usuarios");
+		}catch(Exception e){
+			throw new ServiciosException("No se pudo obtener lista de usuarios >> " + e.getMessage());
 		}
 	}
 

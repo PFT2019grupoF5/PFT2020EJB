@@ -23,7 +23,7 @@ public class PedidoBean implements PedidoBeanRemote {
 		try {
 			pedidoDAO.add(pedido);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en add PedidoBean : " + e.getMessage());
 		}
 	}
 
@@ -32,7 +32,7 @@ public class PedidoBean implements PedidoBeanRemote {
 		try {
 			pedidoDAO.update(pedido);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en update PedidoBean : " + e.getMessage());
 		}
 	}
 
@@ -41,7 +41,7 @@ public class PedidoBean implements PedidoBeanRemote {
 		try {
 			pedidoDAO.delete(id);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en delete PedidoBean : " + e.getMessage());
 		}
 	}
 
@@ -50,7 +50,7 @@ public class PedidoBean implements PedidoBeanRemote {
 		try {
 			return pedidoDAO.getPedido(id);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en getId PedidoBean : " + e.getMessage());
 		}
 
 	}
@@ -61,7 +61,7 @@ public class PedidoBean implements PedidoBeanRemote {
 			return pedidoDAO.getPedidosEntreFechas(fechaDesde, fechaHasta);
 
 		} catch (Exception e) {
-			throw new ServiciosException("No se pudo obtener reporte de pedidos entre fechas");
+			throw new ServiciosException("No se pudo obtener reporte de pedidos entre fechas >> " + e.getMessage());
 		}
 	}
 
@@ -70,8 +70,8 @@ public class PedidoBean implements PedidoBeanRemote {
 		try {
 
 			return pedidoDAO.getPedido(id);
-		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo encontrar el pedido");
+		} catch (Exception e) {
+			throw new ServiciosException("No se pudo encontrar el pedido >> " + e.getMessage());
 		}
 	}
 
@@ -79,8 +79,8 @@ public class PedidoBean implements PedidoBeanRemote {
 	public List<Pedido> getAllPedidos() throws ServiciosException {
 		try {
 			return pedidoDAO.getAllPedidos();
-		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo obtener lista de pedidos");
+		} catch (Exception e) {
+			throw new ServiciosException("No se pudo obtener lista de pedidos >> " + e.getMessage());
 		}
 	}
 

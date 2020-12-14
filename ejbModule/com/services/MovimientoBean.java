@@ -31,7 +31,7 @@ public class MovimientoBean implements MovimientoBeanRemote {
 		try{
 			movimientoDAO.add(movimiento);
 		} catch (Exception e){
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en add MovimientoBean : " + e.getMessage());
 		}
 	}
 
@@ -40,7 +40,7 @@ public class MovimientoBean implements MovimientoBeanRemote {
 		try{
 			movimientoDAO.update(movimiento);
 		} catch (Exception e){
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en update MovimientoBean : " + e.getMessage());
 		}
 	}
 
@@ -49,7 +49,7 @@ public class MovimientoBean implements MovimientoBeanRemote {
 		try{			
 			movimientoDAO.delete(id);
 		} catch (Exception e){
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en delete MovimientoBean : " + e.getMessage());
 		}
 	}
 
@@ -58,7 +58,7 @@ public class MovimientoBean implements MovimientoBeanRemote {
 		try{
 			return movimientoDAO.getMovimiento(id);
 		}catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en getId MovimientoBean : " + e.getMessage());
 		}
 		
 	}
@@ -67,8 +67,8 @@ public class MovimientoBean implements MovimientoBeanRemote {
 	public Movimiento getMovimiento(Long id) throws ServiciosException {
 		try{		
 			return movimientoDAO.getMovimiento(id);
-		}catch(PersistenceException e){
-			throw new ServiciosException("No se pudo encontrar el movimiento");
+		}catch(Exception e){
+			throw new ServiciosException("No se pudo encontrar el movimiento >> " + e.getMessage());
 		}
 	}
 	
@@ -76,8 +76,8 @@ public class MovimientoBean implements MovimientoBeanRemote {
 	public List<Movimiento> getAllMovimientos() throws ServiciosException {
 		try{		
 			return movimientoDAO.getAllMovimientos();
-		}catch(PersistenceException e){
-			throw new ServiciosException("No se pudo obtener lista de movimientos");
+		}catch(Exception e){
+			throw new ServiciosException("No se pudo obtener lista de movimientos >> " + e.getMessage());
 		}
 	}
 	
@@ -87,13 +87,13 @@ public class MovimientoBean implements MovimientoBeanRemote {
 		Producto producto = new Producto();
 		try{		
 			producto = productoDAO.getId(idProducto);
-		}catch(PersistenceException e){
-			throw new ServiciosException("No se pudo encontrar el producto");
+		}catch(Exception e){
+			throw new ServiciosException("No se pudo encontrar el producto >> "  + e.getMessage());
 		}
 		try{		
 			return movimientoDAO.validoBajaProducto(producto);
-		}catch(PersistenceException e){
-			throw new ServiciosException("No se pudo encontrar el movimiento");
+		}catch(Exception e){
+			throw new ServiciosException("No se pudo encontrar el movimiento >> " + e.getMessage());
 		}
 	}
 

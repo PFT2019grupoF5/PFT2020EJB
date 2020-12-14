@@ -22,7 +22,7 @@ public class CiudadBean implements CiudadBeanRemote {
 		try {
 			ciudadDAO.add(ciudad);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en add CiudadBean : " + e.getMessage());
 		}
 	}
 
@@ -31,7 +31,7 @@ public class CiudadBean implements CiudadBeanRemote {
 		try {
 			ciudadDAO.update(ciudad);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en update CiudadBean : " + e.getMessage());
 		}
 	}
 
@@ -40,7 +40,7 @@ public class CiudadBean implements CiudadBeanRemote {
 		try {
 			ciudadDAO.delete(id);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en delete CiudadBean : " + e.getMessage());
 		}
 	}
 
@@ -49,7 +49,7 @@ public class CiudadBean implements CiudadBeanRemote {
 		try {
 			return ciudadDAO.getCiudad(id);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en getId CiudadBean : " + e.getMessage());
 		}
 
 	}
@@ -59,7 +59,7 @@ public class CiudadBean implements CiudadBeanRemote {
 		try {
 			return ciudadDAO.getNombre(nombre);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en getNombre CiudadBean : " + e.getMessage());
 		}
 
 	}
@@ -68,8 +68,8 @@ public class CiudadBean implements CiudadBeanRemote {
 	public Ciudad getCiudad(Long id) throws ServiciosException {
 		try {
 			return ciudadDAO.getCiudad(id);
-		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo encontrar la ciudad");
+		} catch (Exception e) {
+			throw new ServiciosException("No se pudo encontrar la ciudad >> " + e.getMessage());
 		}
 	}
 
@@ -77,8 +77,8 @@ public class CiudadBean implements CiudadBeanRemote {
 	public List<Ciudad> getAllCiudades() throws ServiciosException {
 		try {
 			return ciudadDAO.getAllCiudades();
-		} catch (PersistenceException e) {
-			throw new ServiciosException("No se puede obtener lista de ciudades");
+		} catch (Exception e) {
+			throw new ServiciosException("No se puede obtener lista de ciudades >> " + e.getMessage());
 		}
 
 	}

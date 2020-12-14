@@ -26,7 +26,7 @@ public class FamiliaDAO {
 			em.persist(familia);
 			em.flush();
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al crear Familia : " + e.getMessage());
 		}
 	}
 
@@ -35,7 +35,7 @@ public class FamiliaDAO {
 			em.merge(familia);
 			em.flush();
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al modificar Familia : " + e.getMessage());
 		}
 	}
 
@@ -45,7 +45,7 @@ public class FamiliaDAO {
 			em.remove(familia);
 			em.flush();
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al borrar Familia : " + e.getMessage());
 		}
 	}
 
@@ -54,7 +54,7 @@ public class FamiliaDAO {
 			TypedQuery<Familia> query = em.createNamedQuery("Familia.getId", Familia.class).setParameter("id", id);
 			return (query.getResultList().size() == 0) ? null : query.getResultList().get(0);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al traer por Id Familia : " + e.getMessage());
 		}
 
 	}
@@ -65,7 +65,7 @@ public class FamiliaDAO {
 					nombre);
 			return (query.getResultList().size() == 0) ? null : query.getResultList().get(0);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al traer por Nombre Familia : " + e.getMessage());
 		}
 
 	}
@@ -74,8 +74,8 @@ public class FamiliaDAO {
 		try {
 			Familia familia = em.find(Familia.class, id);
 			return familia;
-		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo encontrar la familia");
+		} catch (Exception e) {
+			throw new ServiciosException("No se pudo encontrar la familia : " + e.getMessage());
 		}
 	}
 
@@ -83,8 +83,8 @@ public class FamiliaDAO {
 		try {
 			TypedQuery<Familia> query = em.createNamedQuery("Familia.getAll", Familia.class);
 			return query.getResultList();
-		} catch (PersistenceException e) {
-			throw new ServiciosException("No se puede obtener lista de familias");
+		} catch (Exception e) {
+			throw new ServiciosException("No se puede obtener lista de familias : " + e.getMessage());
 		}
 
 	}

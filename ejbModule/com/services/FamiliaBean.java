@@ -22,7 +22,7 @@ public class FamiliaBean implements FamiliaBeanRemote {
 		try {
 			familiaDAO.add(familia);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en add FamiliaBean : " + e.getMessage());
 		}
 	}
 
@@ -31,7 +31,7 @@ public class FamiliaBean implements FamiliaBeanRemote {
 		try {
 			familiaDAO.update(familia);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en update FamiliaBean : " + e.getMessage());
 		}
 	}
 
@@ -40,7 +40,7 @@ public class FamiliaBean implements FamiliaBeanRemote {
 		try {
 			familiaDAO.delete(id);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en delete FamiliaBean : " + e.getMessage());
 		}
 	}
 
@@ -49,7 +49,7 @@ public class FamiliaBean implements FamiliaBeanRemote {
 		try {
 			return familiaDAO.getNombre(nombre);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en getNombre FamiliaBean : " + e.getMessage());
 		}
 
 	}
@@ -59,7 +59,7 @@ public class FamiliaBean implements FamiliaBeanRemote {
 		try {
 			return familiaDAO.getFamilia(id);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en getId FamiliaBean : " + e.getMessage());
 		}
 
 	}
@@ -68,8 +68,8 @@ public class FamiliaBean implements FamiliaBeanRemote {
 	public Familia getFamilia(Long id) throws ServiciosException {
 		try {
 			return familiaDAO.getFamilia(id);
-		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo encontrar la familia");
+		} catch (Exception e) {
+			throw new ServiciosException("No se pudo encontrar la familia" + e.getMessage());
 		}
 	}
 
@@ -77,8 +77,8 @@ public class FamiliaBean implements FamiliaBeanRemote {
 	public List<Familia> getAllFamilias() throws ServiciosException {
 		try {
 			return familiaDAO.getAllFamilias();
-		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo obtener lista de familias");
+		} catch (Exception e) {
+			throw new ServiciosException("No se pudo obtener lista de familias" + e.getMessage());
 		}
 	}
 

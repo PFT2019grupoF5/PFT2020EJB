@@ -27,7 +27,7 @@ public class MovimientoDAO {
 			em.persist(movimiento);
 			em.flush();
 		} catch (Exception e){
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al crear Movimiento : " + e.getMessage());
 		}
 	}
 
@@ -36,7 +36,7 @@ public class MovimientoDAO {
 			em.merge(movimiento);
 			em.flush();
 		} catch (Exception e){
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al modificar Movimiento : " + e.getMessage());
 		}
 	}
 
@@ -46,7 +46,7 @@ public class MovimientoDAO {
 			em.remove(movimiento);
 			em.flush();
 		} catch (Exception e){
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al borrar Movimiento : " + e.getMessage());
 		}
 	}
 
@@ -56,7 +56,7 @@ public class MovimientoDAO {
 					.setParameter("id", id);
 			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
 		}catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al traer por Id Movimiento : " + e.getMessage());
 		}
 		
 	}
@@ -68,7 +68,7 @@ public class MovimientoDAO {
 					.setParameter("tipoMov", tipoMovimiento.valueOf("P"));
 			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
 		}catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al validoBajaProducto : " + e.getMessage());
 		}
 		
 	}
@@ -77,8 +77,8 @@ public class MovimientoDAO {
 		try{		
 			Movimiento movimiento = em.find(Movimiento.class, id); 
 			return movimiento;
-		}catch(PersistenceException e){
-			throw new ServiciosException("No se pudo encontrar el movimiento");
+		}catch(Exception e){
+			throw new ServiciosException("No se pudo encontrar el movimiento : " + e.getMessage());
 		}
 	}
 	
@@ -86,8 +86,8 @@ public class MovimientoDAO {
 		try{		
 			TypedQuery<Movimiento> query = em.createNamedQuery("Movimiento.getAll",Movimiento.class); 
 			return query.getResultList();
-		}catch(PersistenceException e){
-			throw new ServiciosException("No se pudo obtener lista de movimientos");
+		}catch(Exception e){
+			throw new ServiciosException("No se pudo obtener lista de movimientos : " + e.getMessage());
 		}
 	}
 	

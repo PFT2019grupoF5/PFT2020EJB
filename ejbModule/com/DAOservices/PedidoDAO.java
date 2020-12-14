@@ -26,7 +26,7 @@ public class PedidoDAO {
 			em.persist(pedido);
 			em.flush();
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al crear Pedido : " + e.getMessage());
 		}
 	}
 
@@ -35,7 +35,7 @@ public class PedidoDAO {
 			em.merge(pedido);
 			em.flush();
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al modificar Pedido : " + e.getMessage());
 		}
 	}
 
@@ -45,7 +45,7 @@ public class PedidoDAO {
 			em.remove(pedido);
 			em.flush();
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al borrar Pedido : " + e.getMessage());
 		}
 	}
 
@@ -54,7 +54,7 @@ public class PedidoDAO {
 			TypedQuery<Pedido> query = em.createNamedQuery("Pedido.getId", Pedido.class).setParameter("id", id);
 			return (query.getResultList().size() == 0) ? null : query.getResultList().get(0);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al traer por Id Pedido : " + e.getMessage());
 		}
 
 	}
@@ -63,8 +63,8 @@ public class PedidoDAO {
 		try {
 			Pedido pedido = em.find(Pedido.class, id);
 			return pedido;
-		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo encontrar el pedido");
+		} catch (Exception e) {
+			throw new ServiciosException("No se pudo encontrar el pedido : " + e.getMessage());
 		}
 	}
 
@@ -72,8 +72,8 @@ public class PedidoDAO {
 		try {
 			TypedQuery<Pedido> query = em.createNamedQuery("Pedido.getAll", Pedido.class);
 			return query.getResultList();
-		} catch (PersistenceException e) {
-			throw new ServiciosException("No se puede obtener lista de pedidos");
+		} catch (Exception e) {
+			throw new ServiciosException("No se puede obtener lista de pedidos : " + e.getMessage());
 		}
 
 	}
@@ -99,11 +99,11 @@ public class PedidoDAO {
 				;
 
 			} catch (ParseException ex) {
-				throw new ServiciosException("No se pudo parsear fechas");
+				throw new ServiciosException("No se pudo parsear fechas : " + ex.getMessage());
 			}
 			return query.getResultList();
 		} catch (Exception e) {
-			throw new ServiciosException("No se pudo obtener reporte de pedidos entre fechas");
+			throw new ServiciosException("No se pudo obtener reporte de pedidos entre fechas : " + e.getMessage());
 		}
 	}
 

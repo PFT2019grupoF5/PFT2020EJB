@@ -24,7 +24,7 @@ public class AlmacenamientoBean implements AlmacenamientoBeanRemote {
 
 			almacenamientoDAO.add(almacenamiento);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en add AlmacenamientoBean : " + e.getMessage());
 		}
 	}
 
@@ -33,7 +33,7 @@ public class AlmacenamientoBean implements AlmacenamientoBeanRemote {
 		try {
 			almacenamientoDAO.update(almacenamiento);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en update AlmacenamientoBean : " + e.getMessage());
 		}
 	}
 
@@ -42,7 +42,7 @@ public class AlmacenamientoBean implements AlmacenamientoBeanRemote {
 		try {
 			almacenamientoDAO.delete(id);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en delete AlmacenamientoBean : " + e.getMessage());
 		}
 	}
 
@@ -51,7 +51,7 @@ public class AlmacenamientoBean implements AlmacenamientoBeanRemote {
 		try {
 			return almacenamientoDAO.getId(id);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en getId AlmacenamientoBean : " + e.getMessage());
 		}
 	}
 
@@ -59,8 +59,8 @@ public class AlmacenamientoBean implements AlmacenamientoBeanRemote {
 	public Almacenamiento getAlmacenamiento(Long id) throws ServiciosException {
 		try {
 			return almacenamientoDAO.getAlmacenamiento(id);
-		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo encontrar el almacenamiento");
+		} catch (Exception e) {
+			throw new ServiciosException("No se pudo encontrar el almacenamiento >> " + e.getMessage());
 		}
 	}
 
@@ -68,8 +68,8 @@ public class AlmacenamientoBean implements AlmacenamientoBeanRemote {
 	public List<Almacenamiento> getAllAlmacenamientos() throws ServiciosException {
 		try {
 			return almacenamientoDAO.getAllAlmacenamientos();
-		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo obtener lista de almacenamientos");
+		} catch (Exception e) {
+			throw new ServiciosException("No se pudo obtener lista de almacenamientos >> " + e.getMessage());
 		}
 	}
 

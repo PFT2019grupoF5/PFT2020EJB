@@ -26,7 +26,7 @@ public class RenglonPedidoDAO {
 	   			em.persist(renglonPedido);
 	   			em.flush();
 	   		} catch (Exception e){
-	   			throw new ServiciosException(e.getMessage());
+	   			throw new ServiciosException("Error al crear RenglonPedido : " + e.getMessage());
 	   		}
 	   	}
 
@@ -35,7 +35,7 @@ public class RenglonPedidoDAO {
 	   			em.merge(renglonPedido);
 	   			em.flush();
 	   		} catch (Exception e){
-	   			throw new ServiciosException(e.getMessage());
+	   			throw new ServiciosException("Error al modificar RenglonPedido : " + e.getMessage());
 	   		}
 	   	}
 
@@ -44,7 +44,7 @@ public class RenglonPedidoDAO {
 	   			em.remove(getId(id));
 	   			em.flush();
 	   		} catch (Exception e){
-	   			throw new ServiciosException(e.getMessage());
+	   			throw new ServiciosException("Error al borrar RenglonPedido : " + e.getMessage());
 	   		}
 	   	}
 
@@ -54,7 +54,7 @@ public class RenglonPedidoDAO {
 	   					.setParameter("id", id);
 	   			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
 	   		}catch (Exception e) {
-	   			throw new ServiciosException(e.getMessage());
+	   			throw new ServiciosException("Error al traer por Id RenglonPedido : " + e.getMessage());
 	   		}
 	   		
 	   	}
@@ -63,8 +63,8 @@ public class RenglonPedidoDAO {
 			try{		
 				RenglonPedido renglonPedido = em.find(RenglonPedido.class, id); 
 				return renglonPedido;
-			}catch(PersistenceException e){
-				throw new ServiciosException("No se pudo encontrar el renglon");
+			}catch(Exception e){
+				throw new ServiciosException("No se pudo encontrar el renglon : " + e.getMessage());
 			}
 		}
 		
@@ -73,8 +73,8 @@ public class RenglonPedidoDAO {
 			try{		
 				TypedQuery<RenglonPedido> query = em.createNamedQuery("RenglonPedido.getAll",RenglonPedido.class); 
 				return query.getResultList();
-			}catch(PersistenceException e){
-				throw new ServiciosException("No se pudo obtener lista de Renglones de Pedido");
+			}catch(Exception e){
+				throw new ServiciosException("No se pudo obtener lista de Renglones de Pedido : " + e.getMessage());
 			}
 		}
 	   	

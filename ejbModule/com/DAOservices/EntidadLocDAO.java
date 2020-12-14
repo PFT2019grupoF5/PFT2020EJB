@@ -26,7 +26,7 @@ public class EntidadLocDAO {
 				em.persist(entidadLoc);
 				em.flush();
 			} catch (Exception e) {
-				throw new ServiciosException(e.getMessage());
+				throw new ServiciosException("Error al crear Local : " + e.getMessage());
 			}
 		}
 
@@ -35,7 +35,7 @@ public class EntidadLocDAO {
 				em.merge(entidadLoc);
 				em.flush();
 			} catch (Exception e) {
-				throw new ServiciosException(e.getMessage());
+				throw new ServiciosException("Error al modificar Local : " + e.getMessage());
 			}
 		}
 
@@ -45,7 +45,7 @@ public class EntidadLocDAO {
 				em.remove(entidadLoc);
 				em.flush();
 			} catch (Exception e) {
-				throw new ServiciosException(e.getMessage());
+				throw new ServiciosException("Error al borrar Local : " +e.getMessage());
 			}
 		}
 
@@ -54,7 +54,7 @@ public class EntidadLocDAO {
 				TypedQuery<EntidadLoc> query = em.createNamedQuery("EntidadLoc.getId", EntidadLoc.class).setParameter("id", id);
 				return (query.getResultList().size() == 0) ? null : query.getResultList().get(0);
 			} catch (Exception e) {
-				throw new ServiciosException(e.getMessage());
+				throw new ServiciosException("Error al traer por Id Local : " + e.getMessage());
 			}
 
 		}
@@ -65,7 +65,7 @@ public class EntidadLocDAO {
 						codigo);
 				return (query.getResultList().size() == 0) ? null : query.getResultList().get(0);
 			} catch (Exception e) {
-				throw new ServiciosException(e.getMessage());
+				throw new ServiciosException("Error al traer por Codigo Local : " + e.getMessage());
 			}
 
 		}
@@ -74,8 +74,8 @@ public class EntidadLocDAO {
 			try {
 				EntidadLoc entidadLoc = em.find(EntidadLoc.class, id);
 				return entidadLoc;
-			} catch (PersistenceException e) {
-				throw new ServiciosException("No se pudo encontrar el local");
+			} catch (Exception e) {
+				throw new ServiciosException("No se pudo encontrar el local : " + e.getMessage());
 			}
 		}
 
@@ -83,8 +83,8 @@ public class EntidadLocDAO {
 			try {
 				TypedQuery<EntidadLoc> query = em.createNamedQuery("EntidadLoc.getAll", EntidadLoc.class);
 				return query.getResultList();
-			} catch (PersistenceException e) {
-				throw new ServiciosException("No se puede obtener lista de locales");
+			} catch (Exception e) {
+				throw new ServiciosException("No se puede obtener lista de locales : " + e.getMessage());
 			}
 
 		}

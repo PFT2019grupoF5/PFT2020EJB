@@ -23,7 +23,7 @@ public class RenglonPedidoBean implements RenglonPedidoBeanRemote {
 		try {
 			renglonPedidoDAO.add(renglonPedido);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en add RenglonPedidoBean : " + e.getMessage());
 		}
 	}
 
@@ -32,7 +32,7 @@ public class RenglonPedidoBean implements RenglonPedidoBeanRemote {
 		try {
 			renglonPedidoDAO.update(renglonPedido);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en update RenglonPedidoBean : " + e.getMessage());
 		}
 	}
 
@@ -41,7 +41,7 @@ public class RenglonPedidoBean implements RenglonPedidoBeanRemote {
 		try {
 			renglonPedidoDAO.delete(id);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en delete RenglonPedidoBean : " + e.getMessage());
 		}
 	}
 
@@ -50,7 +50,7 @@ public class RenglonPedidoBean implements RenglonPedidoBeanRemote {
 		try {
 			return renglonPedidoDAO.getRenglonPedido(id);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en getId RenglonPedidoBean : " + e.getMessage());
 		}
 
 	}
@@ -59,8 +59,8 @@ public class RenglonPedidoBean implements RenglonPedidoBeanRemote {
 	public RenglonPedido getRenglonPedido(Long id) throws ServiciosException {
 		try {
 			return renglonPedidoDAO.getRenglonPedido(id);
-		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo encontrar el Renglon Pedido");
+		} catch (Exception e) {
+			throw new ServiciosException("No se pudo encontrar el Renglon Pedido >> " + e.getMessage());
 		}
 	}
 
@@ -68,8 +68,8 @@ public class RenglonPedidoBean implements RenglonPedidoBeanRemote {
 	public List<RenglonPedido> getAllRenglonesPedido() throws ServiciosException {
 		try {
 			return renglonPedidoDAO.getAllRenglonesPedidos();
-		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo obtener lista de Renglones de Pedido");
+		} catch (Exception e) {
+			throw new ServiciosException("No se pudo obtener lista de Renglones de Pedido >> " + e.getMessage());
 		}
 	}
 

@@ -24,7 +24,7 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 		try{
 			entidadLocDAO.add(entidadLoc);
 		} catch (Exception e){
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en add EntidadLocBean : " + e.getMessage());
 		}
 	}
 
@@ -34,7 +34,7 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 			entidadLocDAO.update(entidadLoc);
 
 		} catch (Exception e){
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en update EntidadLocBean : " + e.getMessage());
 		}
 	}
 
@@ -43,7 +43,7 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 		try{			
 			entidadLocDAO.delete(id);
 		} catch (Exception e){
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en delete EntidadLocBean : " + e.getMessage());
 		}
 	}
 
@@ -52,7 +52,7 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 		try{
 			return entidadLocDAO.getCodigo(codigo);
 		}catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en getCodigo EntidadLocBean : " + e.getMessage());
 		}
 		
 	}
@@ -62,7 +62,7 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 		try{
 			return entidadLocDAO.getEntidadLoc(id);
 		}catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error en getId EntidadLocBean : " + e.getMessage());
 		}
 		
 	}
@@ -73,8 +73,8 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 	public EntidadLoc getEntidadLoc(Long id) throws ServiciosException {
 		try{		
 			return entidadLocDAO.getEntidadLoc(id);
-		}catch(PersistenceException e){
-			throw new ServiciosException("No se pudo encontrar el Local");
+		}catch(Exception e){
+			throw new ServiciosException("No se pudo encontrar el Local >> " + e.getMessage());
 		}
 	}
 	
@@ -82,8 +82,8 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 	public List<EntidadLoc> getAllEntidadesLoc() throws ServiciosException {
 		try{		
 			return entidadLocDAO.getAllEntidadLoc();
-		}catch(PersistenceException e){
-			throw new ServiciosException("No se pudo obtener lista de Locales");
+		}catch(Exception e){
+			throw new ServiciosException("No se pudo obtener lista de Locales >> " + e.getMessage());
 		}
 	}
 	

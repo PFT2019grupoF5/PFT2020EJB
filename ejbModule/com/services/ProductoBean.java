@@ -27,7 +27,7 @@ public class ProductoBean implements ProductoBeanRemote {
    		try{
    			productoDAO.add(producto);
    		} catch (Exception e){
-   			throw new ServiciosException(e.getMessage());
+   			throw new ServiciosException("Error en add ProductoBean : " + e.getMessage());
    		}
    	}
 
@@ -36,7 +36,7 @@ public class ProductoBean implements ProductoBeanRemote {
    		try{
    			productoDAO.update(producto);
    		} catch (Exception e){
-   			throw new ServiciosException(e.getMessage());
+   			throw new ServiciosException("Error en update ProductoBean : " + e.getMessage());
    		}
    	}
 
@@ -45,7 +45,7 @@ public class ProductoBean implements ProductoBeanRemote {
    		try{			
    			productoDAO.delete(id);
    		} catch (Exception e){
-   			throw new ServiciosException(e.getMessage());
+   			throw new ServiciosException("Error en delete ProductoBean : " + e.getMessage());
    		}
    	}
    	
@@ -54,7 +54,7 @@ public class ProductoBean implements ProductoBeanRemote {
    		try{
    			return productoDAO.getId(id);
    		}catch (Exception e) {
-   			throw new ServiciosException(e.getMessage());
+   			throw new ServiciosException("Error en getId ProductoBean : " + e.getMessage());
    		}
    	}
    	
@@ -63,7 +63,7 @@ public class ProductoBean implements ProductoBeanRemote {
    		try{
    			return productoDAO.getNombre(nombre);
    		}catch (Exception e) {
-   			throw new ServiciosException(e.getMessage());
+   			throw new ServiciosException("Error en getNombre ProductoBean : " + e.getMessage());
    		}
    		
    	}
@@ -74,7 +74,7 @@ public class ProductoBean implements ProductoBeanRemote {
    		try{
    			return productoDAO.validoBajaProductos(producto);
    		}catch (Exception e) {
-   			throw new ServiciosException(e.getMessage());
+   			throw new ServiciosException("Error en validoBajaProductos ProductoBean : " + e.getMessage());
    		}
    	}
 
@@ -82,8 +82,8 @@ public class ProductoBean implements ProductoBeanRemote {
 	public Producto getProducto(Long id) throws ServiciosException {
 		try{		
 			return productoDAO.getProducto(id);
-		}catch(PersistenceException e){
-			throw new ServiciosException("No se pudo encontrar el producto");
+		}catch(Exception e){
+			throw new ServiciosException("No se pudo encontrar el producto >> " + e.getMessage());
 		}
 	}
 	
@@ -91,8 +91,8 @@ public class ProductoBean implements ProductoBeanRemote {
 	public List<Producto> getAllProductos() throws ServiciosException {
 		try{		 
 			return productoDAO.getAllProductos();
-		}catch(PersistenceException e){
-			throw new ServiciosException("No se pudo obtener lista de productos");
+		}catch(Exception e){
+			throw new ServiciosException("No se pudo obtener lista de productos >> " + e.getMessage());
 		}
 	}
 	

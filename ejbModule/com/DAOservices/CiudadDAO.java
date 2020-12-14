@@ -32,7 +32,7 @@ public class CiudadDAO {
 			em.persist(ciudad);
 			em.flush();
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al crear Ciudad : " + e.getMessage());
 		}
 	}
 
@@ -41,15 +41,17 @@ public class CiudadDAO {
 			em.merge(ciudad);
 			em.flush();
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al modificar Ciudad : " + e.getMessage());
 		}
 	}
 
 	public void delete(Long id) throws ServiciosException {
 		try {
 			Ciudad ciudad = em.find(Ciudad.class, id);
+			em.remove(ciudad);
+			em.flush();
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al borrar Ciudad : " + e.getMessage());
 		}
 	}
 
@@ -58,7 +60,7 @@ public class CiudadDAO {
 			TypedQuery<Ciudad> query = em.createNamedQuery("Ciudad.getId", Ciudad.class).setParameter("id", id);
 			return (query.getResultList().size() == 0) ? null : query.getResultList().get(0);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al traer por Id Ciudad : " + e.getMessage());
 		}
 
 	}
@@ -69,7 +71,7 @@ public class CiudadDAO {
 					nombre);
 			return (query.getResultList().size() == 0) ? null : query.getResultList().get(0);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al traer por Nombre Ciudad : " + e.getMessage());
 		}
 
 	}
@@ -79,8 +81,8 @@ public class CiudadDAO {
 			Ciudad ciudad = new Ciudad();
 			ciudad = em.find(Ciudad.class, id);
 			return ciudad;
-		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo encontrar la ciudad");
+		} catch (Exception e) {
+			throw new ServiciosException("No se pudo encontrar la ciudad : " + e.getMessage());
 		}
 	}
 
@@ -88,8 +90,8 @@ public class CiudadDAO {
 		try {
 			TypedQuery<Ciudad> query = em.createNamedQuery("Ciudad.getAll", Ciudad.class);
 			return query.getResultList();
-		} catch (PersistenceException e) {
-			throw new ServiciosException("No se puede obtener lista de ciudades");
+		} catch (Exception e) {
+			throw new ServiciosException("No se puede obtener lista de ciudades : " + e.getMessage());
 		}
 
 	}

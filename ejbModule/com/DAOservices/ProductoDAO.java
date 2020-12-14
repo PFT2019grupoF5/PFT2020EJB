@@ -28,7 +28,7 @@ public class ProductoDAO {
 	   			em.persist(producto);
 	   			em.flush();
 	   		} catch (Exception e){
-	   			throw new ServiciosException(e.getMessage());
+	   			throw new ServiciosException("Error al crear Producto : " + e.getMessage());
 	   		}
 	   	}
 
@@ -38,7 +38,7 @@ public class ProductoDAO {
 	   			em.merge(producto);
 	   			em.flush();
 	   		} catch (Exception e){
-	   			throw new ServiciosException(e.getMessage());
+	   			throw new ServiciosException("Error al modificar Producto : " + e.getMessage());
 	   		}
 	   	}
 
@@ -49,7 +49,7 @@ public class ProductoDAO {
 	   			em.remove(producto);
 	   			em.flush();
 	   		} catch (Exception e){
-	   			throw new ServiciosException(e.getMessage());
+	   			throw new ServiciosException("Error al borrar Producto : " + e.getMessage());
 	   		}
 	   	}
 	   	
@@ -60,7 +60,7 @@ public class ProductoDAO {
 	   					.setParameter("id", id);
 	   			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
 	   		}catch (Exception e) {
-	   			throw new ServiciosException(e.getMessage());
+	   			throw new ServiciosException("Error al traer por Id Producto : " + e.getMessage());
 	   		}
 
 	   	}
@@ -72,7 +72,7 @@ public class ProductoDAO {
 	   					.setParameter("nombre", nombre);
 	   			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
 	   		}catch (Exception e) {
-	   			throw new ServiciosException(e.getMessage());
+	   			throw new ServiciosException("Error al traer por Nombre Producto : " + e.getMessage());
 	   		}
 	   		
 	   	}
@@ -85,7 +85,7 @@ public class ProductoDAO {
 	   					.setParameter("producto", producto);
 	   			return (query.getResultList().size()==0) ? false :  true;
 	   		}catch (Exception e) {
-	   			throw new ServiciosException(e.getMessage());
+	   			throw new ServiciosException("Error en validoBajaProductos : " + e.getMessage());
 	   		}
 	   	}
 
@@ -94,8 +94,8 @@ public class ProductoDAO {
 			try{		
 				Producto producto = em.find(Producto.class, id); 
 				return producto;
-			}catch(PersistenceException e){
-				throw new ServiciosException("No se pudo encontrar el producto");
+			}catch(Exception e){
+				throw new ServiciosException("No se pudo encontrar el producto : " + e.getMessage());
 			}
 		}
 		
@@ -104,8 +104,8 @@ public class ProductoDAO {
 			try{		
 				TypedQuery<Producto> query = em.createNamedQuery("Producto.getAll",Producto.class); 
 				return query.getResultList();
-			}catch(PersistenceException e){
-				throw new ServiciosException("No se pudo obtener lista de productos");
+			}catch(Exception e){
+				throw new ServiciosException("No se pudo obtener lista de productos : " + e.getMessage());
 			}
 		}
 		

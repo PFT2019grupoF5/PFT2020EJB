@@ -24,7 +24,7 @@ public class AlmacenamientoDAO {
 			em.persist(almacenamiento);
 			em.flush();
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al crear Almacenamiento : " + e.getMessage());
 		}
 	}
 
@@ -33,7 +33,7 @@ public class AlmacenamientoDAO {
 			em.merge(almacenamiento);
 			em.flush();
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al modificar Almacenamiento : " + e.getMessage());
 		}
 	}
 
@@ -43,7 +43,7 @@ public class AlmacenamientoDAO {
 			em.remove(almacenamiento);
 			em.flush();
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al borrar Almacenamiento : " + e.getMessage());
 		}
 	}
 
@@ -53,7 +53,7 @@ public class AlmacenamientoDAO {
 					.setParameter("id", id);
 			return (query.getResultList().size() == 0) ? null : query.getResultList().get(0);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al traer por Id Almacenamiento : " + e.getMessage());
 		}
 
 	}
@@ -62,8 +62,8 @@ public class AlmacenamientoDAO {
 		try {
 			Almacenamiento almacenamiento = em.find(Almacenamiento.class, id);
 			return almacenamiento;
-		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo encontrar el almacenamiento");
+		} catch (Exception e) {
+			throw new ServiciosException("No se pudo encontrar el almacenamiento : " + e.getMessage());
 		}
 	}
 
@@ -71,8 +71,8 @@ public class AlmacenamientoDAO {
 		try {
 			TypedQuery<Almacenamiento> query = em.createNamedQuery("Almacenamiento.getAll", Almacenamiento.class);
 			return query.getResultList();
-		} catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo obtener lista de almacenamientos");
+		} catch (Exception e) {
+			throw new ServiciosException("No se pudo obtener lista de almacenamientos : " + e.getMessage());
 		}
 	}
 
