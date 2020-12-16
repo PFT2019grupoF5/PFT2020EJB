@@ -55,9 +55,18 @@ public class AlmacenamientoDAO {
 		} catch (Exception e) {
 			throw new ServiciosException("Error al traer por Id Almacenamiento : " + e.getMessage());
 		}
-
 	}
 
+	public Almacenamiento getNombre(String nombre) throws ServiciosException {
+		try {
+			TypedQuery<Almacenamiento> query = em.createNamedQuery("Almacenamiento.getNombreLike", Almacenamiento.class)
+					.setParameter("nombre", nombre);
+			return (query.getResultList().size() == 0) ? null : query.getResultList().get(0);
+		} catch (Exception e) {
+			throw new ServiciosException(e.getMessage());
+		}
+	}
+	
 	public Almacenamiento getAlmacenamiento(Long id) throws ServiciosException {
 		try {
 			Almacenamiento almacenamiento = em.find(Almacenamiento.class, id);
