@@ -27,7 +27,7 @@ public class Almacenamiento implements Serializable {
 	@Column(name = "ALMA_VOLUMEN", nullable =  false)
 	private int volumen;
 
-	@Column(name = "ALMA_DESCRIPCION", length=250)
+	@Column(name = "ALMA_DESCRIPCION", length=250, nullable=false, unique=true)
 	private String nombre;
 	
 //	@Column(name = "ALMA_COSTOOP", nullable = false)

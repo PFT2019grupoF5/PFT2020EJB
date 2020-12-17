@@ -82,4 +82,14 @@ public class AlmacenamientoBean implements AlmacenamientoBeanRemote {
 		}
 	}
 
+	
+	@Override
+	public Almacenamiento getNombre(String nombre) throws ServiciosException {
+		try {
+			return almacenamientoDAO.getNombre(nombre);
+		} catch (Exception e) {
+			throw new ServiciosException(e.getMessage());
+		}
+	}
+	
 }

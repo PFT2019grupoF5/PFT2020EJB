@@ -85,4 +85,14 @@ public class AlmacenamientoDAO {
 		}
 	}
 
+	public Almacenamiento getNombre(String nombre) throws ServiciosException {
+		try {
+			TypedQuery<Almacenamiento> query = em.createNamedQuery("Almacenamiento.getNombreLike", Almacenamiento.class)
+					.setParameter("nombre", nombre);
+			return (query.getResultList().size() == 0) ? null : query.getResultList().get(0);
+		} catch (Exception e) {
+			throw new ServiciosException(e.getMessage());
+		}
+	}
+	
 }
