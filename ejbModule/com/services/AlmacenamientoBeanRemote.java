@@ -20,4 +20,6 @@ public interface AlmacenamientoBeanRemote {
 
 	Almacenamiento getAlmacenamiento(Long id) throws ServiciosException;
 
+	Almacenamiento getNombre(String nombre) throws ServiciosException;
+
 }
