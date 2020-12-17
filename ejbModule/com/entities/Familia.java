@@ -24,7 +24,7 @@ public class Familia implements Serializable {
 	@Column(name = "FAMI_CODI", nullable=false)
 	private Long id;
 	
-	@Column(name = "FAMI_NOMBRE", length=50, nullable=false)
+	@Column(name = "FAMI_NOMBRE", length=50, nullable=false, unique=true)
 	private String nombre;
 	
 	@Column(name = "FAMI_DESCRIP", length=100, nullable=false)

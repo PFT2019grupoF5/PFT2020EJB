@@ -27,7 +27,7 @@ public class EntidadLoc implements Serializable {
 	@Column(name = "LOC_ID")
 	private Long id;
 	
-	@Column(name = "LOC_CODIGO")
+	@Column(name = "LOC_CODIGO", nullable=false, unique=true)
 	private int codigo;
 	
 	@Column(name = "LOC_DESCRIP", length=50, nullable=false, unique=true)

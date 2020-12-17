@@ -37,8 +37,8 @@ public class Movimiento implements Serializable {
 	@Column(length=250, name = "MOV_DESCRIPCION")
 	private String descripcion;
 
-//	@Column(name = "MOV_COSTO", nullable=false)
-	@Column(name = "MOV_COSTO", nullable=false, columnDefinition = "FLOAT[5,2]")
+	@Column(name = "MOV_COSTO", nullable=false)
+//	@Column(name = "MOV_COSTO", nullable=false, columnDefinition = "FLOAT[5,2]")
 	private double costo;
 	
 	@Column(name = "MOV_TIPO", length = 1, nullable=false)
