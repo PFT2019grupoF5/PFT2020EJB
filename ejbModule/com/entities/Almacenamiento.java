@@ -29,19 +29,19 @@ public class Almacenamiento implements Serializable {
 	@Column(name = "ALMA_VOLUMEN", nullable =  false)
 	private int volumen;
 
-	@Column(name = "ALMA_DESCRIPCION", length=250)
+	@Column(name = "ALMA_DESCRIPCION", length=250, nullable=false, unique=true)
 	private String nombre;
 	
-//	@Column(name = "ALMA_COSTOOP", nullable = false)
-	@Column(name = "ALMA_COSTOOP", nullable = false, columnDefinition = "FLOAT(5,2)")
+	@Column(name = "ALMA_COSTOOP", nullable = false)
+//	@Column(name = "ALMA_COSTOOP", nullable = false, columnDefinition = "FLOAT(5,2)")
 	private double costoop;
 
-//	@Column(name = "ALMA_CAPESTIBA", nullable = false)
-	@Column(name = "ALMA_CAPESTIBA", nullable = false, columnDefinition = "FLOAT(5,2)")
+	@Column(name = "ALMA_CAPESTIBA", nullable = false)
+//	@Column(name = "ALMA_CAPESTIBA", nullable = false, columnDefinition = "FLOAT(5,2)")
 	private double capestiba;
 
-//	@Column(name = "ALMA_CAPPESO", nullable = false)
-	@Column(name = "ALMA_CAPPESO", nullable = false, columnDefinition = "FLOAT(5,2)")
+	@Column(name = "ALMA_CAPPESO", nullable = false)
+//	@Column(name = "ALMA_CAPPESO", nullable = false, columnDefinition = "FLOAT(5,2)")
 	private double cappeso;
 
 	@ManyToOne(optional=false)
