@@ -34,8 +34,8 @@ public class Producto implements Serializable {
 	@Column(length=10,name = "PROD_LOTE", nullable=false)
 	private String lote;
 
-	@Column(name = "PROD_PRECIO", nullable=false)
-//	@Column(name = "PROD_PRECIO", nullable=false, columnDefinition = "FLOAT[5,2]")
+//	@Column(name = "PROD_PRECIO", nullable=false)
+	@Column(name = "PROD_PRECIO", nullable=false, columnDefinition = "FLOAT[5,2]")
 	private double precio;
 
 	@Column(name = "PROD_FELAB", nullable=false)
@@ -44,23 +44,23 @@ public class Producto implements Serializable {
 	@Column(name = "PROD_FVEN", nullable=false)
 	private Date fven;
 
-	@Column(name = "PROD_PESO", nullable=false)
-//	@Column(name = "PROD_PESO", nullable=false, columnDefinition = "FLOAT[5,2]")
+//	@Column(name = "PROD_PESO", nullable=false)
+	@Column(name = "PROD_PESO", nullable=false, columnDefinition = "FLOAT[5,2]")
 	private double peso;
 
-	@Column(name = "PROD_VOL", nullable=false)
-//	@Column(name = "PROD_VOL", nullable=false, columnDefinition = "FLOAT[5,2]")
+//	@Column(name = "PROD_VOL", nullable=false)
+	@Column(name = "PROD_VOL", nullable=false, columnDefinition = "FLOAT[5,2]")
 	private double volumen;
 
 	@Column(name = "PROD_ESTIBA", nullable=false)
 	private int estiba;
 
-	@Column(name = "PROD_STKMIN", nullable=false)
-//	@Column(name = "PROD_STKMIN", nullable=false, columnDefinition = "FLOAT[5,2]")
+//	@Column(name = "PROD_STKMIN", nullable=false)
+	@Column(name = "PROD_STKMIN", nullable=false, columnDefinition = "FLOAT[5,2]")
 	private double stkMin;
 
-	@Column(name = "PROD_STKTOTAL", nullable=false)
-//	@Column(name = "PROD_STKTOTAL", nullable=false, columnDefinition = "FLOAT[5,2]")
+//	@Column(name = "PROD_STKTOTAL", nullable=false)
+	@Column(name = "PROD_STKTOTAL", nullable=false, columnDefinition = "FLOAT[5,2]")
 	private double stkTotal;
 	
 	@Column(name = "PROD_SEGMENTAC", length = 1, nullable=false)
