@@ -6,6 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
+import javax.validation.ConstraintViolationException;
+
 import com.entities.RenglonPedido;
 import com.exception.ServiciosException;
 import javax.ejb.Stateless;
@@ -25,7 +27,14 @@ public class RenglonPedidoDAO {
 	   		try{
 	   			em.persist(renglonPedido);
 	   			em.flush();
-	   		} catch (Exception e){
+			}
+			catch (PersistenceException e){
+				throw new ServiciosException("Al crear un RenglonPedido se ha producido un error de percistencia : " + e.getMessage());
+			}
+			catch (ConstraintViolationException e) {
+				throw new ServiciosException("Al crear un RenglonPedido se ha producido un error de validacion : " + e.getMessage());
+			}
+	   		catch (Exception e){
 	   			throw new ServiciosException("Error al crear RenglonPedido : " + e.getMessage());
 	   		}
 	   	}
@@ -34,7 +43,14 @@ public class RenglonPedidoDAO {
 	   		try{
 	   			em.merge(renglonPedido);
 	   			em.flush();
-	   		} catch (Exception e){
+			}
+			catch (PersistenceException e){
+				throw new ServiciosException("Al modificar un RenglonPedido se ha producido un error de percistencia : " + e.getMessage());
+			}
+			catch (ConstraintViolationException e) {
+				throw new ServiciosException("Al modificar un RenglonPedido se ha producido un error de validacion : " + e.getMessage());
+			}
+	   		catch (Exception e){
 	   			throw new ServiciosException("Error al modificar RenglonPedido : " + e.getMessage());
 	   		}
 	   	}
@@ -43,7 +59,14 @@ public class RenglonPedidoDAO {
 	   		try{			
 	   			em.remove(getId(id));
 	   			em.flush();
-	   		} catch (Exception e){
+			}
+			catch (PersistenceException e){
+				throw new ServiciosException("Al borrar un RenglonPedido se ha producido un error de percistencia : " + e.getMessage());
+			}
+			catch (ConstraintViolationException e) {
+				throw new ServiciosException("Al borrar un RenglonPedido se ha producido un error de validacion : " + e.getMessage());
+			}
+	   		catch (Exception e){
 	   			throw new ServiciosException("Error al borrar RenglonPedido : " + e.getMessage());
 	   		}
 	   	}

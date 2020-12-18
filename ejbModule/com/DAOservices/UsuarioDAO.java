@@ -6,6 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
+import javax.validation.ConstraintViolationException;
+
 import com.entities.Usuario;
 import com.exception.ServiciosException;
 import javax.ejb.Stateless;
@@ -26,7 +28,14 @@ public class UsuarioDAO {
 			try{
 				em.persist(usuario);
 				em.flush();
-			} catch (Exception e){
+			}
+			catch (PersistenceException e){
+				throw new ServiciosException("Al crear un Usuario se ha producido un error de percistencia : " + e.getMessage());
+			}
+			catch (ConstraintViolationException e) {
+				throw new ServiciosException("Al crear un Usuario se ha producido un error de validacion : " + e.getMessage());
+			}
+			catch (Exception e){
 				throw new ServiciosException("Error al crear Usuario : " + e.getMessage());
 			}
 		}
@@ -36,7 +45,14 @@ public class UsuarioDAO {
 			try{
 				em.merge(usuario);
 				em.flush();
-			} catch (Exception e){
+			}
+			catch (PersistenceException e){
+				throw new ServiciosException("Al modificar un Usuario se ha producido un error de percistencia : " + e.getMessage());
+			}
+			catch (ConstraintViolationException e) {
+				throw new ServiciosException("Al modificar un Usuario se ha producido un error de validacion : " + e.getMessage());
+			}
+			catch (Exception e){
 				throw new ServiciosException("Error al modificar Usuario : " + e.getMessage());
 			}
 		}
@@ -47,7 +63,14 @@ public class UsuarioDAO {
 				Usuario usuario = em.find(Usuario.class,  id);
 				em.remove(usuario);
 				em.flush();
-			} catch (Exception e){
+			}
+			catch (PersistenceException e){
+				throw new ServiciosException("Al borrar un Usuario se ha producido un error de percistencia : " + e.getMessage());
+			}
+			catch (ConstraintViolationException e) {
+				throw new ServiciosException("Al borrar un Usuario se ha producido un error de validacion : " + e.getMessage());
+			}
+			catch (Exception e){
 				throw new ServiciosException("Error al borrar Usuario : " + e.getMessage());
 			}
 		}

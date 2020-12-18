@@ -5,6 +5,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
+import javax.validation.ConstraintViolationException;
+
 import com.entities.Movimiento;
 import com.entities.Producto;
 import com.enumerated.tipoMovimiento;
@@ -26,7 +28,14 @@ public class MovimientoDAO {
 		try{
 			em.persist(movimiento);
 			em.flush();
-		} catch (Exception e){
+		}
+		catch (PersistenceException e){
+			throw new ServiciosException("Al crear un Movimiento se ha producido un error de percistencia : " + e.getMessage());
+		}
+		catch (ConstraintViolationException e) {
+			throw new ServiciosException("Al crear un Movimiento se ha producido un error de validacion : " + e.getMessage());
+		}
+		catch (Exception e){
 			throw new ServiciosException("Error al crear Movimiento : " + e.getMessage());
 		}
 	}
@@ -35,7 +44,14 @@ public class MovimientoDAO {
 		try{
 			em.merge(movimiento);
 			em.flush();
-		} catch (Exception e){
+		}
+		catch (PersistenceException e){
+			throw new ServiciosException("Al modificar un Movimiento se ha producido un error de percistencia : " + e.getMessage());
+		}
+		catch (ConstraintViolationException e) {
+			throw new ServiciosException("Al modificar un Movimiento se ha producido un error de validacion : " + e.getMessage());
+		}
+		catch (Exception e){
 			throw new ServiciosException("Error al modificar Movimiento : " + e.getMessage());
 		}
 	}
@@ -45,7 +61,14 @@ public class MovimientoDAO {
 			Movimiento movimiento = em.find(Movimiento.class,  id);
 			em.remove(movimiento);
 			em.flush();
-		} catch (Exception e){
+		}
+		catch (PersistenceException e){
+			throw new ServiciosException("Al borrar un Movimiento se ha producido un error de percistencia : " + e.getMessage());
+		}
+		catch (ConstraintViolationException e) {
+			throw new ServiciosException("Al borrar un Movimiento se ha producido un error de validacion : " + e.getMessage());
+		}
+		catch (Exception e){
 			throw new ServiciosException("Error al borrar Movimiento : " + e.getMessage());
 		}
 	}

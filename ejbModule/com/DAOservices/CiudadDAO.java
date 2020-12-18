@@ -4,6 +4,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
 import javax.persistence.TypedQuery;
 import com.entities.Ciudad;
 import com.exception.ServiciosException;
@@ -31,7 +32,14 @@ public class CiudadDAO {
 		try {
 			em.persist(ciudad);
 			em.flush();
-		} catch (Exception e) {
+		}
+		catch (PersistenceException e){
+			throw new ServiciosException("Al crear una Ciudad se ha producido un error de percistencia : " + e.getMessage());
+		}
+		catch (ConstraintViolationException e) {
+			throw new ServiciosException("Al crear una Ciudad se ha producido un error de validacion : " + e.getMessage());
+		}
+		catch (Exception e) {
 			throw new ServiciosException("Error al crear Ciudad : " + e.getMessage());
 		}
 	}
@@ -40,7 +48,14 @@ public class CiudadDAO {
 		try {
 			em.merge(ciudad);
 			em.flush();
-		} catch (Exception e) {
+		}
+		catch (PersistenceException e){
+			throw new ServiciosException("Al modificar una Ciudad se ha producido un error de percistencia : " + e.getMessage());
+		}
+		catch (ConstraintViolationException e) {
+			throw new ServiciosException("Al modificar una Ciudad se ha producido un error de validacion : " + e.getMessage());
+		}
+		catch (Exception e) {
 			throw new ServiciosException("Error al modificar Ciudad : " + e.getMessage());
 		}
 	}
@@ -50,7 +65,14 @@ public class CiudadDAO {
 			Ciudad ciudad = em.find(Ciudad.class, id);
 			em.remove(ciudad);
 			em.flush();
-		} catch (Exception e) {
+		}
+		catch (PersistenceException e){
+			throw new ServiciosException("Al borrar una Ciudad se ha producido un error de percistencia : " + e.getMessage());
+		}
+		catch (ConstraintViolationException e) {
+			throw new ServiciosException("Al borrar una Ciudad se ha producido un error de validacion : " + e.getMessage());
+		}
+		catch (Exception e) {
 			throw new ServiciosException("Error al borrar Ciudad : " + e.getMessage());
 		}
 	}

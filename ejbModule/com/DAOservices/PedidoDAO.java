@@ -8,6 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
+import javax.validation.ConstraintViolationException;
+
 import com.entities.Pedido;
 import com.exception.ServiciosException;
 import javax.ejb.Stateless;
@@ -25,7 +27,14 @@ public class PedidoDAO {
 		try {
 			em.persist(pedido);
 			em.flush();
-		} catch (Exception e) {
+		}
+		catch (PersistenceException e){
+			throw new ServiciosException("Al crear un Pedido se ha producido un error de percistencia : " + e.getMessage());
+		}
+		catch (ConstraintViolationException e) {
+			throw new ServiciosException("Al crear un Pedido se ha producido un error de validacion : " + e.getMessage());
+		}
+		catch (Exception e) {
 			throw new ServiciosException("Error al crear Pedido : " + e.getMessage());
 		}
 	}
@@ -34,7 +43,14 @@ public class PedidoDAO {
 		try {
 			em.merge(pedido);
 			em.flush();
-		} catch (Exception e) {
+		}
+		catch (PersistenceException e){
+			throw new ServiciosException("Al modificar un Pedido se ha producido un error de percistencia : " + e.getMessage());
+		}
+		catch (ConstraintViolationException e) {
+			throw new ServiciosException("Al modificar un Pedido se ha producido un error de validacion : " + e.getMessage());
+		}
+		catch (Exception e) {
 			throw new ServiciosException("Error al modificar Pedido : " + e.getMessage());
 		}
 	}
@@ -44,7 +60,14 @@ public class PedidoDAO {
 			Pedido pedido = em.find(Pedido.class, id);
 			em.remove(pedido);
 			em.flush();
-		} catch (Exception e) {
+		}
+		catch (PersistenceException e){
+			throw new ServiciosException("Al borrar un Pedido se ha producido un error de percistencia : " + e.getMessage());
+		}
+		catch (ConstraintViolationException e) {
+			throw new ServiciosException("Al borrar un Pedido se ha producido un error de validacion : " + e.getMessage());
+		}
+		catch (Exception e) {
 			throw new ServiciosException("Error al borrar Pedido : " + e.getMessage());
 		}
 	}
