@@ -66,7 +66,7 @@ public class MovimientoBean implements MovimientoBeanRemote {
 	}
 	
 	@Override
-	public int getMovimientoxAlmac(long idAlma) throws ServiciosException {
+	public int getMovimientoxAlmac(Long idAlma) throws ServiciosException {
 		try{
 			return movimientoDAO.getMovimientoxAlmac(idAlma);
 		}catch (Exception e) {
