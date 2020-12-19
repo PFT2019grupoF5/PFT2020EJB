@@ -4,7 +4,7 @@ import java.util.List;
 import javax.ejb.Remote;
 import com.entities.Almacenamiento;
 import com.exception.ServiciosException;
-
+//
 @Remote
 public interface AlmacenamientoBeanRemote {
 
