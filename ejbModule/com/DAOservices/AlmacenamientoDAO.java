@@ -5,6 +5,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
+import javax.validation.ConstraintViolationException;
+
 import com.entities.Almacenamiento;
 import com.exception.ServiciosException;
 import javax.ejb.Stateless;
@@ -23,7 +25,14 @@ public class AlmacenamientoDAO {
 		try {
 			em.persist(almacenamiento);
 			em.flush();
-		} catch (Exception e) {
+		}
+		catch (PersistenceException e){
+			throw new ServiciosException("Al crear un Almacenamiento se ha producido un error de percistencia : " + e.getMessage());
+		}
+		catch (ConstraintViolationException e) {
+			throw new ServiciosException("Al crear un Almacenamiento se ha producido un error de validacion : " + e.getMessage());
+		}
+		catch (Exception e) {
 			throw new ServiciosException("Error al crear Almacenamiento : " + e.getMessage());
 		}
 	}
@@ -32,7 +41,14 @@ public class AlmacenamientoDAO {
 		try {
 			em.merge(almacenamiento);
 			em.flush();
-		} catch (Exception e) {
+		}
+		catch (PersistenceException e){
+			throw new ServiciosException("Al modificar un Almacenamiento se ha producido un error de percistencia : " + e.getMessage());
+		}
+		catch (ConstraintViolationException e) {
+			throw new ServiciosException("Al modificar un Almacenamiento se ha producido un error de validacion : " + e.getMessage());
+		}
+		catch (Exception e) {
 			throw new ServiciosException("Error al modificar Almacenamiento : " + e.getMessage());
 		}
 	}
@@ -42,7 +58,14 @@ public class AlmacenamientoDAO {
 			Almacenamiento almacenamiento = em.find(Almacenamiento.class, id);
 			em.remove(almacenamiento);
 			em.flush();
-		} catch (Exception e) {
+		}
+		catch (PersistenceException e){
+			throw new ServiciosException("Al borrar un Almacenamiento se ha producido un error de percistencia : " + e.getMessage());
+		}
+		catch (ConstraintViolationException e) {
+			throw new ServiciosException("Al borrar un Almacenamiento se ha producido un error de validacion : " + e.getMessage());
+		}
+		catch (Exception e) {
 			throw new ServiciosException("Error al borrar Almacenamiento : " + e.getMessage());
 		}
 	}

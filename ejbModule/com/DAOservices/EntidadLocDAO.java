@@ -5,6 +5,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
+import javax.validation.ConstraintViolationException;
+
 import com.entities.EntidadLoc;
 import com.exception.ServiciosException;
 import javax.ejb.Stateless;
@@ -25,7 +27,14 @@ public class EntidadLocDAO {
 			try {
 				em.persist(entidadLoc);
 				em.flush();
-			} catch (Exception e) {
+			}
+			catch (PersistenceException e){
+				throw new ServiciosException("Al crear un Local se ha producido un error de percistencia : " + e.getMessage());
+			}
+			catch (ConstraintViolationException e) {
+				throw new ServiciosException("Al crear un Local se ha producido un error de validacion : " + e.getMessage());
+			}
+			catch (Exception e) {
 				throw new ServiciosException("Error al crear Local : " + e.getMessage());
 			}
 		}
@@ -34,7 +43,14 @@ public class EntidadLocDAO {
 			try {
 				em.merge(entidadLoc);
 				em.flush();
-			} catch (Exception e) {
+			}
+			catch (PersistenceException e){
+				throw new ServiciosException("Al modificar un Local se ha producido un error de percistencia : " + e.getMessage());
+			}
+			catch (ConstraintViolationException e) {
+				throw new ServiciosException("Al modificar un Local se ha producido un error de validacion : " + e.getMessage());
+			}
+			catch (Exception e) {
 				throw new ServiciosException("Error al modificar Local : " + e.getMessage());
 			}
 		}
@@ -44,7 +60,14 @@ public class EntidadLocDAO {
 				EntidadLoc entidadLoc = new EntidadLoc();
 				em.remove(entidadLoc);
 				em.flush();
-			} catch (Exception e) {
+			}
+			catch (PersistenceException e){
+				throw new ServiciosException("Al borrar un Local se ha producido un error de percistencia : " + e.getMessage());
+			}
+			catch (ConstraintViolationException e) {
+				throw new ServiciosException("Al borrar un Local se ha producido un error de validacion : " + e.getMessage());
+			}
+			catch (Exception e) {
 				throw new ServiciosException("Error al borrar Local : " +e.getMessage());
 			}
 		}
