@@ -6,7 +6,7 @@ import com.enumerated.tipoMovimiento;
 import java.util.Date;
 
 
-/**
+/*
  * Entity implementation class for Entity: Movimiento
  */
 @Entity
