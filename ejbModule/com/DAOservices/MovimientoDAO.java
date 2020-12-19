@@ -73,6 +73,19 @@ public class MovimientoDAO {
 		}
 	}
 
+	public int getMovimientoxAlmac(long idAlma) throws ServiciosException {
+		try{
+			TypedQuery<Movimiento> query =  em.createNamedQuery("Movimiento.getMovimientoxAlmac", Movimiento.class)
+					.setParameter("idAlma", idAlma);
+			
+			return (query.getResultList().size());
+		}catch (Exception e) {
+			throw new ServiciosException("Error al traer el Movimiento por Id de Almacenamiento: " + e.getMessage());
+		}
+		
+	}
+
+	
 	public Movimiento getId(Long id) throws ServiciosException {
 		try{
 			TypedQuery<Movimiento> query =  em.createNamedQuery("Movimiento.getId", Movimiento.class)
