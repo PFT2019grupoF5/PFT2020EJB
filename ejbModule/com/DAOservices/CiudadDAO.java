@@ -18,11 +18,6 @@ public class CiudadDAO {
 	private EntityManager em;
 	
 
-    protected EntityManager getEntityManager() {
-        return em;
-    }
-
-
 	public CiudadDAO() {
 
 	}

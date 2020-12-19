@@ -56,8 +56,9 @@ public class RenglonPedidoDAO {
 	   	}
 
 	   	public void delete(Long id) throws ServiciosException {
-	   		try{			
-	   			em.remove(getId(id));
+	   		try{
+	   			RenglonPedido renglonPedido = em.find(RenglonPedido.class, id); 
+	   			em.remove(renglonPedido);
 	   			em.flush();
 			}
 			catch (PersistenceException e){

@@ -27,6 +27,7 @@ public class ProductoDAO {
 
 	   	public void add(Producto producto) throws ServiciosException {
 	   		try{
+	    		System.out.println("DAO::::: producto.getFelab() : " + producto.getFelab() + " | producto.getFven() : " + producto.getFven());
 	   			em.persist(producto);
 	   			em.flush();
 			}

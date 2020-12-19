@@ -57,16 +57,14 @@ public class EntidadLocDAO {
 
 		public void delete(Long id) throws ServiciosException {
 			try {
-				EntidadLoc entidadLoc = new EntidadLoc();
+				EntidadLoc entidadLoc = em.find(EntidadLoc.class, id);
 				em.remove(entidadLoc);
 				em.flush();
-				System.out.println("Ciudad delete  --------------- No genera error de catch ");
 			}
 			catch (PersistenceException e){
 				throw new ServiciosException("Al borrar un Local se ha producido un error de percistencia : " + e.getMessage());
 			}
 			catch (ConstraintViolationException e) {
-				System.out.println("Al borrar un Local se ha producido un error de validacion : ");
 				throw new ServiciosException("Al borrar un Local se ha producido un error de validacion : " + e.getMessage());
 			}
 			catch (Exception e) {
