@@ -5,6 +5,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
+
+import com.entities.Almacenamiento;
 import com.entities.Movimiento;
 import com.entities.Producto;
 import com.enumerated.tipoMovimiento;
@@ -61,6 +63,21 @@ public class MovimientoDAO {
 		
 	}
 	
+	public int getMovimientoxAlmac(long idAlma) throws ServiciosException {
+		try{
+			TypedQuery<Movimiento> query =  em.createNamedQuery("Movimiento.getMovimientoxAlmac", Movimiento.class)
+					.setParameter("idAlma", idAlma);
+			
+			
+			System.out.print(query);
+			
+			
+			return (query.getResultList().size());
+		}catch (Exception e) {
+			throw new ServiciosException("Error al traer el Movimiento por Id de Almacenamiento: " + e.getMessage());
+		}
+		
+	}
 	public Movimiento validoBajaProducto(Producto producto) throws ServiciosException {
 		try{
 			TypedQuery<Movimiento> query =  em.createNamedQuery("Movimiento.validoBajaProducto", Movimiento.class)

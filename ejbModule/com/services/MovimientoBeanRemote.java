@@ -2,6 +2,8 @@ package com.services;
 
 import java.util.List;
 import javax.ejb.Remote;
+
+import com.entities.Almacenamiento;
 import com.entities.Movimiento;
 import com.exception.ServiciosException;
 
@@ -16,6 +18,8 @@ public interface MovimientoBeanRemote {
 
 	Movimiento getId(Long id) throws ServiciosException;
 
+	int getMovimientoxAlmac(long idAlma) throws ServiciosException; 
+	
 	Movimiento getMovimiento(Long id) throws ServiciosException;
 
 	List<Movimiento> getAllMovimientos() throws ServiciosException;

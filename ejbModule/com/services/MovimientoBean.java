@@ -5,6 +5,8 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.PersistenceException;
+
+import com.entities.Almacenamiento;
 import com.entities.Movimiento;
 import com.entities.Producto;
 import com.DAOservices.MovimientoDAO;
@@ -57,6 +59,16 @@ public class MovimientoBean implements MovimientoBeanRemote {
 	public Movimiento getId(Long id) throws ServiciosException {
 		try{
 			return movimientoDAO.getMovimiento(id);
+		}catch (Exception e) {
+			throw new ServiciosException("Error en getId MovimientoBean : " + e.getMessage());
+		}
+		
+	}
+	
+	@Override
+	public int getMovimientoxAlmac(long idAlma) throws ServiciosException {
+		try{
+			return movimientoDAO.getMovimientoxAlmac(idAlma);
 		}catch (Exception e) {
 			throw new ServiciosException("Error en getId MovimientoBean : " + e.getMessage());
 		}
