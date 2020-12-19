@@ -12,7 +12,7 @@ import com.entities.Producto;
 import com.enumerated.tipoMovimiento;
 import com.exception.ServiciosException;
 import javax.ejb.Stateless;
-
+//
 
 @Stateless
 public class MovimientoDAO {
