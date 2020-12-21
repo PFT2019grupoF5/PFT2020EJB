@@ -18,7 +18,7 @@ public interface MovimientoBeanRemote {
 
 	Movimiento getId(Long id) throws ServiciosException;
 
-	int getMovimientoxAlmac(long idAlma) throws ServiciosException; 
+	int getMovimientoxAlmac(Long idAlma) throws ServiciosException; 
 	
 	Movimiento getMovimiento(Long id) throws ServiciosException;
 
