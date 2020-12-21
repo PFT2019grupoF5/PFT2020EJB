@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 import com.enumerated.tipoLoc;
 
-/**
+/*
  * Entity implementation class for Entity: Local
  *
  */

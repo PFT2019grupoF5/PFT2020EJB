@@ -7,7 +7,7 @@ import javax.persistence.PersistenceException;
 import com.DAOservices.AlmacenamientoDAO;
 import com.entities.Almacenamiento;
 import com.exception.ServiciosException;
-//
+
 @Stateless
 public class AlmacenamientoBean implements AlmacenamientoBeanRemote {
 
