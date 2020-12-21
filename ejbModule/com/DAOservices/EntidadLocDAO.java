@@ -7,7 +7,9 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.validation.ConstraintViolationException;
 
+import com.entities.Almacenamiento;
 import com.entities.EntidadLoc;
+import com.entities.Movimiento;
 import com.exception.ServiciosException;
 import javax.ejb.Stateless;
 
@@ -57,7 +59,7 @@ public class EntidadLocDAO {
 
 		public void delete(Long id) throws ServiciosException {
 			try {
-				EntidadLoc entidadLoc = new EntidadLoc();
+				EntidadLoc entidadLoc = em.find(EntidadLoc.class, id);
 				em.remove(entidadLoc);
 				em.flush();
 			}
@@ -77,11 +79,22 @@ public class EntidadLocDAO {
 				TypedQuery<EntidadLoc> query = em.createNamedQuery("EntidadLoc.getId", EntidadLoc.class).setParameter("id", id);
 				return (query.getResultList().size() == 0) ? null : query.getResultList().get(0);
 			} catch (Exception e) {
-				throw new ServiciosException("Error al traer por Id Local : " + e.getMessage());
+				throw new ServiciosException("Error al traer por Id de Local : " + e.getMessage());
 			}
 
 		}
 
+		public EntidadLoc getNombre(String nombre) throws ServiciosException {
+			try {
+				TypedQuery<EntidadLoc> query = em.createNamedQuery("EntidadLoc.getNombreLike", EntidadLoc.class).setParameter("nombre", nombre);
+				return (query.getResultList().size() == 0) ? null : query.getResultList().get(0);
+			} catch (Exception e) {
+				throw new ServiciosException("Error al traer por Nombre de Local : " + e.getMessage());
+			}
+
+		}
+			
+		
 		public EntidadLoc getCodigo(int codigo) throws ServiciosException {
 			try {
 				TypedQuery<EntidadLoc> query = em.createNamedQuery("EntidadLoc.getCodigo", EntidadLoc.class).setParameter("codigo",
@@ -93,6 +106,17 @@ public class EntidadLocDAO {
 
 		}
 
+		public int getLocalesxCiu(long idCiu) throws ServiciosException {
+			try{
+				TypedQuery<EntidadLoc> query =  em.createNamedQuery("EntidadLoc.getLocalesxCiu", EntidadLoc.class)
+						.setParameter("idCiu", idCiu);
+				
+				return (query.getResultList().size());
+			}catch (Exception e) {
+				throw new ServiciosException("Error al traer los Locales por Id de Ciudades: " + e.getMessage());
+			}
+		}
+		
 		public EntidadLoc getEntidadLoc(Long id) throws ServiciosException {
 			try {
 				EntidadLoc entidadLoc = em.find(EntidadLoc.class, id);

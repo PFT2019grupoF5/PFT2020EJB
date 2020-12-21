@@ -16,12 +16,14 @@ public interface EntidadLocBeanRemote {
 	
 	EntidadLoc getId(Long id) throws ServiciosException;
 
+	int getLocalesxCiu(long idCiu) throws ServiciosException; 
+
 	void delete(Long id) throws ServiciosException;
 
 	EntidadLoc getEntidadLoc(Long id) throws ServiciosException;
 
 	List<EntidadLoc> getAllEntidadesLoc() throws ServiciosException;
 
-
+	EntidadLoc getNombre(String nombre) throws ServiciosException;
 
 }

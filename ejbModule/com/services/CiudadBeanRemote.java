@@ -17,7 +17,7 @@ public interface CiudadBeanRemote {
 	Ciudad getNombre(String nombre) throws ServiciosException;
 
 	Ciudad getId(Long id) throws ServiciosException;
-
+	
 	List<Ciudad> getAllCiudades() throws ServiciosException;
 
 	Ciudad getCiudad(Long id) throws ServiciosException;

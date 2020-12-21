@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 import javax.validation.ConstraintViolationException;
 
 import com.entities.Almacenamiento;
+import com.entities.Movimiento;
 import com.exception.ServiciosException;
 import javax.ejb.Stateless;
 
@@ -70,6 +71,18 @@ public class AlmacenamientoDAO {
 		}
 	}
 
+	public int getAlmacenamientoxLoc(long idLoc) throws ServiciosException {
+		try{
+			TypedQuery<Almacenamiento> query =  em.createNamedQuery("Almacenamiento.getAlmacenamientoxLoc", Almacenamiento.class)
+					.setParameter("idLoc", idLoc);
+			
+			return (query.getResultList().size());
+		}catch (Exception e) {
+			throw new ServiciosException("Error al traer el Almacenamiento por Id de Local: " + e.getMessage());
+		}
+		
+	}
+	
 	public Almacenamiento getId(Long id) throws ServiciosException {
 		try {
 			TypedQuery<Almacenamiento> query = em.createNamedQuery("Almacenamiento.getId", Almacenamiento.class)
@@ -86,7 +99,7 @@ public class AlmacenamientoDAO {
 					.setParameter("nombre", nombre);
 			return (query.getResultList().size() == 0) ? null : query.getResultList().get(0);
 		} catch (Exception e) {
-			throw new ServiciosException(e.getMessage());
+			throw new ServiciosException("Error al traer por Nombre de Almacenamiento: " + e.getMessage());
 		}
 	}
 	

@@ -65,6 +65,15 @@ public class AlmacenamientoBean implements AlmacenamientoBeanRemote {
 	}
 	
 	@Override
+	public int getAlmacenamientoxLoc(long idLoc) throws ServiciosException {
+		try{
+			return almacenamientoDAO.getAlmacenamientoxLoc(idLoc);
+		}catch (Exception e) {
+			throw new ServiciosException("Error en getId AlmacenamientoBean : " + e.getMessage());
+		}
+	}
+	
+	@Override
 	public Almacenamiento getAlmacenamiento(Long id) throws ServiciosException {
 		try {
 			return almacenamientoDAO.getAlmacenamiento(id);

@@ -13,6 +13,8 @@ import javax.persistence.*;
 	@NamedQuery(name="Almacenamiento.getAll", query="SELECT a FROM Almacenamiento a"),
 	@NamedQuery(name="Almacenamiento.getId", query="SELECT a FROM Almacenamiento a WHERE a.id=:id"),
 	@NamedQuery(name="Almacenamiento.getNombreLike", query="SELECT a FROM Almacenamiento a WHERE UPPER(a.nombre) = UPPER(:nombre)"),
+	@NamedQuery(name="Almacenamiento.getAlmacenamientoxLoc",  query="SELECT a FROM Almacenamiento a WHERE a.entidadLoc.id=:idLoc"),
+
 })
 public class Almacenamiento implements Serializable {
 	

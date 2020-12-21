@@ -16,6 +16,8 @@ import com.enumerated.tipoLoc;
 	@NamedQuery(name="EntidadLoc.getCodigo", query="SELECT el FROM EntidadLoc el WHERE el.codigo=:codigo"),
 	@NamedQuery(name="EntidadLoc.getCodigoLike", query="SELECT el FROM EntidadLoc el WHERE el.codigo LIKE :codigo"),
 	@NamedQuery(name="EntidadLoc.getId", query="SELECT el FROM EntidadLoc el WHERE el.id=:id"),
+	@NamedQuery(name="EntidadLoc.getLocalesxCiu",  query="SELECT el FROM EntidadLoc el WHERE el.ciudad.id=:idCiu"),
+	@NamedQuery(name="EntidadLoc.getNombreLike", query="SELECT el FROM EntidadLoc el WHERE UPPER(el.nombre) = UPPER(:nombre)"),
 })
 public class EntidadLoc implements Serializable {
 

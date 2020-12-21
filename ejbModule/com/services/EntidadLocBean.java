@@ -4,8 +4,12 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.PersistenceException;
+import javax.persistence.TypedQuery;
+
 import com.DAOservices.EntidadLocDAO;
+import com.entities.Almacenamiento;
 import com.entities.EntidadLoc;
+import com.entities.Movimiento;
 import com.exception.ServiciosException;
 
 @Stateless
@@ -54,8 +58,17 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 		}catch (Exception e) {
 			throw new ServiciosException("Error en getCodigo EntidadLocBean : " + e.getMessage());
 		}
-		
 	}
+	
+	@Override
+	public EntidadLoc getNombre(String nombre) throws ServiciosException {
+		try {
+			return entidadLocDAO.getNombre(nombre);
+		} catch (Exception e) {
+			throw new ServiciosException(e.getMessage());
+		}
+	}
+	
 	
 	@Override
 	public EntidadLoc getId(Long id) throws ServiciosException {
@@ -85,6 +98,16 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 		}catch(Exception e){
 			throw new ServiciosException("No se pudo obtener lista de Locales >> " + e.getMessage());
 		}
+	}
+	
+	@Override
+	public int getLocalesxCiu(long idCiu) throws ServiciosException  {
+		try{
+			return entidadLocDAO.getLocalesxCiu(idCiu);
+		}catch (Exception e) {
+			throw new ServiciosException("Error en getId EntidadLocBean : " + e.getMessage());
+		}
+		
 	}
 	
 	
