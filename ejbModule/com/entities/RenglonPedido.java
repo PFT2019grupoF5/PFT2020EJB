@@ -8,7 +8,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name="RENGLONESPEDIDOS", schema="PROYECTO")
+@Table(name="RENGLONESPEDIDOS", schema="PROYECTO", uniqueConstraints= {@UniqueConstraint(columnNames= {"REN_PRO_ID","REN_PED_ID"})})
 @NamedQueries({
 	@NamedQuery(name="RenglonPedido.getAll", query="SELECT rp FROM RenglonPedido rp"),
 	@NamedQuery(name="RenglonPedido.getId",  query="SELECT rp FROM RenglonPedido rp WHERE rp.id=:id"),
@@ -29,7 +29,7 @@ public class RenglonPedido implements Serializable {
 	@Column(name = "REN_CANT", nullable=false)
 	private int rencant;
 	
-	@OneToOne(optional=false)
+	@ManyToOne(optional=false)
 	@JoinColumn(name = "REN_PRO_ID")
 	private Producto producto;
 	
