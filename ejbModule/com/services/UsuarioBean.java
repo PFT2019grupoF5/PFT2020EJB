@@ -2,7 +2,6 @@ package com.services;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.PersistenceException;
 import com.DAOservices.UsuarioDAO;
 import com.entities.Usuario;
 import com.exception.ServiciosException;
@@ -75,7 +74,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
 		try {
 			ContrasenaOk= getNA(nomAcceso).getContrasena().equals(contrasena);
 		} catch (Exception e) {
-			throw new ServiciosException("Error en ValidarContrasena UsuarioBean : " + e.getMessage());
+			throw new ServiciosException("Error en Validar Contraseña UsuarioBean : " + e.getMessage());
 		}
 		return ContrasenaOk;
 	}

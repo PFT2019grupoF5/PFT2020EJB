@@ -3,7 +3,6 @@ package com.services;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.PersistenceException;
 import com.DAOservices.RenglonPedidoDAO;
 import com.entities.RenglonPedido;
 import com.exception.ServiciosException;

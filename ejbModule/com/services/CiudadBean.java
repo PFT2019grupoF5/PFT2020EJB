@@ -2,7 +2,6 @@ package com.services;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.PersistenceException;
 import com.DAOservices.CiudadDAO;
 import com.entities.Ciudad;
 import com.exception.ServiciosException;

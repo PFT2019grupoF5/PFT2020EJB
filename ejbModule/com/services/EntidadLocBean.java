@@ -3,13 +3,8 @@ package com.services;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.PersistenceException;
-import javax.persistence.TypedQuery;
-
 import com.DAOservices.EntidadLocDAO;
-import com.entities.Almacenamiento;
 import com.entities.EntidadLoc;
-import com.entities.Movimiento;
 import com.exception.ServiciosException;
 
 @Stateless

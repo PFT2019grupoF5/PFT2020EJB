@@ -6,9 +6,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.validation.ConstraintViolationException;
-
 import com.entities.Almacenamiento;
-import com.entities.Movimiento;
 import com.exception.ServiciosException;
 import javax.ejb.Stateless;
 

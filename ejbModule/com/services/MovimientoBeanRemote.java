@@ -3,7 +3,6 @@ package com.services;
 import java.util.List;
 import javax.ejb.Remote;
 
-import com.entities.Almacenamiento;
 import com.entities.Movimiento;
 import com.exception.ServiciosException;
 
