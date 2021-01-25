@@ -72,4 +72,13 @@ public class RenglonPedidoBean implements RenglonPedidoBeanRemote {
 		}
 	}
 
+	@Override
+	public int getRenglonxPedido(Long idPedido) throws ServiciosException {
+		try {
+			return renglonPedidoDAO.getRenglonxPedido(idPedido);
+		}catch(Exception e) {
+			throw new ServiciosException("No se puede encontrar el pedido >>" + e.getMessage());
+			}
+	}
+
 }
