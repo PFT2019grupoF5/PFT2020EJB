@@ -74,8 +74,9 @@ public class PedidoDAO {
 
 	public Pedido getId(Long id) throws ServiciosException {
 		try {
-			TypedQuery<Pedido> query = em.createNamedQuery("Pedido.getId", Pedido.class).setParameter("id", id);
-			return (query.getResultList().size() == 0) ? null : query.getResultList().get(0);
+			TypedQuery<Pedido> query = em.createNamedQuery("Pedido.getId", Pedido.class)
+					.setParameter("id", id);
+			return (query.getResultList().size()==0) ? null : query.getResultList().get(0);
 		} catch (Exception e) {
 			throw new ServiciosException("Error al traer por Id Pedido : " + e.getMessage());
 		}

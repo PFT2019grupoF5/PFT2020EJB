@@ -11,7 +11,7 @@ public interface PedidoBeanRemote {
 	void add(Pedido pedido) throws ServiciosException;
 
 	Pedido getId(Long id) throws ServiciosException;
-
+	
 	void delete(Long id) throws ServiciosException;
 
 	void update(Pedido pedido) throws ServiciosException;

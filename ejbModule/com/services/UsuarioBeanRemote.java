@@ -9,8 +9,7 @@ import com.exception.ServiciosException;
 @Remote
 public interface UsuarioBeanRemote {
 
-	void add(Usuario usuario)
-			throws ServiciosException;
+	void add(Usuario usuario) throws ServiciosException;
 
 	void update(Usuario usuario) throws ServiciosException;
 

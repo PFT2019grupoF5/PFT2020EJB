@@ -47,7 +47,7 @@ public class PedidoBean implements PedidoBeanRemote {
 	@Override
 	public Pedido getId(Long id) throws ServiciosException {
 		try {
-			return pedidoDAO.getPedido(id);
+			return pedidoDAO.getId(id);
 		} catch (Exception e) {
 			throw new ServiciosException("Error en getId PedidoBean : " + e.getMessage());
 		}
@@ -82,5 +82,7 @@ public class PedidoBean implements PedidoBeanRemote {
 			throw new ServiciosException("No se pudo obtener lista de pedidos >> " + e.getMessage());
 		}
 	}
+
+
 
 }

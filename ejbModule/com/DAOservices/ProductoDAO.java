@@ -133,5 +133,14 @@ public class ProductoDAO {
 			}
 		}
 		
+		public int getProductosxFamilia(long idFam) throws ServiciosException{
+			try {
+				TypedQuery<Producto> query = em.createNamedQuery("Producto.getProductoxFamilia", Producto.class)
+						.setParameter("idFam", idFam);
+				return (query.getResultList().size());
+			}catch (Exception e) {
+				throw new ServiciosException("Error al traer los Productos por Id de Familia: " + e.getMessage());
+			}
+		}
 		
 }

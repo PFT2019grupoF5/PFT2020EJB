@@ -96,5 +96,14 @@ public class ProductoBean implements ProductoBeanRemote {
 		}
 	}
 	
+	@Override
+	public int getProductosxFamilia (long idFam) throws ServiciosException {
+		try {
+			return productoDAO.getProductosxFamilia(idFam);
+		}catch (Exception e) {
+			throw new ServiciosException("Error en getId Familia: " +e.getMessage());
+		}
+	}
+	
    	
 }
