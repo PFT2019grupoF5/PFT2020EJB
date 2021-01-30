@@ -68,7 +68,7 @@ public class RenglonPedidoBean implements RenglonPedidoBeanRemote {
 		try {
 			return renglonPedidoDAO.getAllRenglonesPedidos();
 		} catch (Exception e) {
-			throw new ServiciosException("No se pudo obtener lista de Renglones de Pedido >> " + e.getMessage());
+			throw new ServiciosException("No se pudo obtener lista de Renglones de TODOS los Pedidos >> " + e.getMessage());
 		}
 	}
 
@@ -79,6 +79,15 @@ public class RenglonPedidoBean implements RenglonPedidoBeanRemote {
 		}catch(Exception e) {
 			throw new ServiciosException("No se puede encontrar el pedido >>" + e.getMessage());
 			}
+	}
+
+	@Override
+	public List<RenglonPedido> getRenglonesDelPedido(Long idPedido) throws ServiciosException {
+		try {
+			return renglonPedidoDAO.getRenglonesDelPedido(idPedido);
+		} catch (Exception e) {
+			throw new ServiciosException("No se pudo obtener lista de Renglones del Pedido >> " + e.getMessage());
+		}
 	}
 
 }

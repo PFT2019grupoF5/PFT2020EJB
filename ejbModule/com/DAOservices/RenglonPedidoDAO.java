@@ -113,5 +113,15 @@ public class RenglonPedidoDAO {
 		}
 	   	
 	
+		public List<RenglonPedido> getRenglonesDelPedido(long idPedido) throws ServiciosException{
+			try {
+			TypedQuery<RenglonPedido> query = em.createNamedQuery("RenglonPedido.getPedidoId", RenglonPedido.class).setParameter("idPedido", idPedido);
+				return (query.getResultList());
+				
+			}catch (Exception e) {
+				throw new ServiciosException("Error al traer los Renglones del Pedido por Id de Pedido: " + e.getMessage());
+			}
+		}
+	   	
 
 }
