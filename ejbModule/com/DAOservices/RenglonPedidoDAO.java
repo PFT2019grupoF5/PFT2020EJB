@@ -106,16 +106,16 @@ public class RenglonPedidoDAO {
 			try {
 			TypedQuery<RenglonPedido> query = em.createNamedQuery("RenglonPedido.getPedidoId", RenglonPedido.class).setParameter("idPedido", idPedido);
 				return (query.getResultList().size());
-				
+				//
 			}catch (Exception e) {
 				throw new ServiciosException("Error al traer el Renglon de Pedido por Id de Pedido: " + e.getMessage());
 			}
 		}
 	   	
 	
-		public List<RenglonPedido> getRenglonesDelPedido(long idPedido) throws ServiciosException{
+		public List<RenglonPedido> getRenglonesDelPedido(Long idPedido) throws ServiciosException{
 			try {
-			TypedQuery<RenglonPedido> query = em.createNamedQuery("RenglonPedido.getPedidoId", RenglonPedido.class).setParameter("idPedido", idPedido);
+			TypedQuery<RenglonPedido> query = em.createNamedQuery("RenglonPedido.getRenglonxPedido", RenglonPedido.class).setParameter("idPedido", idPedido);
 				return (query.getResultList());
 				
 			}catch (Exception e) {
