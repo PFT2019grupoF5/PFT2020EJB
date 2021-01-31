@@ -5,6 +5,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import com.DAOservices.PedidoDAO;
 import com.entities.Pedido;
+import com.entities.RenglonReporte;
 import com.exception.ServiciosException;
 
 @Stateless
@@ -58,6 +59,16 @@ public class PedidoBean implements PedidoBeanRemote {
 	public List<Pedido> getPedidosEntreFechas(String fechaDesde, String fechaHasta) throws ServiciosException {
 		try {
 			return pedidoDAO.getPedidosEntreFechas(fechaDesde, fechaHasta);
+
+		} catch (Exception e) {
+			throw new ServiciosException("No se pudo obtener reporte de pedidos entre fechas >> " + e.getMessage());
+		}
+	}
+
+	@Override
+	public List<RenglonReporte> getReporteEntreFechas(String fechaDesde, String fechaHasta) throws ServiciosException {
+		try {
+			return pedidoDAO.getReporteEntreFechas(fechaDesde, fechaHasta);
 
 		} catch (Exception e) {
 			throw new ServiciosException("No se pudo obtener reporte de pedidos entre fechas >> " + e.getMessage());
