@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import javax.validation.ConstraintViolationException;
 
 import com.entities.Pedido;
+import com.entities.RenglonReporte;
 import com.exception.ServiciosException;
 import javax.ejb.Stateless;
 
@@ -130,5 +131,32 @@ public class PedidoDAO {
 			throw new ServiciosException("No se pudo obtener reporte de pedidos entre fechas : " + e.getMessage());
 		}
 	}
+
+
+
+	public List<RenglonReporte> getReporteEntreFechas(String fechaDesde, String fechaHasta) throws ServiciosException {
+		TypedQuery<RenglonReporte> query = null;
+		try {
+			try {
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				Date fDesde = dateFormat.parse(fechaDesde);
+				Date fHasta = dateFormat.parse(fechaHasta);
+
+				java.sql.Date sqlfechaDesde = convert(fDesde);
+				java.sql.Date sqlfechaHasta = convert(fHasta);
+
+				query = em.createNamedQuery("Pedido.reporteFechas", RenglonReporte.class)
+						.setParameter("fechaDesde", sqlfechaDesde).setParameter("fechaHasta", sqlfechaHasta);
+				;
+
+			} catch (ParseException ex) {
+				throw new ServiciosException("No se pudo parsear fechas : " + ex.getMessage());
+			}
+			return query.getResultList();
+		} catch (Exception e) {
+			throw new ServiciosException("No se pudo obtener reporte de pedidos entre fechas : " + e.getMessage());
+		}
+	}
+
 
 }
