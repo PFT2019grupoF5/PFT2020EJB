@@ -69,7 +69,7 @@ public class AlmacenamientoDAO {
 		}
 	}
 
-	public int getAlmacenamientoxLoc(long idLoc) throws ServiciosException {
+	public int getAlmacenamientoxLoc(Long idLoc) throws ServiciosException {
 		try{
 			TypedQuery<Almacenamiento> query =  em.createNamedQuery("Almacenamiento.getAlmacenamientoxLoc", Almacenamiento.class)
 					.setParameter("idLoc", idLoc);

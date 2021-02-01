@@ -145,9 +145,9 @@ public class PedidoDAO {
 				java.sql.Date sqlfechaDesde = convert(fDesde);
 				java.sql.Date sqlfechaHasta = convert(fHasta);
 
-				query = em.createNamedQuery("Pedido.reporteFechas", RenglonReporte.class)
+				query = em.createQuery("SELECT pe.pedreccodigo, pe.fecha, pe.pedfecestim, pe.pedestado, rp.producto, rp.rencant FROM Pedido pe, RenglonPedido rp WHERE pe.id = rp.pedido.id AND pe.fecha BETWEEN :fechaDesde AND :fechaHasta ORDER BY pe.fecha ASC", RenglonReporte.class)
 						.setParameter("fechaDesde", sqlfechaDesde).setParameter("fechaHasta", sqlfechaHasta);
-				;
+				
 
 			} catch (ParseException ex) {
 				throw new ServiciosException("No se pudo parsear fechas : " + ex.getMessage());

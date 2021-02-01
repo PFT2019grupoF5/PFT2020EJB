@@ -102,9 +102,9 @@ public class RenglonPedidoDAO {
 			}
 		}
 		
-		public int getRenglonxPedido(long idPedido) throws ServiciosException{
+		public int getRenglonxPedido(Long idPedido) throws ServiciosException{
 			try {
-			TypedQuery<RenglonPedido> query = em.createNamedQuery("RenglonPedido.getPedidoId", RenglonPedido.class).setParameter("idPedido", idPedido);
+			TypedQuery<RenglonPedido> query = em.createNamedQuery("RenglonPedido.getRenglonxPedido", RenglonPedido.class).setParameter("idPedido", idPedido);
 				return (query.getResultList().size());
 				//
 			}catch (Exception e) {

@@ -4,16 +4,24 @@ import java.io.Serializable;
 import com.enumerated.estadoPedido;
 import java.util.Date;
 
+import javax.persistence.*;
+
+
+
+
 public class RenglonReporte implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private int pedreccodigo;
+
 	private Date pedfecestim;
 	private Date fecha;
+	private int pedreccodigo;
 	private estadoPedido pedestado;
 	private Producto producto;
 	private int rencant;
+
+	
 	
 	
 	public int getPedreccodigo() {
@@ -22,6 +30,7 @@ public class RenglonReporte implements Serializable {
 	public void setPedreccodigo(int pedreccodigo) {
 		this.pedreccodigo = pedreccodigo;
 	}
+
 	public Date getPedfecestim() {
 		return pedfecestim;
 	}
