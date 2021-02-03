@@ -4,10 +4,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
 import com.entities.Pedido;
@@ -30,13 +33,23 @@ public class PedidoDAO {
 			em.flush();
 		}
 		catch (PersistenceException e){
-			throw new ServiciosException("Al crear un Pedido se ha producido un error de percistencia : " + e.getMessage());
+			throw new ServiciosException("Al crear un Pedido se ha producido un error de persistencia : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 		}
 		catch (ConstraintViolationException e) {
-			throw new ServiciosException("Al crear un Pedido se ha producido un error de validacion : " + e.getMessage());
+			Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+			for(ConstraintViolation<?> cv: violations){
+				//String messageTemplate=cv.getConstraintDescriptor().getMessageTemplate();
+				String rootBean=cv.getRootBean().getClass().getSimpleName();
+				String property=cv.getPropertyPath().toString();	
+				String msg=cv.getMessage();//	"el comentario debe ser de menos de 250 caracteres"	
+				String value=cv.getInvalidValue().toString();	
+				String validationText= " En la entidad "+rootBean+" la propiedad '"+property+"' "+msg+":"+value;
+				throw new ServiciosException("Al crear un Pedido se ha producido un error de validacion:"+ validationText);
+			}
+			throw new ServiciosException("Al crear un Pedido se ha producido un error de validacion : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 		}
 		catch (Exception e) {
-			throw new ServiciosException("Error al crear Pedido : " + e.getMessage());
+			throw new ServiciosException("Error al crear Pedido : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 		}
 	}
 
@@ -46,13 +59,13 @@ public class PedidoDAO {
 			em.flush();
 		}
 		catch (PersistenceException e){
-			throw new ServiciosException("Al modificar un Pedido se ha producido un error de percistencia : " + e.getMessage());
+			throw new ServiciosException("Al modificar un Pedido se ha producido un error de persistencia : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 		}
 		catch (ConstraintViolationException e) {
-			throw new ServiciosException("Al modificar un Pedido se ha producido un error de validacion : " + e.getMessage());
+			throw new ServiciosException("Al modificar un Pedido se ha producido un error de validacion : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 		}
 		catch (Exception e) {
-			throw new ServiciosException("Error al modificar Pedido : " + e.getMessage());
+			throw new ServiciosException("Error al modificar Pedido : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 		}
 	}
 
@@ -63,13 +76,13 @@ public class PedidoDAO {
 			em.flush();
 		}
 		catch (PersistenceException e){
-			throw new ServiciosException("Al borrar un Pedido se ha producido un error de percistencia : " + e.getMessage());
+			throw new ServiciosException("Al borrar un Pedido se ha producido un error de persistencia : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 		}
 		catch (ConstraintViolationException e) {
-			throw new ServiciosException("Al borrar un Pedido se ha producido un error de validacion : " + e.getMessage());
+			throw new ServiciosException("Al borrar un Pedido se ha producido un error de validacion : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 		}
 		catch (Exception e) {
-			throw new ServiciosException("Error al borrar Pedido : " + e.getMessage());
+			throw new ServiciosException("Error al borrar Pedido : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 		}
 	}
 
@@ -79,7 +92,7 @@ public class PedidoDAO {
 					.setParameter("id", id);
 			return (query.getResultList().size()==0) ? null : query.getResultList().get(0);
 		} catch (Exception e) {
-			throw new ServiciosException("Error al traer por Id Pedido : " + e.getMessage());
+			throw new ServiciosException("Error al traer por Id Pedido : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 		}
 
 	}
@@ -89,7 +102,7 @@ public class PedidoDAO {
 			Pedido pedido = em.find(Pedido.class, id);
 			return pedido;
 		} catch (Exception e) {
-			throw new ServiciosException("No se pudo encontrar el pedido : " + e.getMessage());
+			throw new ServiciosException("No se pudo encontrar el pedido : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 		}
 	}
 
@@ -98,7 +111,7 @@ public class PedidoDAO {
 			TypedQuery<Pedido> query = em.createNamedQuery("Pedido.getAll", Pedido.class);
 			return query.getResultList();
 		} catch (Exception e) {
-			throw new ServiciosException("No se puede obtener lista de pedidos : " + e.getMessage());
+			throw new ServiciosException("No se puede obtener lista de pedidos : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 		}
 
 	}
@@ -128,7 +141,7 @@ public class PedidoDAO {
 			}
 			return query.getResultList();
 		} catch (Exception e) {
-			throw new ServiciosException("No se pudo obtener reporte de pedidos entre fechas : " + e.getMessage());
+			throw new ServiciosException("No se pudo obtener reporte de pedidos entre fechas : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 		}
 	}
 
@@ -154,7 +167,7 @@ public class PedidoDAO {
 			}
 			return query.getResultList();
 		} catch (Exception e) {
-			throw new ServiciosException("No se pudo obtener reporte de pedidos entre fechas : " + e.getMessage());
+			throw new ServiciosException("No se pudo obtener reporte de pedidos entre fechas : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 		}
 	}
 

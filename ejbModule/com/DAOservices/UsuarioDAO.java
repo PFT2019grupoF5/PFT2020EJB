@@ -2,10 +2,13 @@ package com.DAOservices;
 
 
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
 import com.entities.Usuario;
@@ -30,13 +33,23 @@ public class UsuarioDAO {
 				em.flush();
 			}
 			catch (PersistenceException e){
-				throw new ServiciosException("Al crear un Usuario se ha producido un error de percistencia : " + e.getMessage());
+				throw new ServiciosException("Al crear un Usuario se ha producido un error de persistencia : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 			}
 			catch (ConstraintViolationException e) {
-				throw new ServiciosException("Al crear un Usuario se ha producido un error de validacion : " + e.getMessage());
+				Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+				for(ConstraintViolation<?> cv: violations){
+					//String messageTemplate=cv.getConstraintDescriptor().getMessageTemplate();
+					String rootBean=cv.getRootBean().getClass().getSimpleName();
+					String property=cv.getPropertyPath().toString();	
+					String msg=cv.getMessage();//	"el nombre debe ser de menos de 50 caracteres"	
+					String value=cv.getInvalidValue().toString();	
+					String validationText= " En la entidad "+rootBean+" la propiedad '"+property+"' "+msg+":"+value;
+					throw new ServiciosException("Al crear un Usuario se ha producido un error de validacion:"+ validationText);
+				}
+				throw new ServiciosException("Al crear un Usuario se ha producido un error de validacion : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 			}
 			catch (Exception e){
-				throw new ServiciosException("Error al crear Usuario : " + e.getMessage());
+				throw new ServiciosException("Error al crear Usuario : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 			}
 		}
 
@@ -47,13 +60,13 @@ public class UsuarioDAO {
 				em.flush();
 			}
 			catch (PersistenceException e){
-				throw new ServiciosException("Al modificar un Usuario se ha producido un error de percistencia : " + e.getMessage());
+				throw new ServiciosException("Al modificar un Usuario se ha producido un error de persistencia : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 			}
 			catch (ConstraintViolationException e) {
-				throw new ServiciosException("Al modificar un Usuario se ha producido un error de validacion : " + e.getMessage());
+				throw new ServiciosException("Al modificar un Usuario se ha producido un error de validacion : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 			}
 			catch (Exception e){
-				throw new ServiciosException("Error al modificar Usuario : " + e.getMessage());
+				throw new ServiciosException("Error al modificar Usuario : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 			}
 		}
 
@@ -65,13 +78,13 @@ public class UsuarioDAO {
 				em.flush();
 			}
 			catch (PersistenceException e){
-				throw new ServiciosException("Al borrar un Usuario se ha producido un error de percistencia : " + e.getMessage());
+				throw new ServiciosException("Al borrar un Usuario se ha producido un error de persistencia : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 			}
 			catch (ConstraintViolationException e) {
-				throw new ServiciosException("Al borrar un Usuario se ha producido un error de validacion : " + e.getMessage());
+				throw new ServiciosException("Al borrar un Usuario se ha producido un error de validacion : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 			}
 			catch (Exception e){
-				throw new ServiciosException("Error al borrar Usuario : " + e.getMessage());
+				throw new ServiciosException("Error al borrar Usuario : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 			}
 		}
 		
@@ -82,7 +95,7 @@ public class UsuarioDAO {
 						.setParameter("nomAcceso", nomAcceso);
 				return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
 			}catch (Exception e) {
-				throw new ServiciosException("Error al traer por nomAcceso Usuario : " + e.getMessage());
+				throw new ServiciosException("Error al traer por nomAcceso Usuario : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 			}
 		}
 		
@@ -93,7 +106,7 @@ public class UsuarioDAO {
 						.setParameter("id", id);
 				return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
 			}catch (Exception e) {
-				throw new ServiciosException("Error al traer por Id Usuario : " + e.getMessage());
+				throw new ServiciosException("Error al traer por Id Usuario : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 			}
 			
 		}
@@ -104,7 +117,7 @@ public class UsuarioDAO {
 			try {
 				ContrasenaOk= getNA(nomAcceso).getContrasena().equals(contrasena);
 			} catch (Exception e) {
-				throw new ServiciosException("Error al ValidarContrasena : " + e.getMessage());
+				throw new ServiciosException("Error al ValidarContrasena : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 			}
 			return ContrasenaOk;
 		}
@@ -115,7 +128,7 @@ public class UsuarioDAO {
 				Usuario usuario = em.find(Usuario.class, id);
 				return usuario;
 			}catch(Exception e){
-				throw new ServiciosException("No se pudo encontrar el usuario : " + e.getMessage());
+				throw new ServiciosException("No se pudo encontrar el usuario : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 			}
 		}
 		
@@ -125,7 +138,7 @@ public class UsuarioDAO {
 				TypedQuery<Usuario> query = em.createNamedQuery("Usuario.getAll",Usuario.class); 
 				return query.getResultList();
 			}catch(Exception e){
-				throw new ServiciosException("No se pudo obtener lista de usuarios : " + e.getMessage());
+				throw new ServiciosException("No se pudo obtener lista de usuarios : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 			}
 		}
 	
