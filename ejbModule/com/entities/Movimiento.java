@@ -35,7 +35,7 @@ public class Movimiento implements Serializable {
 	@Column(name = "MOV_CANTIDAD", nullable=false)
 	private int cantidad;
 	
-	@Column(length=250, name = "MOV_DESCRIPCION")
+	@Column(length=250, name = "MOV_DESCRIPCION", nullable=false)
 	private String descripcion;
 
 //	@Column(name = "MOV_COSTO", nullable=false)
