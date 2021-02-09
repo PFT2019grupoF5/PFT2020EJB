@@ -24,7 +24,6 @@ public class ProductoBean implements ProductoBeanRemote {
    	@Override
    	public void add(Producto producto) throws ServiciosException {
    		try{
-    		System.out.println("Bean >>>> producto.getFelab() : " + producto.getFelab() + " | producto.getFven() : " + producto.getFven());
    			productoDAO.add(producto);
    		} catch (Exception e){
    			throw new ServiciosException("Error en add ProductoBean : " + e.getMessage());

@@ -1,6 +1,7 @@
 package com.services;
 
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import com.DAOservices.UsuarioDAO;
 import com.entities.Usuario;
@@ -9,6 +10,7 @@ import java.util.List;
 
 
 @Stateless
+@LocalBean
 public class UsuarioBean implements UsuarioBeanRemote {
 
     

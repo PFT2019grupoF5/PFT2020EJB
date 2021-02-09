@@ -23,7 +23,7 @@ public class Almacenamiento implements Serializable {
 	@Id
 	@SequenceGenerator(name="ALMACENAMIENTOS_IDALMACENAMIENTO_GENERATOR", sequenceName="SEQ_ALMACENAMIENTO")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ALMACENAMIENTOS_IDALMACENAMIENTO_GENERATOR")
-	@Column(name = "ALMA_ID")
+	@Column(name = "ALMA_ID",nullable=false) //aaaaaaaa
 	private Long id;
 	
 	@Column(name = "ALMA_VOLUMEN", nullable =  false)

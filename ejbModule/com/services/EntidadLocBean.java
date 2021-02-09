@@ -2,12 +2,14 @@ package com.services;
 //
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import com.DAOservices.EntidadLocDAO;
 import com.entities.EntidadLoc;
 import com.exception.ServiciosException;
 
 @Stateless
+@LocalBean
 public class EntidadLocBean implements EntidadLocBeanRemote {
 
 	@EJB
@@ -31,7 +33,6 @@ public class EntidadLocBean implements EntidadLocBeanRemote {
 	public void update(EntidadLoc entidadLoc) throws ServiciosException {
 		try{
 			entidadLocDAO.update(entidadLoc);
-
 		} catch (Exception e){
 			throw new ServiciosException("Error en update EntidadLocBean : " + e.getMessage());
 		}

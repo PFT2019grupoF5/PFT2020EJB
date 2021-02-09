@@ -2,12 +2,14 @@ package com.services;
 
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import com.DAOservices.AlmacenamientoDAO;
 import com.entities.Almacenamiento;
 import com.exception.ServiciosException;
 
 @Stateless
+@LocalBean
 public class AlmacenamientoBean implements AlmacenamientoBeanRemote {
 
 	@EJB
@@ -20,7 +22,6 @@ public class AlmacenamientoBean implements AlmacenamientoBeanRemote {
 	@Override
 	public void add(Almacenamiento almacenamiento) throws ServiciosException {
 		try {
-
 			almacenamientoDAO.add(almacenamiento);
 		} catch (Exception e) {
 			throw new ServiciosException("Error en add AlmacenamientoBean : " + e.getMessage());

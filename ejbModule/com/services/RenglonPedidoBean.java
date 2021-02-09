@@ -2,12 +2,14 @@ package com.services;
 
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import com.DAOservices.RenglonPedidoDAO;
 import com.entities.RenglonPedido;
 import com.exception.ServiciosException;
 
 @Stateless
+@LocalBean
 public class RenglonPedidoBean implements RenglonPedidoBeanRemote {
 
 	@EJB

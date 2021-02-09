@@ -1,6 +1,7 @@
 package com.services;
 
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import com.DAOservices.FamiliaDAO;
 import com.entities.Familia;
@@ -8,6 +9,7 @@ import com.exception.ServiciosException;
 import java.util.List;
 
 @Stateless
+@LocalBean
 public class FamiliaBean implements FamiliaBeanRemote {
 
 	@EJB
