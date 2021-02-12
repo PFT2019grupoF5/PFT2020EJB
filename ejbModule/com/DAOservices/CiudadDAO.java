@@ -1,5 +1,6 @@
 package com.DAOservices;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
@@ -27,11 +28,10 @@ public class CiudadDAO {
 		try {
 			em.persist(ciudad);
 			em.flush();
-		}
-		catch (PersistenceException e){
+		
+		} catch (PersistenceException e){
 			throw new ServiciosException("Al crear una Ciudad se ha producido un error de persistencia : " + e.getClass().getSimpleName() + ". " + e.getMessage());
-		}
-		catch (ConstraintViolationException e) {
+		} catch (ConstraintViolationException e) {
 			Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
 			for(ConstraintViolation<?> cv: violations){
 				//String messageTemplate=cv.getConstraintDescriptor().getMessageTemplate();
@@ -43,8 +43,7 @@ public class CiudadDAO {
 				throw new ServiciosException("Al crear una Ciudad se ha producido un error de validacion:"+ validationText);
 			}
 			throw new ServiciosException("Al crear una Ciudad se ha producido un error de validacion : "  + e.getClass().getSimpleName() + ". " + e.getMessage());
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw new ServiciosException("Error al crear Ciudad : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 		}
 	}

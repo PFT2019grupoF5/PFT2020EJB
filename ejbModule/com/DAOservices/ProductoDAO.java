@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
+import com.entities.EntidadLoc;
 import com.entities.Movimiento;
 import com.entities.Producto;
 import com.exception.ServiciosException;
@@ -30,6 +31,7 @@ public class ProductoDAO {
 
 	   	public void add(Producto producto) throws ServiciosException {
 	   		try{
+	    		System.out.println("DAO::::: producto.getFelab() : " + producto.getFelab() + " | producto.getFven() : " + producto.getFven());
 	   			em.persist(producto);
 	   			em.flush();
 			}
@@ -124,8 +126,21 @@ public class ProductoDAO {
 	   			throw new ServiciosException("Error en validoBajaProductos : " + e.getClass().getSimpleName() + ". " + e.getMessage());
 	   		}
 	   	}
-
 		
+		public int getProductosxUsu(long idUsu) throws ServiciosException {
+			try{
+				TypedQuery<Producto> query =  em.createNamedQuery("Producto.getProductosxUsu", Producto.class)
+						.setParameter("idUsu", idUsu);
+				
+				System.out.println("Entra en try de productoDAO");
+				
+				return (query.getResultList().size());
+			}catch (Exception e) {
+				System.out.println("Entra en catch de productoDAOxUsu");
+				throw new ServiciosException("Error al traer los Productos por Id de Usuarios: "  + e.getClass().getSimpleName() + ". " + e.getMessage());
+			}
+		}
+
 		public Producto getProducto(Long id) throws ServiciosException {
 			try{		
 				Producto producto = em.find(Producto.class, id); 
@@ -147,9 +162,11 @@ public class ProductoDAO {
 		
 		public int getProductosxFamilia(long idFam) throws ServiciosException{
 			try {
-				TypedQuery<Producto> query = em.createNamedQuery("Producto.getProductoxFamilia", Producto.class)
+				TypedQuery<Producto> query = em.createNamedQuery("Producto.getProductosxFam", Producto.class)
 						.setParameter("idFam", idFam);
+				System.out.println("Entra en try de productoDao.getProductosxFam");
 				return (query.getResultList().size());
+				
 			}catch (Exception e) {
 				throw new ServiciosException("Error al traer los Productos por Id de Familia: " + e.getClass().getSimpleName() + ". " + e.getMessage());
 			}

@@ -24,6 +24,7 @@ public class ProductoBean implements ProductoBeanRemote {
    	@Override
    	public void add(Producto producto) throws ServiciosException {
    		try{
+    		System.out.println("Bean >>>> producto.getFelab() : " + producto.getFelab() + " | producto.getFven() : " + producto.getFven());
    			productoDAO.add(producto);
    		} catch (Exception e){
    			throw new ServiciosException("Error en add ProductoBean : " + e.getMessage());
@@ -96,8 +97,21 @@ public class ProductoBean implements ProductoBeanRemote {
 	}
 	
 	@Override
-	public int getProductosxFamilia (long idFam) throws ServiciosException {
+	public int getProductosxUsu(long idUsu) throws ServiciosException  {
+		try{
+			System.out.println("Entra en try de productoBean");
+			return productoDAO.getProductosxUsu(idUsu);
+		}catch (Exception e) {
+			System.out.println("Entra en catch de productoBean");
+			throw new ServiciosException("Error en getId ProductoBean : " + e.getMessage());
+		}
+		
+	}
+	
+	@Override
+	public int getProductosxFam (Long idFam) throws ServiciosException {
 		try {
+			System.out.println("Entra en try de getProductosxFam");
 			return productoDAO.getProductosxFamilia(idFam);
 		}catch (Exception e) {
 			throw new ServiciosException("Error en getId Familia: " +e.getMessage());

@@ -14,6 +14,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
 import com.entities.Pedido;
+import com.entities.Producto;
 import com.entities.RenglonReporte;
 import com.exception.ServiciosException;
 import javax.ejb.Stateless;
@@ -97,6 +98,21 @@ public class PedidoDAO {
 
 	}
 
+	public int getPedidosxUsu(long idUsu) throws ServiciosException {
+		try{
+			TypedQuery<Pedido> query =  em.createNamedQuery("Pedido.getPedidosxUsu", Pedido.class)
+					.setParameter("idUsu", idUsu);
+			
+			System.out.println("Entra en try de PedidoDao");
+			
+			return (query.getResultList().size());
+		}catch (Exception e) {
+			System.out.println("Entra en catch de PedidoBean");
+			throw new ServiciosException("Error al traer los Pedidos por Id de Usuarios: "  + e.getClass().getSimpleName() + ". " + e.getMessage());
+		}
+	}
+
+	
 	public Pedido getPedido(Long id) throws ServiciosException {
 		try {
 			Pedido pedido = em.find(Pedido.class, id);

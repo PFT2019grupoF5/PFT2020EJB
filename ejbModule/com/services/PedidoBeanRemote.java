@@ -25,4 +25,6 @@ public interface PedidoBeanRemote {
 
 	List<RenglonReporte> getReporteEntreFechas(String fechaDesde, String fechaHasta) throws ServiciosException;
 
+	int getPedidosxUsu(long idUsu) throws ServiciosException;
+
 }

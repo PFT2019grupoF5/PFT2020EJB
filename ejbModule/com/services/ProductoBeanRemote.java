@@ -25,6 +25,8 @@ public interface ProductoBeanRemote {
 
 	List<Producto> getAllProductos() throws ServiciosException;
 	
-	int getProductosxFamilia(long idFam) throws ServiciosException;
+	int getProductosxFam(Long idFam) throws ServiciosException;
+
+	int getProductosxUsu(long idUsu) throws ServiciosException;
 
 }

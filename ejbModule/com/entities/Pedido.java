@@ -15,6 +15,7 @@ import java.util.Date;
 	@NamedQuery(name="Pedido.getAll", query="SELECT pe FROM Pedido pe"),
 	@NamedQuery(name="Pedido.getId",  query="SELECT pe FROM Pedido pe WHERE pe.id=:id"),
 	@NamedQuery(name="Pedido.getComLike", query="SELECT pe FROM Pedido pe WHERE UPPER(pe.pedreccomentario) = UPPER(:pedreccomentario)"),
+	@NamedQuery(name="Pedido.getPedidosxUsu",  query="SELECT pe FROM Pedido pe WHERE pe.usuario.id=:idUsu"),
 	@NamedQuery(name="Pedido.entreFechas", query="SELECT pe FROM Pedido pe WHERE pe.fecha BETWEEN :fechaDesde AND :fechaHasta ORDER BY pe.fecha ASC"),
 	//@NamedQuery(name="Pedido.reporteFechas", query="SELECT pe.pedreccodigo, pe.fecha, pe.pedfecestim, pe.pedestado, rp.producto, rp.rencant FROM Pedido pe, RenglonPedido rp WHERE pe.id = rp.pedido.id AND pe.fecha BETWEEN :fechaDesde AND :fechaHasta ORDER BY pe.fecha ASC"),
 })

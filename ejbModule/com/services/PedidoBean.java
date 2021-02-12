@@ -2,7 +2,6 @@ package com.services;
 
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import com.DAOservices.PedidoDAO;
 import com.entities.Pedido;
@@ -10,7 +9,6 @@ import com.entities.RenglonReporte;
 import com.exception.ServiciosException;
 
 @Stateless
-@LocalBean
 public class PedidoBean implements PedidoBeanRemote {
 
 	@EJB
@@ -94,6 +92,17 @@ public class PedidoBean implements PedidoBeanRemote {
 		} catch (Exception e) {
 			throw new ServiciosException("No se pudo obtener lista de pedidos >> " + e.getMessage());
 		}
+	}
+
+	@Override
+	public int getPedidosxUsu(long idUsu) throws ServiciosException  {
+		try{
+			return pedidoDAO.getPedidosxUsu(idUsu);
+		}catch (Exception e) {
+			System.out.println("Entra en catch de PedidoBean");
+			throw new ServiciosException("Error en getId PedidoBean : " + e.getMessage());
+		}
+		
 	}
 
 
