@@ -26,7 +26,7 @@ public class Movimiento implements Serializable {
 	@Id
 	@SequenceGenerator(name="MOVIMIENTOS_IDMOVIMIENTO_GENERATOR", sequenceName="SEQ_MOVIMIENTO")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MOVIMIENTOS_IDMOVIMIENTO_GENERATOR")
-	@Column(name = "MOV_ID",nullable=false)
+	@Column(name = "MOV_ID", nullable=false)
 	private Long id;
 	
 	@Column(name = "MOV_FECHA", nullable=false)

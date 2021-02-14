@@ -22,7 +22,7 @@ public class RenglonPedido implements Serializable {
 	@Id
 	@SequenceGenerator(name="RENGLONPEDIDOS_IDRENGLONPEDIDO_GENERATOR", sequenceName="SEQ_RENGLONPEDIDO")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RENGLONPEDIDOS_IDRENGLONPEDIDO_GENERATOR")
-	@Column(name = "REN_ID")
+	@Column(name = "REN_ID", nullable=false)
 	private Long id;
 	
 	@Column(name = "REN_NRO", nullable=false)

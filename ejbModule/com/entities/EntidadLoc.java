@@ -26,7 +26,7 @@ public class EntidadLoc implements Serializable {
 	@Id
 	@SequenceGenerator(name="ENTIDADLOCES_IDENTIDADLOC_GENERATOR", sequenceName="SEQ_ENTIDADLOC")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ENTIDADLOCES_IDENTIDADLOC_GENERATOR")
-	@Column(name = "LOC_ID",nullable=false) //aaaaaaaa
+	@Column(name = "LOC_ID", nullable=false)
 	private Long id;
 	
 	@Column(name = "LOC_CODIGO", nullable=false, unique=true)

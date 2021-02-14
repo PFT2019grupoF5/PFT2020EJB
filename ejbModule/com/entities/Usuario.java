@@ -21,19 +21,19 @@ public class Usuario implements Serializable {
 		@Id
 		@SequenceGenerator(name="USUARIOS_IDUSUARIO_GENERATOR", sequenceName="SEQ_USUARIO")
 		@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USUARIOS_IDUSUARIO_GENERATOR")
-		@Column(name = "USU_CODIGO", nullable=false) //aaaaaaaa)
+		@Column(name = "USU_CODIGO", nullable=false)
 		private Long id;
 		
-		@Column(length=50,name = "USU_NOMBRE",nullable=false)
+		@Column(length=50,name = "USU_NOMBRE", nullable=false)
 		private String nombre;
 		
-		@Column(length=50,name = "USU_APELLIDO",nullable=false)
+		@Column(length=50,name = "USU_APELLIDO", nullable=false)
 		private String apellido;
 		
-		@Column(length=50,name = "USU_NOMACCESO",nullable=false, unique=true)
+		@Column(length=50,name = "USU_NOMACCESO", nullable=false, unique=true)
 		private String nomAcceso;
 		
-		@Column(name = "USU_CONTRASENA",nullable=false)
+		@Column(name = "USU_CONTRASENA", nullable=false)
 		private String contrasena;
 		
 		@Column(length=50,name = "USU_CORREO", nullable=false)
