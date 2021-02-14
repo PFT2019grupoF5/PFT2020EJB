@@ -40,7 +40,7 @@ public class Usuario implements Serializable {
 		private String correo;
 		
 		@Enumerated(EnumType.STRING)
-		@Column(name="USU_PERFIL")
+		@Column(name="USU_PERFIL", nullable=false)
 		private tipoPerfil tipoPerfil;
 
 		public Long getId() {
