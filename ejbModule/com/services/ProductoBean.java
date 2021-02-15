@@ -87,6 +87,15 @@ public class ProductoBean implements ProductoBeanRemote {
 		}
 	}
 	
+ 	@Override
+	public List<Producto> getProductosConMinimo() throws ServiciosException {
+		try{		
+			return productoDAO.getProductosConMinimo();
+		}catch(Exception e){
+			throw new ServiciosException("No se pudo consultar la información solicitada >> " + e.getMessage());
+		}
+	}
+   	
 	@Override
 	public List<Producto> getAllProductos() throws ServiciosException {
 		try{		 

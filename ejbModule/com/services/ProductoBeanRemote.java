@@ -29,4 +29,6 @@ public interface ProductoBeanRemote {
 
 	int getProductosxUsu(long idUsu) throws ServiciosException;
 
+	List<Producto> getProductosConMinimo() throws ServiciosException;
+
 }

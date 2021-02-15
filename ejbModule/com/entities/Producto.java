@@ -19,6 +19,7 @@ import java.util.Date;
 	@NamedQuery(name="Producto.getProductosxUsu",  query="SELECT p FROM Producto p WHERE p.usuario.id=:idUsu"),
 	@NamedQuery(name="Producto.getProductosxFam",  query="SELECT p FROM Producto p WHERE p.familia.id=:idFam"),
 	@NamedQuery(name="Producto.getId",  query="SELECT p FROM Producto p WHERE p.id=:id"),
+	@NamedQuery(name="Producto.getProdConMinimo",  query="SELECT p FROM Producto p WHERE p.stkTotal<=p.stkMin"),
 })
 public class Producto implements Serializable {
 	

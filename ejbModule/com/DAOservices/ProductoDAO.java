@@ -160,6 +160,15 @@ public class ProductoDAO {
 			}
 		}
 		
+		public List<Producto> getProductosConMinimo() throws ServiciosException {
+			try{		
+				TypedQuery<Producto> query = em.createNamedQuery("Producto.getProdConMinimo",Producto.class); 
+				return query.getResultList();
+			}catch(Exception e){
+				throw new ServiciosException("No se pudo obtener lista de productos : " + e.getClass().getSimpleName() + ". " + e.getMessage());
+			}
+		}
+		
 		public int getProductosxFamilia(long idFam) throws ServiciosException{
 			try {
 				TypedQuery<Producto> query = em.createNamedQuery("Producto.getProductosxFam", Producto.class)
