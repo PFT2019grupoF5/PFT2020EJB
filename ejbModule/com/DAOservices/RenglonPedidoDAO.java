@@ -96,6 +96,17 @@ public class RenglonPedidoDAO {
 	   		
 	   	}
 	   	
+	   	public RenglonPedido getRen(int rennro) throws ServiciosException {
+	   		try{
+	   			TypedQuery<RenglonPedido> query =  em.createNamedQuery("RenglonPedido.getRen", RenglonPedido.class)
+	   					.setParameter("rennro", rennro);
+	   			return (query.getResultList().size()==0) ? null :  query.getResultList().get(0);
+	   		}catch (Exception e) {
+	   			throw new ServiciosException("Error al traer el numero de renglon de RenglonPedido : " + e.getClass().getSimpleName() + ". " + e.getMessage());
+	   		}
+	   		
+	   	}
+	   	
 		public RenglonPedido getRenglonPedido(Long id) throws ServiciosException {
 			try{		
 				RenglonPedido renglonPedido = em.find(RenglonPedido.class, id); 
@@ -122,6 +133,16 @@ public class RenglonPedidoDAO {
 				//
 			}catch (Exception e) {
 				throw new ServiciosException("Error al traer el Renglon de Pedido por Id de Pedido: " + e.getClass().getSimpleName() + ". " + e.getMessage());
+			}
+		}
+		
+		public int getRenglonxProducto(Long idProducto) throws ServiciosException{
+			try {
+			TypedQuery<RenglonPedido> query = em.createNamedQuery("RenglonPedido.getRenglonxProducto", RenglonPedido.class).setParameter("idProducto", idProducto);
+				return (query.getResultList().size());
+				//
+			}catch (Exception e) {
+				throw new ServiciosException("Error al traer el Renglon de Pedido por Id de Producto: " + e.getClass().getSimpleName() + ". " + e.getMessage());
 			}
 		}
 	   	
