@@ -14,7 +14,7 @@ import javax.persistence.*;
 	@NamedQuery(name="RenglonPedido.getAll", query="SELECT rp FROM RenglonPedido rp"),
 	@NamedQuery(name="RenglonPedido.getId",  query="SELECT rp FROM RenglonPedido rp WHERE rp.id=:id"),
 	@NamedQuery(name="RenglonPedido.getRenglonxPedido", query="SELECT rp FROM RenglonPedido rp WHERE rp.pedido.id=:idPedido"),
-	@NamedQuery(name="RenglonPedido.getRenglonxProducto", query="SELECT rp FROM RenglonPedido rp WHERE rp.pedido.id=:idProducto"),
+	@NamedQuery(name="RenglonPedido.getRenglonxProducto", query="SELECT rp FROM RenglonPedido rp WHERE rp.producto.id=:idProducto"),
 	@NamedQuery(name="RenglonPedido.getRen",  query="SELECT rp FROM RenglonPedido rp WHERE rp.rennro=:rennro"),
 })
 public class RenglonPedido implements Serializable {

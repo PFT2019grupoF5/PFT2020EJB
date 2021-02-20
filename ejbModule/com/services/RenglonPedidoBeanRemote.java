@@ -22,7 +22,7 @@ public interface RenglonPedidoBeanRemote {
 
 	int getRenglonxPedido(Long idPedido) throws ServiciosException;
 	
-	int getRenglonxProducto(Long idPedido) throws ServiciosException;
+	int getRenglonxProducto(Long idProducto) throws ServiciosException;
 
 	List<RenglonPedido> getRenglonesDelPedido(Long idPedido) throws ServiciosException;
 
